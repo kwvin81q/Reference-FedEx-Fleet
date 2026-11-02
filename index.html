@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101318"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ACMX Ref">
+<title>Aircraft Maintenance Reference</title>
+<style>
+:root{color-scheme:dark;--bg:#0c0f14;--panel:#171c24;--stroke:#343d48;--muted:#a6b0c1;--accent:#ff9645}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7fb;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button{font:inherit}header{padding:22px 18px 16px;max-width:860px;margin:auto}header .eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:#a6b0c1}h1{margin:6px 0;font-size:25px;letter-spacing:-.6px}header p{color:var(--muted);margin:8px 0 0;font-size:13px;line-height:1.5}.wrap{max-width:860px;margin:auto;padding:0 16px 35px}.aircraft-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.aircraft-btn{border:2px solid transparent;border-radius:15px;padding:22px 10px;color:white;font-size:27px;font-weight:900;min-height:94px;cursor:pointer;box-shadow:inset 0 -3px 0 #0002}.aircraft-btn[aria-pressed=true]{outline:3px solid white;outline-offset:2px}.aircraft-btn:focus-visible,.back:focus-visible{outline:3px solid white;outline-offset:3px}.aircraft-btn:last-child:nth-child(odd){grid-column:1/-1}.aircraft-btn[data-id=a300]{background:#f99443}.aircraft-btn[data-id=md11]{background:#00af58}.aircraft-btn[data-id=b757]{background:#0878c8}.aircraft-btn[data-id=b767]{background:#fff100;color:#151515}.aircraft-btn[data-id=b777]{background:#7233a0}.detail{display:none}.detail.active{display:block}.back{background:#27303c;color:#fff;border:1px solid #46515e;border-radius:10px;padding:11px 15px;cursor:pointer;margin:3px 0 17px;font-weight:700}.detail-title{background:var(--aircraft);color:var(--ink);border-radius:14px;padding:20px 22px;margin-bottom:16px}.detail-title .small{font-size:12px;font-weight:800;letter-spacing:1.6px;opacity:.8}.detail-title h2{font-size:42px;margin:0;line-height:1.2}.section{background:var(--panel);border:1px solid var(--stroke);border-radius:15px;margin:12px 0;overflow:hidden}.section h3{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:#c3cbd7;margin:0;padding:15px 17px 8px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 12px 14px}.stat{background:#222a35;border-radius:10px;padding:14px 12px;min-width:0}.stat .k{font-size:12px;color:#adb9c9;font-weight:700;text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:22px;font-weight:850;margin-top:6px;overflow-wrap:anywhere}.stat .sub{font-size:12px;color:#bfc9d6;margin-top:4px}.rowdata{display:grid;grid-template-columns: minmax(105px, 38%) 1fr;gap:12px;border-top:1px solid #313947;padding:13px 16px;align-items:start}.rowdata .label{font-size:13px;color:#b8c3d1}.rowdata .value{font-weight:720;line-height:1.4;overflow-wrap:anywhere}.rowdata .value small{display:block;color:#acb8c8;font-size:12px;font-weight:500}.desk{background:var(--aircraft);color:var(--ink);border-radius:12px;padding:16px;margin:12px 0;font-weight:750;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.desk span{font-size:12px;opacity:.86}.desk a{color:inherit;font-size:20px}.footer{font-size:12px;color:#aab4c2;margin:26px 2px;line-height:1.5}.tiny{font-size:11px;color:#b3c0d0;margin:0 15px 12px}a{color:#92d0ff}.utility-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.utility{background:#19212c;border:1px solid #384350;border-radius:12px;padding:12px}.utility .k{font-size:11px;font-weight:750;color:#a9b6c5}.utility .v{font-size:17px;font-weight:800;margin-top:5px}.utility a{font-weight:800}.utility.full{grid-column:1/-1}.home-only.hidden{display:none}.usage-panel{margin-top:14px}.usage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 14px 14px}.usage-stat{background:#222a35;border-radius:10px;padding:12px}.usage-stat .num{font-size:25px;font-weight:850}.usage-stat .desc{font-size:12px;color:#b8c3d1;margin-top:3px}.usage-foot{font-size:12px;color:#aebaca;padding:0 15px 14px;line-height:1.5}.usage-foot summary{cursor:pointer;font-weight:750;color:#d8e4f1}.usage-foot code{overflow-wrap:anywhere}@media(min-width:650px){.aircraft-grid{grid-template-columns:repeat(5,1fr)}.aircraft-btn:last-child:nth-child(odd){grid-column:auto}.stats{grid-template-columns:repeat(4,1fr)}.aircraft-btn{font-size:24px}.utility-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:370px){.stat .v{font-size:19px}}
+.oxygen-section{background:#103b27;border-color:#29945b}.oxygen-section h3{color:#aaf1c5}.oxygen-section .rowdata{border-top-color:#337657}.oxygen-section .label{color:#bbebce}.oxygen-section .value{color:#ffffff}
+
+/* Mobile-friendly home-page refinements */
+.contact-section{margin-top:16px}
+.contact-section h3{padding-bottom:13px}
+.contact-content{border-top:1px solid var(--stroke);display:flex;justify-content:space-between;gap:12px;align-items:center;padding:15px 17px;flex-wrap:wrap}
+.contact-person{display:flex;flex-direction:column;gap:3px;min-width:0}
+.contact-person strong{font-size:17px;letter-spacing:.1px}
+.contact-label{color:#aebaca;font-size:11px;font-weight:800;letter-spacing:1px}
+.contact-phone{font-size:17px;font-weight:800;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.usage-panel{margin-top:16px}
+.usage-panel h3{padding-bottom:13px}
+.usage-grid{padding:0 13px 12px;gap:9px}
+.usage-stat{padding:11px 12px}
+.usage-stat .num{font-size:24px}
+.usage-stat .desc{font-size:11px;line-height:1.35}
+.usage-detail{border-top:1px solid var(--stroke);padding:11px 16px 0;font-size:12px;color:#c1ccda}
+.usage-detail summary{cursor:pointer;font-weight:700}
+.usage-breakdown{margin:11px 0 0;line-height:1.7;overflow-wrap:anywhere}
+.usage-note{font-size:11px;color:#9caabb;line-height:1.5;margin:10px 16px 15px}
+.oxygen-section .rowdata{grid-template-columns:minmax(115px,39%) minmax(0,1fr)}
+.oxygen-section .value{font-size:15px;line-height:1.45}
+.footer{font-size:11px;color:#8492a4;line-height:1.55;margin-top:22px}
+@media(max-width:390px){.contact-phone{font-size:16px}.contact-content{align-items:flex-start}.oxygen-section .rowdata{gap:9px;padding:12px 13px}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE</div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
+<main class="wrap"><div class="home-only" id="home"><nav class="aircraft-grid" aria-label="Select aircraft"><button class="aircraft-btn" data-id="a300">A300</button><button class="aircraft-btn" data-id="md11">MD-11</button><button class="aircraft-btn" data-id="b757">757</button><button class="aircraft-btn" data-id="b767">767</button><button class="aircraft-btn" data-id="b777">777</button></nav>
+<section class="section oxygen-section" style="margin-top:19px"><h3>Oxygen</h3><div class="rowdata"><div class="label">ETOPS 777</div><div class="value">Max 1850 @ 70°</div></div><div class="rowdata"><div class="label">ETOPS 767</div><div class="value">1800 @ 70° • 1500 @ 70°</div></div><div class="rowdata"><div class="label">All other fleet types</div><div class="value">1444 @ 50° • 1555 @ 90°</div></div></section>
+<div class="utility-grid" id="shared"></div>
+<section class="section contact-section" aria-label="Request a change"><h3>Request a Change</h3><div class="contact-content"><div class="contact-person"><span class="contact-label">CONTACT</span><strong>Hall Moseley</strong></div><a class="contact-phone" href="tel:9012883362" aria-label="Call Hall Moseley at 901-288-3362">901-288-3362</a></div></section>
+<section class="section usage-panel"><h3>Usage on this device</h3><div class="usage-grid"><div class="usage-stat"><div class="num" id="appOpenCount">0</div><div class="desc">App opens</div></div><div class="usage-stat"><div class="num" id="aircraftViewCount">0</div><div class="desc">Aircraft page views</div></div></div><details class="usage-detail"><summary>View aircraft breakdown</summary><div id="usageBreakdown" class="usage-breakdown"></div></details><p class="usage-note">These counts are for this browser only. Sitewide totals require the shared tracker to be connected.</p></section></div>
+<div id="detail" class="detail" aria-live="polite"></div>
+<p class="footer">Transcribed from the supplied FedEx ACMX reference card (REV# 11/25). This is a convenience display, not an approved maintenance reference. Verify all values, procedures and limits against current approved AMM and company documents before use. Reference card may contain abbreviated or variant-specific information.</p>
+</main><script>
+// Shared tracking receiver: replace the URL after deploying the worker.
+const USAGE_RECEIVER_URL = '';
+const VISITOR_KEY='acmx-reference-visitor-v1';
+let visitorId;
+try {visitorId=localStorage.getItem(VISITOR_KEY);if(!visitorId){visitorId=crypto.randomUUID();localStorage.setItem(VISITOR_KEY,visitorId)}}
+catch(e){visitorId=crypto.randomUUID()}
+function trackShared(event,aircraft=''){
+ if(!/^https:\/\//.test(USAGE_RECEIVER_URL))return;
+ try{fetch(USAGE_RECEIVER_URL.replace(/\/$/,'')+'/event',{
+  method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({event,aircraft,visitor:visitorId,eventId:crypto.randomUUID()}),
+  keepalive:true,mode:'cors'}).catch(()=>{});
+ }catch(e){}
+}
+const USAGE_KEY='acmx-aircraft-usage-v1';
+let usage={opens:0,views:0,byAircraft:{}};
+try {const saved=JSON.parse(localStorage.getItem(USAGE_KEY)||'{}');if(saved&&typeof saved==='object')usage={opens:Number(saved.opens)||0,views:Number(saved.views)||0,byAircraft:saved.byAircraft||{}}}catch(e){}
+function saveUsage(){try{localStorage.setItem(USAGE_KEY,JSON.stringify(usage))}catch(e){}}
+function renderUsage(){
+ document.getElementById('appOpenCount').textContent=usage.opens.toLocaleString();
+ document.getElementById('aircraftViewCount').textContent=usage.views.toLocaleString();
+ const entries=[['a300','A300'],['md11','MD-11'],['b757','757'],['b767','767'],['b777','777']];
+ document.getElementById('usageBreakdown').textContent=entries.map(([id,label])=>`${label}: ${Number(usage.byAircraft[id]||0).toLocaleString()}`).join('  •  ');
+}
+usage.opens++;saveUsage();trackShared('open');
+const aircraft={
+ a300:{name:'A300',color:'#f99443',ink:'#fff',pressures:[['Nose','143 +0/-5'],['Main','199 +0/-5'],['Brakes','0.0 ~ .040']],rows:[['Tire / wheel info','18-21GE / 18-25 P'],['APU','APU ~ Full'],['Nose TRQ / AMM','125.4~154.8','32-41-12-04-01'],['Main TRQ / AMM','184~221 / 111','32-41-11-04-02'],['Main TRQ / AMM (top hat)','184~221 / 111','32-41-11-04-01'],['Hydraulics','In Top Hat'],['FCD','112 #'],['Brake AMM','32-47-27-04'],['Brake reference','743-746 / 748']],desk:'MOCC / AIRBUS DESK',phone:'901-397-3339'},
+ md11:{name:'MD-11',color:'#00ae58',ink:'#fff',pressures:[['Nose','190 +0/-5'],['Center','185 +0/-5'],['Main','213 +0/-5'],['Brakes','0.0 ~ .040']],rows:[['Tire / wheel info','18-21GE / 18-25 P'],['APU','APU ~ 8.0 qts'],['Hydraulics','6.25 / 6.25 / 7.5'],['Nose TRQ / AMM','100 / 25','32-42-01-04'],['Main TRQ / AMM','300-350 / 200','32-41-01-04'],['CTR TRQ / AMM','300-350 / 200','32-41-01-04'],['FCD','112 ent'],['Brake AMM','32-43-20-04']],desk:'MOCC / DOUGLAS DESK',phone:'901-397-3342'},
+ b757:{name:'757',color:'#0878c8',ink:'#fff',pressures:[['Nose','150 - 160'],['Main','180 - 190'],['Brakes','0~1/16 (.063)']],rows:[['Tire / wheel info','16 ~ 20 qts'],['APU','APU ~ Full'],['Nose TRQ / AMM','235-260 / 65','32-45-02-04'],['Main TRQ / AMM','235-260 / 110','32-45-01-04'],['L/R Hydraulics',' .92-1.08'],['CTR Hydraulics',' .86-1.14'],['Brake AMM','32-41-10-4']],desk:'MOCC / BOEING 757 DESK',phone:'901-397-3331'},
+ b767:{name:'767',color:'#fff100',ink:'#141414',pressures:[['Nose','172 +5/-0'],['Main','200 +5/-0'],['Brakes','0.0 ~ .040']],rows:[['Tire / wheel info','18 ~ 21 qts'],['APU','APU ~ Full'],['Nose TRQ / AMM','76-92 / 34-75','32-45-02-4'],['Main TRQ / AMM','500-600 / 150','32-45-01-4'],['L,R,C Hydraulics',' .090~1.1'],['Brake AMM','32-41-08-4-4']],desk:'MOCC / BOEING 767 DESK',phone:'901-397-8451'},
+ b777:{name:'777',color:'#7233a0',ink:'#fff',pressures:[['Nose','223 +2/-8'],['Main','223 +2/-8'],['Brakes','0.0 ~ .060']],rows:[['Tire / wheel info','24 L ~ 23 R'],['APU','APU ~ Full'],['Nose TRQ / AMM','500-550 / 200','32-45-02-4-0'],['Main TRQ / AMM','500-550 / 200','32-45-01-4-0'],['Hydraulics','0.8 - 1.1'],['Brake AMM','32-45-07-4-0'],['Additional brake reference','AMM Pt2 P&P']],desk:'MOCC / BOEING 777 DESK',phone:'901-397-8451'}
+};
+const util=[['ATIS','127.750'],['Emergency','121.5'],['Engine Shop','901-224-0471'],['Powerplant','901-397-3335'],['AOG','901-397-7295'],['EFB passcode','753951']];
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderUtilities(){document.getElementById('shared').innerHTML=util.map(([k,v])=>`<div class="utility"><div class="k">${k}</div><div class="v">${/^901-/.test(v)?`<a href="tel:${v}">${v}</a>`:v}</div></div>`).join('')}
+function show(id,track=false){const a=aircraft[id];if(a&&track){usage.views++;trackShared('aircraft',id);usage.byAircraft[id]=(Number(usage.byAircraft[id])||0)+1;saveUsage();renderUsage();}const home=document.getElementById('home'),detail=document.getElementById('detail');if(!a){home.classList.remove('hidden');detail.classList.remove('active');document.getElementById('subtitle').textContent='Select an aircraft type to view its reference card.';return}home.classList.add('hidden');detail.classList.add('active');document.getElementById('subtitle').textContent='Reference details • '+a.name;detail.style.setProperty('--aircraft',a.color);detail.style.setProperty('--ink',a.ink);detail.innerHTML=`<button class="back" id="back">← All aircraft</button><div class="detail-title"><div class="small">AIRCRAFT TYPE</div><h2>${a.name}</h2></div><section class="section"><h3>Primary reference values</h3><div class="stats">${a.pressures.map(([k,v])=>`<div class="stat"><div class="k">${escapeHTML(k)}</div><div class="v">${escapeHTML(v)}</div></div>`).join('')}</div><p class="tiny">Values reproduced as labeled in the original card; verify units and applicability in approved manuals.</p></section><section class="section"><h3>Aircraft details & AMM</h3>${a.rows.map(([k,v,amm])=>`<div class="rowdata"><div class="label">${escapeHTML(k)}</div><div class="value">${escapeHTML(v)}${amm?`<small>AMM ${escapeHTML(amm)}</small>`:''}</div></div>`).join('')}</section><div class="desk"><div><span>CONTACT</span><div>${a.desk}</div></div><a href="tel:${a.phone}">${a.phone}</a></div>`;document.getElementById('back').onclick=()=>{history.pushState({},'',location.pathname);show(null);scrollTo(0,0)};scrollTo(0,0)}
+document.querySelectorAll('.aircraft-btn').forEach(b=>b.addEventListener('click',()=>{history.pushState({},'',`#${b.dataset.id}`);show(b.dataset.id,true)}));window.addEventListener('popstate',()=>show(location.hash.slice(1)));renderUtilities();renderUsage();show(location.hash.slice(1));
+</script></body></html>
