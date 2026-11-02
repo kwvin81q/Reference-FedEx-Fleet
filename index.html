@@ -43,7 +43,7 @@
 <p class="footer">Transcribed from the supplied FedEx ACMX reference card (REV# 11/25). This is a convenience display, not an approved maintenance reference. Verify all values, procedures and limits against current approved AMM and company documents before use. Reference card may contain abbreviated or variant-specific information.</p>
 </main><script>
 // Shared tracking receiver: replace the URL after deploying the worker.
-const USAGE_RECEIVER_URL = '';
+const USAGE_RECEIVER_URL = 'https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
 const VISITOR_KEY='acmx-reference-visitor-v1';
 let visitorId;
 try {visitorId=localStorage.getItem(VISITOR_KEY);if(!visitorId){visitorId=crypto.randomUUID();localStorage.setItem(VISITOR_KEY,visitorId)}}
