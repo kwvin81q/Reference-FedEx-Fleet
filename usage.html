@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b111b"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fleet Usage">
+<link rel="apple-touch-icon" href="usage-icon.png">
+<title>Fleet Usage • Aircraft Reference</title>
+<style>
+:root{color-scheme:dark;--bg:#0b111b;--card:#192432;--line:#344354;--muted:#abb9cb;--green:#40d69b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f8fe;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:750px;padding:calc(24px + env(safe-area-inset-top)) 16px calc(30px + env(safe-area-inset-bottom));margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}h1{font-size:27px;letter-spacing:-.6px;margin:3px 0 0}h2{font-size:17px;margin:0 0 14px}
+.eyebrow{color:var(--green);letter-spacing:2px;font-size:11px;font-weight:800}.tag{color:#a9b8c9;background:#1a2737;border-radius:18px;padding:7px 9px;font-size:12px}
+section{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:18px;margin-bottom:14px}
+label{display:block;color:#c8d3e1;font-size:13px;font-weight:650;margin:12px 0 7px}
+input[type=password]{width:100%;padding:15px;font:inherit;color:#fff;background:#0e1724;border:1px solid #526075;border-radius:11px;outline-offset:2px}
+button{appearance:none;background:#34c992;color:#082118;border:none;border-radius:11px;padding:14px 18px;font:inherit;font-weight:800;cursor:pointer}
+button:disabled{opacity:.6}.controls{display:flex;gap:10px;margin-top:13px;align-items:center;flex-wrap:wrap}.secondary{background:#29384b;color:#fff}
+label.check{display:flex;gap:10px;align-items:center;font-weight:450;font-size:13px;line-height:1.4}
+input[type=checkbox]{width:17px;height:17px;accent-color:#34c992}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 0}
+#error{color:#ffafae;font-size:13px;min-height:1.2em}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.metric{background:#243246;border-radius:12px;padding:14px 11px;min-width:0}.metric strong{display:block;font-size:29px;letter-spacing:-1px}
+.metric span{font-size:12px;color:#c8d4e2;line-height:1.3;display:block;margin-top:4px}
+.line{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);gap:10px}.line:last-child{border:0}
+.line b{font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 6px;border-bottom:1px solid var(--line)}td:not(:first-child),th:not(:first-child){text-align:right}
+small,.timestamp{color:var(--muted)}.timestamp{font-size:12px;margin:0 0 14px}
+[hidden]{display:none!important}@media(max-width:380px){.metric strong{font-size:24px}.metric span{font-size:11px}h1{font-size:24px}}
+</style></head><body><main>
+<header><div><div class="eyebrow">FEDEX ACMX • REFERENCE</div><h1>Fleet Usage</h1></div><div class="tag">Private dashboard</div></header>
+<section id="login">
+<h2>View shared usage</h2>
+<label for="key">Dashboard key</label>
+<input id="key" type="password" autocomplete="off" placeholder="Enter your private dashboard key">
+<label class="check"><input id="remember" type="checkbox"> Remember this key on this phone</label>
+<p class="note">Only enable Remember on a personal device. The key will be saved in this browser, not sent to GitHub; the dashboard sends it directly to your Cloudflare Worker.</p>
+<div class="controls"><button id="view">Show usage</button><button class="secondary" id="forget">Forget key</button></div>
+<p id="error" role="status" aria-live="polite"></p>
+</section>
+<div id="report" hidden>
+<div class="controls" style="justify-content:space-between;margin:0 0 12px"><button id="refresh">↻ Refresh counts</button><button class="secondary" id="lock">Lock</button></div>
+<p class="timestamp" id="updated"></p>
+<div class="metrics">
+<div class="metric"><strong id="opens">—</strong><span>Total app opens</span></div>
+<div class="metric"><strong id="views">—</strong><span>Aircraft page views</span></div>
+<div class="metric"><strong id="visitors">—</strong><span>Distinct browsers*</span></div>
+</div>
+<section style="margin-top:14px"><h2>Views by aircraft</h2><div id="aircraft"></div></section>
+<section><h2>Daily usage · last 30 days</h2><table><thead><tr><th>Date (UTC)</th><th>Opens</th><th>Browsers</th></tr></thead><tbody id="daily"></tbody></table></section>
+<p class="note">*Distinct browsers are approximate, not a count of identifiable people. Totals include activity recorded since this tracker was connected. A visit won't appear if the browser blocks tracking or the device is offline.</p>
+</div>
+<p class="note">Aircraft Reference usage is recorded anonymously. Refresh to see new events.</p>
+</main><script>
+'use strict';
+const URL='https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
+const $=id=>document.getElementById(id);
+const fmt=n=>(Number(n)||0).toLocaleString();
+const names=[['a300','A300'],['md11','MD-11'],['b757','757'],['b767','767'],['b777','777']];
+let activeKey='';
+try{const k=localStorage.getItem('fleetUsageDashboardKey');if(k){$('key').value=k;$('remember').checked=true}}catch{}
+function forget(){try{localStorage.removeItem('fleetUsageDashboardKey')}catch{} $('key').value='';$('remember').checked=false;activeKey='';$('report').hidden=true;$('login').hidden=false}
+$('forget').onclick=forget;
+$('lock').onclick=()=>{activeKey='';$('report').hidden=true;$('login').hidden=false};
+$('view').onclick=()=>load(false);
+$('refresh').onclick=()=>load(true);
+$('key').addEventListener('keydown',e=>{if(e.key==='Enter')load(false)});
+async function load(refreshOnly){
+const key=(refreshOnly?activeKey:$('key').value).trim();
+if(!key){$('error').textContent='Enter your dashboard key.';return}
+const btn=refreshOnly?$('refresh'):$('view');btn.disabled=true;btn.textContent='Loading…';
+try{
+const response=await fetch(URL+'/stats',{headers:{'Authorization':'Bearer '+key},cache:'no-store'});
+if(!response.ok)throw new Error(response.status===401?'Key not accepted. Check the dashboard key.':'Receiver returned HTTP '+response.status);
+const d=await response.json();
+if(!d||!d.totals||!Array.isArray(d.aircraft)||!Array.isArray(d.daily))throw new Error('Unexpected response from receiver');
+activeKey=key;
+if(!refreshOnly){if($('remember').checked){try{localStorage.setItem('fleetUsageDashboardKey',key)}catch{}}else{try{localStorage.removeItem('fleetUsageDashboardKey')}catch{}}}
+$('opens').textContent=fmt(d.totals.opens);$('views').textContent=fmt(d.totals.views);$('visitors').textContent=fmt(d.totals.visitors);
+const counts=Object.fromEntries(d.aircraft.map(r=>[r.aircraft,Number(r.views)||0]));
+$('aircraft').replaceChildren(...names.map(([id,name])=>{const row=document.createElement('div');row.className='line';const a=document.createElement('span');a.textContent=name;const b=document.createElement('b');b.textContent=fmt(counts[id]);row.append(a,b);return row}));
+$('daily').replaceChildren(...d.daily.map(r=>{const tr=document.createElement('tr');for(const v of [r.day,fmt(r.opens),fmt(r.visitors)]){const cell=document.createElement('td');cell.textContent=v;tr.append(cell)}return tr}));
+if(!d.daily.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=3;td.textContent='No recent events';tr.append(td);$('daily').append(tr)}
+$('updated').textContent='Last refreshed: '+new Date().toLocaleString();
+$('error').textContent='';$('login').hidden=true;$('report').hidden=false;
+}catch(e){$('error').textContent=e.message;if(refreshOnly)alert(e.message)}
+finally{btn.disabled=false;btn.textContent=refreshOnly?'↻ Refresh counts':'Show usage'}
+}
+if($('key').value)load(false);
+</script></body></html>
