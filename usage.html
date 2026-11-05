@@ -48,6 +48,7 @@ small,.timestamp{color:var(--muted)}.timestamp{font-size:12px;margin:0 0 14px}
 <div class="metric"><strong id="visitors">—</strong><span>Distinct browsers*</span></div>
 </div>
 <section style="margin-top:14px"><h2>Views by aircraft</h2><div id="aircraft"></div></section>
+<section><h2>Vibe usage by aircraft</h2><div id="vibe"></div></section>
 <section><h2>Daily usage · last 30 days</h2><table><thead><tr><th>Date (UTC)</th><th>Opens</th><th>Browsers</th></tr></thead><tbody id="daily"></tbody></table></section>
 <p class="note">*Distinct browsers are approximate, not a count of identifiable people. Totals include activity recorded since this tracker was connected. A visit won't appear if the browser blocks tracking or the device is offline.</p>
 </div>
@@ -78,8 +79,25 @@ if(!d||!d.totals||!Array.isArray(d.aircraft)||!Array.isArray(d.daily))throw new 
 activeKey=key;
 if(!refreshOnly){if($('remember').checked){try{localStorage.setItem('fleetUsageDashboardKey',key)}catch{}}else{try{localStorage.removeItem('fleetUsageDashboardKey')}catch{}}}
 $('opens').textContent=fmt(d.totals.opens);$('views').textContent=fmt(d.totals.views);$('visitors').textContent=fmt(d.totals.visitors);
-const counts=Object.fromEntries(d.aircraft.map(r=>[r.aircraft,Number(r.views)||0]));
-$('aircraft').replaceChildren(...names.map(([id,name])=>{const row=document.createElement('div');row.className='line';const a=document.createElement('span');a.textContent=name;const b=document.createElement('b');b.textContent=fmt(counts[id]);row.append(a,b);return row}));
+function renderAircraftCounts(target, rows, field){
+  const counts=new Map(rows.map(row=>[row.aircraft,row[field]]));
+  $(target).replaceChildren(...names.map(([id,name])=>{
+    const row=document.createElement('div');
+    row.className='line';
+    const label=document.createElement('span');
+    label.textContent=name;
+    const count=document.createElement('b');
+    count.textContent=fmt(counts.get(id));
+    row.append(label,count);
+    return row;
+  }));
+}
+renderAircraftCounts('aircraft',d.aircraft,'views');
+if(Array.isArray(d.vibe)){
+  renderAircraftCounts('vibe',d.vibe,'opens');
+}else{
+  $('vibe').textContent='Vibe counts are unavailable from the receiver.';
+}
 $('daily').replaceChildren(...d.daily.map(r=>{const tr=document.createElement('tr');for(const v of [r.day,fmt(r.opens),fmt(r.visitors)]){const cell=document.createElement('td');cell.textContent=v;tr.append(cell)}return tr}));
 if(!d.daily.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=3;td.textContent='No recent events';tr.append(td);$('daily').append(tr)}
 $('updated').textContent='Last refreshed: '+new Date().toLocaleString();
