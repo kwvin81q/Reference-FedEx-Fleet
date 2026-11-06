@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101318"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FedEx MX">
-<title>Aircraft Maintenance Reference</title>
+<meta name="theme-color" content="#101318"><meta name="apple-mobile-web-app-capable" content="yes"><title>Aircraft Maintenance Reference</title>
 <style>
 :root{color-scheme:dark;--bg:#0c0f14;--panel:#171c24;--stroke:#343d48;--muted:#a6b0c1;--accent:#ff9645}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7fb;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button{font:inherit}header{padding:22px 18px 16px;max-width:860px;margin:auto}header .eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:#a6b0c1}h1{margin:6px 0;font-size:25px;letter-spacing:-.6px}header p{color:var(--muted);margin:8px 0 0;font-size:13px;line-height:1.5}.wrap{max-width:860px;margin:auto;padding:0 16px 35px}.aircraft-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.aircraft-btn{border:2px solid transparent;border-radius:15px;padding:22px 10px;color:white;font-size:27px;font-weight:900;min-height:94px;cursor:pointer;box-shadow:inset 0 -3px 0 #0002}.aircraft-btn[aria-pressed=true]{outline:3px solid white;outline-offset:2px}.aircraft-btn:focus-visible,.back:focus-visible{outline:3px solid white;outline-offset:3px}.aircraft-btn:last-child:nth-child(odd){grid-column:1/-1}.aircraft-btn[data-id=a300]{background:#f99443}.aircraft-btn[data-id=md11]{background:#00af58}.aircraft-btn[data-id=b757]{background:#0878c8}.aircraft-btn[data-id=b767]{background:#fff100;color:#151515}.aircraft-btn[data-id=b777]{background:#7233a0}.detail{display:none}.detail.active{display:block}.back{background:#27303c;color:#fff;border:1px solid #46515e;border-radius:10px;padding:11px 15px;cursor:pointer;margin:3px 0 17px;font-weight:700}.detail-title{background:var(--aircraft);color:var(--ink);border-radius:14px;padding:20px 22px;margin-bottom:16px}.detail-title .small{font-size:12px;font-weight:800;letter-spacing:1.6px;opacity:.8}.detail-title h2{font-size:42px;margin:0;line-height:1.2}.section{background:var(--panel);border:1px solid var(--stroke);border-radius:15px;margin:12px 0;overflow:hidden}.section h3{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:#c3cbd7;margin:0;padding:15px 17px 8px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 12px 14px}.stat{background:#222a35;border-radius:10px;padding:14px 12px;min-width:0}.stat .k{font-size:12px;color:#adb9c9;font-weight:700;text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:22px;font-weight:850;margin-top:6px;overflow-wrap:anywhere}.stat .sub{font-size:12px;color:#bfc9d6;margin-top:4px}.rowdata{display:grid;grid-template-columns: minmax(105px, 38%) 1fr;gap:12px;border-top:1px solid #313947;padding:13px 16px;align-items:start}.rowdata .label{font-size:13px;color:#b8c3d1}.rowdata .value{font-weight:720;line-height:1.4;overflow-wrap:anywhere}.rowdata .value small{display:block;color:#acb8c8;font-size:12px;font-weight:500}.desk{background:var(--aircraft);color:var(--ink);border-radius:12px;padding:16px;margin:12px 0;font-weight:750;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.desk span{font-size:12px;opacity:.86}.desk a{color:inherit;font-size:20px}.footer{font-size:12px;color:#aab4c2;margin:26px 2px;line-height:1.5}.tiny{font-size:11px;color:#b3c0d0;margin:0 15px 12px}a{color:#92d0ff}.utility-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.utility{background:#19212c;border:1px solid #384350;border-radius:12px;padding:12px}.utility .k{font-size:11px;font-weight:750;color:#a9b6c5}.utility .v{font-size:17px;font-weight:800;margin-top:5px}.utility a{font-weight:800}.utility.full{grid-column:1/-1}.home-only.hidden{display:none}.usage-panel{margin-top:14px}.usage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 14px 14px}.usage-stat{background:#222a35;border-radius:10px;padding:12px}.usage-stat .num{font-size:25px;font-weight:850}.usage-stat .desc{font-size:12px;color:#b8c3d1;margin-top:3px}.usage-foot{font-size:12px;color:#aebaca;padding:0 15px 14px;line-height:1.5}.usage-foot summary{cursor:pointer;font-weight:750;color:#d8e4f1}.usage-foot code{overflow-wrap:anywhere}@media(min-width:650px){.aircraft-grid{grid-template-columns:repeat(5,1fr)}.aircraft-btn:last-child:nth-child(odd){grid-column:auto}.stats{grid-template-columns:repeat(4,1fr)}.aircraft-btn{font-size:24px}.utility-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:370px){.stat .v{font-size:19px}}
 .oxygen-section{background:#103b27;border-color:#29945b}.oxygen-section h3{color:#aaf1c5}.oxygen-section .rowdata{border-top-color:#337657}.oxygen-section .label{color:#bbebce}.oxygen-section .value{color:#ffffff}
@@ -42,8 +41,47 @@
 .tether-table th{text-align:left;color:var(--muted);font-weight:600}
 .tether-table td{text-align:right;font-weight:800;white-space:nowrap;padding-left:12px}
 </style>
-<link rel="apple-touch-icon" sizes="180x180" href="./fedex-mx-icon.png">
-<link rel="icon" type="image/png" href="./fedex-mx-icon.png">
+
+<link rel="apple-touch-icon" sizes="180x180" href="./fedex-mx-icon-r2-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./fedex-mx-icon-r2-192.png">
+<link rel="manifest" href="./manifest.webmanifest?icons=r2">
+<meta name="apple-mobile-web-app-title" content="FedEx MX">
+
+<style id="aircraft-wallpaper">
+body { isolation:isolate; min-height:100vh; background:#09121b; }
+body::before {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,11,19,.45),rgba(5,11,19,.27) 35%,#09121b 95%),
+    url("./fedex-mx-icon-r2-512.png") center top / clamp(410px, 100vw, 920px) auto no-repeat;
+}
+
+.section:not(.oxygen-section), .utility, .stat, .usage-stat { background:rgba(13,21,29,.92); border-color:#42566a; }
+
+:is(div, label):has(> :is(input:not([type=checkbox]):not([type=radio]), select)):not(:has(> :is(input:not([type=checkbox]):not([type=radio]), select) ~ :is(input:not([type=checkbox]):not([type=radio]), select))) {
+  display:block;
+  min-width:0;
+  padding:9px 12px;
+  border:1px solid #42566a;
+  border-radius:12px;
+  background:rgba(13,21,29,.93);
+}
+:is(input:not([type=checkbox]):not([type=radio]), select) {
+  box-sizing:border-box;
+  min-height:44px;
+  width:100%;
+  color:#f4f8fc;
+  font-size:max(16px, 1rem);
+  border:0;
+  border-bottom:1px solid #8297aa;
+  border-radius:0;
+  background-color:#111c28;
+}
+:is(input:not([type=checkbox]):not([type=radio]), select):focus-visible {
+  outline:2px solid #9edaff;
+  outline-offset:2px;
+}
+
+</style>
 </head>
 <body>
 <header><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE</div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
