@@ -30,6 +30,12 @@
 .oxygen-section .value{font-size:15px;line-height:1.45}
 .footer{font-size:11px;color:#8492a4;line-height:1.55;margin-top:22px}
 @media(max-width:390px){.contact-phone{font-size:16px}.contact-content{align-items:flex-start}.oxygen-section .rowdata{gap:9px;padding:12px 13px}}
+
+.fuel-loads{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0 0 16px;background:var(--panel);border:1px solid var(--stroke);border-radius:14px}
+.fuel-loads div{min-width:0;padding:10px 7px}
+.fuel-loads div+div{border-left:1px solid var(--stroke)}
+.fuel-loads dt{font-size:11px;line-height:1.25;color:var(--muted);margin-bottom:5px}
+.fuel-loads dd{margin:0;font-size:13px;font-weight:800;line-height:1.3}
 </style>
 </head>
 <body>
@@ -77,6 +83,39 @@ const aircraft={
 const util=[['ATIS','127.750'],['Emergency','121.5'],['Engine Shop','901-224-0471'],['Powerplant','901-397-3335'],['AOG','901-397-7295'],['EFB passcode','753951']];
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function renderUtilities(){document.getElementById('shared').innerHTML=util.map(([k,v])=>`<div class="utility"><div class="k">${k}</div><div class="v">${/^901-/.test(v)?`<a href="tel:${v}">${v}</a>`:v}</div></div>`).join('')}
-function show(id,track=false){const a=aircraft[id];if(a&&track){usage.views++;trackShared('aircraft',id);usage.byAircraft[id]=(Number(usage.byAircraft[id])||0)+1;saveUsage();renderUsage();}const home=document.getElementById('home'),detail=document.getElementById('detail');if(!a){home.classList.remove('hidden');detail.classList.remove('active');document.getElementById('subtitle').textContent='Select an aircraft type to view its reference card.';return}home.classList.add('hidden');detail.classList.add('active');document.getElementById('subtitle').textContent='Reference details • '+a.name;detail.style.setProperty('--aircraft',a.color);detail.style.setProperty('--ink',a.ink);detail.innerHTML=`<button class="back" id="back">← All aircraft</button><div class="detail-title"><div class="small">AIRCRAFT TYPE</div><h2>${a.name}</h2></div><section class="section"><h3>TIRE PRESSURE REFERENCE VALUES</h3><div class="stats">${a.pressures.map(([k,v])=>`<div class="stat"><div class="k">${escapeHTML(k)}</div><div class="v">${escapeHTML(v)}</div></div>`).join('')}</div><p class="tiny">Values reproduced as labeled in the original card; verify units and applicability in approved manuals.</p></section><section class="section"><h3>Aircraft details & AMM</h3>${a.rows.map(([k,v,amm])=>`<div class="rowdata"><div class="label">${escapeHTML(k)}</div><div class="value">${escapeHTML(v)}${amm?`<small>AMM ${escapeHTML(amm)}</small>`:''}</div></div>`).join('')}</section><div class="desk"><div><span>CONTACT</span><div>${a.desk}</div></div><a href="tel:${a.phone}">${a.phone}</a></div>`;document.getElementById('back').onclick=()=>{history.pushState({},'',location.pathname);show(null);scrollTo(0,0)};scrollTo(0,0)}
+
+const fuelLabels = ['Standard Spare', 'Hot Spare', 'Out of Service', 'High Power Run'];
+const fuelLoads = {
+  a300: ['40k or less', '40k', '10k or less', '60k'],
+  md11: ['40k ± 10k', '50k + 38k in upper aux (88)', '40k ± 10k', '60k'],
+  b757: ['25k ± 5k', '25k', '25k ± 5k', '70k'],
+  b767: ['40k ± 5k', '40k ± 5k', '40k ± 5k', '75k'],
+  b777: ['70k ± 5k', 'N/A', '70k ± 5k', '275k'],
+};
+
+const sharedTetherSizing = ['174″ (15 ton hook)', '180″ (7.5 ton hook)', '110″'];
+const tetherSizing = {
+  a300: sharedTetherSizing,
+  md11: sharedTetherSizing,
+  b757: ['152″', '92″'],
+  b767: ['202″ (15 ton hook)', '140″'],
+  b777: ['202″', '140″'],
+};
+
+function renderTetherSizing(id) {
+  const sizes = tetherSizing[id];
+  const lengths = sizes.slice(0, -1);
+  const petRock = sizes.at(-1);
+  const note = id === 'b777'
+    ? '<p class="tiny">When positioning a weight cart on a B777, the tether attach fittings on the weight cart must be positioned 28″ forward of the center of the nose gear.</p>'
+    : '';
+  return `<section class="section"><h3>TETHER SIZING (MEM ONLY)</h3>
+    <div class="stats">
+      <div class="stat"><div class="k">Tether Length</div><div class="v">${lengths.join('<br>')}</div></div>
+      <div class="stat"><div class="k">Pet Rock</div><div class="v">${petRock}</div></div>
+    </div>${note}</section>`;
+}
+
+function show(id,track=false){const a=aircraft[id];if(a&&track){usage.views++;trackShared('aircraft',id);usage.byAircraft[id]=(Number(usage.byAircraft[id])||0)+1;saveUsage();renderUsage();}const home=document.getElementById('home'),detail=document.getElementById('detail');if(!a){home.classList.remove('hidden');detail.classList.remove('active');document.getElementById('subtitle').textContent='Select an aircraft type to view its reference card.';return}home.classList.add('hidden');detail.classList.add('active');document.getElementById('subtitle').textContent='Reference details • '+a.name;detail.style.setProperty('--aircraft',a.color);detail.style.setProperty('--ink',a.ink);detail.innerHTML=`<button class="back" id="back">← All aircraft</button><div class="detail-title"><div class="small">AIRCRAFT TYPE</div><h2>${a.name}</h2></div><dl class="fuel-loads" aria-label="Fuel loads">${fuelLoads[id].map((value, index)=>`<div><dt>${fuelLabels[index]}</dt><dd>${value}</dd></div>`).join('')}</dl>${renderTetherSizing(id)}<section class="section"><h3>TIRE PRESSURE REFERENCE VALUES</h3><div class="stats">${a.pressures.map(([k,v])=>`<div class="stat"><div class="k">${escapeHTML(k)}</div><div class="v">${escapeHTML(v)}</div></div>`).join('')}</div><p class="tiny">Values reproduced as labeled in the original card; verify units and applicability in approved manuals.</p></section><section class="section"><h3>Aircraft details & AMM</h3>${a.rows.map(([k,v,amm])=>`<div class="rowdata"><div class="label">${escapeHTML(k)}</div><div class="value">${escapeHTML(v)}${amm?`<small>AMM ${escapeHTML(amm)}</small>`:''}</div></div>`).join('')}</section><div class="desk"><div><span>CONTACT</span><div>${a.desk}</div></div><a href="tel:${a.phone}">${a.phone}</a></div>`;document.getElementById('back').onclick=()=>{history.pushState({},'',location.pathname);show(null);scrollTo(0,0)};scrollTo(0,0)}
 document.querySelectorAll('.aircraft-btn').forEach(b=>b.addEventListener('click',()=>{history.pushState({},'',`#${b.dataset.id}`);show(b.dataset.id,true)}));window.addEventListener('popstate',()=>show(location.hash.slice(1)));renderUtilities();renderUsage();show(location.hash.slice(1));
 </script></body></html>
