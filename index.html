@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101318"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ACMX Ref">
+<meta name="theme-color" content="#101318"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FedEx MX">
 <title>Aircraft Maintenance Reference</title>
 <style>
 :root{color-scheme:dark;--bg:#0c0f14;--panel:#171c24;--stroke:#343d48;--muted:#a6b0c1;--accent:#ff9645}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7fb;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button{font:inherit}header{padding:22px 18px 16px;max-width:860px;margin:auto}header .eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:#a6b0c1}h1{margin:6px 0;font-size:25px;letter-spacing:-.6px}header p{color:var(--muted);margin:8px 0 0;font-size:13px;line-height:1.5}.wrap{max-width:860px;margin:auto;padding:0 16px 35px}.aircraft-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.aircraft-btn{border:2px solid transparent;border-radius:15px;padding:22px 10px;color:white;font-size:27px;font-weight:900;min-height:94px;cursor:pointer;box-shadow:inset 0 -3px 0 #0002}.aircraft-btn[aria-pressed=true]{outline:3px solid white;outline-offset:2px}.aircraft-btn:focus-visible,.back:focus-visible{outline:3px solid white;outline-offset:3px}.aircraft-btn:last-child:nth-child(odd){grid-column:1/-1}.aircraft-btn[data-id=a300]{background:#f99443}.aircraft-btn[data-id=md11]{background:#00af58}.aircraft-btn[data-id=b757]{background:#0878c8}.aircraft-btn[data-id=b767]{background:#fff100;color:#151515}.aircraft-btn[data-id=b777]{background:#7233a0}.detail{display:none}.detail.active{display:block}.back{background:#27303c;color:#fff;border:1px solid #46515e;border-radius:10px;padding:11px 15px;cursor:pointer;margin:3px 0 17px;font-weight:700}.detail-title{background:var(--aircraft);color:var(--ink);border-radius:14px;padding:20px 22px;margin-bottom:16px}.detail-title .small{font-size:12px;font-weight:800;letter-spacing:1.6px;opacity:.8}.detail-title h2{font-size:42px;margin:0;line-height:1.2}.section{background:var(--panel);border:1px solid var(--stroke);border-radius:15px;margin:12px 0;overflow:hidden}.section h3{font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:#c3cbd7;margin:0;padding:15px 17px 8px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 12px 14px}.stat{background:#222a35;border-radius:10px;padding:14px 12px;min-width:0}.stat .k{font-size:12px;color:#adb9c9;font-weight:700;text-transform:uppercase;letter-spacing:.6px}.stat .v{font-size:22px;font-weight:850;margin-top:6px;overflow-wrap:anywhere}.stat .sub{font-size:12px;color:#bfc9d6;margin-top:4px}.rowdata{display:grid;grid-template-columns: minmax(105px, 38%) 1fr;gap:12px;border-top:1px solid #313947;padding:13px 16px;align-items:start}.rowdata .label{font-size:13px;color:#b8c3d1}.rowdata .value{font-weight:720;line-height:1.4;overflow-wrap:anywhere}.rowdata .value small{display:block;color:#acb8c8;font-size:12px;font-weight:500}.desk{background:var(--aircraft);color:var(--ink);border-radius:12px;padding:16px;margin:12px 0;font-weight:750;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.desk span{font-size:12px;opacity:.86}.desk a{color:inherit;font-size:20px}.footer{font-size:12px;color:#aab4c2;margin:26px 2px;line-height:1.5}.tiny{font-size:11px;color:#b3c0d0;margin:0 15px 12px}a{color:#92d0ff}.utility-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.utility{background:#19212c;border:1px solid #384350;border-radius:12px;padding:12px}.utility .k{font-size:11px;font-weight:750;color:#a9b6c5}.utility .v{font-size:17px;font-weight:800;margin-top:5px}.utility a{font-weight:800}.utility.full{grid-column:1/-1}.home-only.hidden{display:none}.usage-panel{margin-top:14px}.usage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 14px 14px}.usage-stat{background:#222a35;border-radius:10px;padding:12px}.usage-stat .num{font-size:25px;font-weight:850}.usage-stat .desc{font-size:12px;color:#b8c3d1;margin-top:3px}.usage-foot{font-size:12px;color:#aebaca;padding:0 15px 14px;line-height:1.5}.usage-foot summary{cursor:pointer;font-weight:750;color:#d8e4f1}.usage-foot code{overflow-wrap:anywhere}@media(min-width:650px){.aircraft-grid{grid-template-columns:repeat(5,1fr)}.aircraft-btn:last-child:nth-child(odd){grid-column:auto}.stats{grid-template-columns:repeat(4,1fr)}.aircraft-btn{font-size:24px}.utility-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:370px){.stat .v{font-size:19px}}
@@ -36,7 +36,14 @@
 .fuel-loads div+div{border-left:1px solid var(--stroke)}
 .fuel-loads dt{font-size:11px;line-height:1.25;color:var(--muted);margin-bottom:5px}
 .fuel-loads dd{margin:0;font-size:13px;font-weight:800;line-height:1.3}
+
+.tether-table{width:100%;border-collapse:collapse}
+.tether-table th,.tether-table td{padding:8px 0;border-top:1px solid var(--stroke)}
+.tether-table th{text-align:left;color:var(--muted);font-weight:600}
+.tether-table td{text-align:right;font-weight:800;white-space:nowrap;padding-left:12px}
 </style>
+<link rel="apple-touch-icon" sizes="180x180" href="./fedex-mx-icon.png">
+<link rel="icon" type="image/png" href="./fedex-mx-icon.png">
 </head>
 <body>
 <header><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE</div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
@@ -107,13 +114,17 @@ function renderTetherSizing(id) {
   const lengths = sizes.slice(0, -1);
   const petRock = sizes.at(-1);
   const note = id === 'b777'
-    ? '<p class="tiny">When positioning a weight cart on a B777, the tether attach fittings on the weight cart must be positioned 28″ forward of the center of the nose gear.</p>'
+    ? '<p class="tiny">When positioning a weight cart on a B777, the tether attach fittings on the weight cart must be positioned <strong>28″ forward of the center of the nose gear</strong>.</p>'
     : '';
   return `<section class="section"><h3>TETHER SIZING (MEM ONLY)</h3>
-    <div class="stats">
-      <div class="stat"><div class="k">Tether Length</div><div class="v">${lengths.join('<br>')}</div></div>
-      <div class="stat"><div class="k">Pet Rock</div><div class="v">${petRock}</div></div>
-    </div>${note}</section>`;
+    <table class="tether-table" aria-label="Tether sizing measurements"><tbody>
+      ${lengths.map(length => {
+        const [measurement, hook] = length.split(' (');
+        const label = hook ? 'Tether · ' + hook.slice(0, -1) : 'Tether Length';
+        return `<tr><th scope="row">${label}</th><td>${measurement}</td></tr>`;
+      }).join('')}
+      <tr><th scope="row">Pet Rock</th><td>${petRock}</td></tr>
+    </tbody></table>${note}</section>`;
 }
 
 function show(id,track=false){const a=aircraft[id];if(a&&track){usage.views++;trackShared('aircraft',id);usage.byAircraft[id]=(Number(usage.byAircraft[id])||0)+1;saveUsage();renderUsage();}const home=document.getElementById('home'),detail=document.getElementById('detail');if(!a){home.classList.remove('hidden');detail.classList.remove('active');document.getElementById('subtitle').textContent='Select an aircraft type to view its reference card.';return}home.classList.add('hidden');detail.classList.add('active');document.getElementById('subtitle').textContent='Reference details • '+a.name;detail.style.setProperty('--aircraft',a.color);detail.style.setProperty('--ink',a.ink);detail.innerHTML=`<button class="back" id="back">← All aircraft</button><div class="detail-title"><div class="small">AIRCRAFT TYPE</div><h2>${a.name}</h2></div><dl class="fuel-loads" aria-label="Fuel loads">${fuelLoads[id].map((value, index)=>`<div><dt>${fuelLabels[index]}</dt><dd>${value}</dd></div>`).join('')}</dl>${renderTetherSizing(id)}<section class="section"><h3>TIRE PRESSURE REFERENCE VALUES</h3><div class="stats">${a.pressures.map(([k,v])=>`<div class="stat"><div class="k">${escapeHTML(k)}</div><div class="v">${escapeHTML(v)}</div></div>`).join('')}</div><p class="tiny">Values reproduced as labeled in the original card; verify units and applicability in approved manuals.</p></section><section class="section"><h3>Aircraft details & AMM</h3>${a.rows.map(([k,v,amm])=>`<div class="rowdata"><div class="label">${escapeHTML(k)}</div><div class="value">${escapeHTML(v)}${amm?`<small>AMM ${escapeHTML(amm)}</small>`:''}</div></div>`).join('')}</section><div class="desk"><div><span>CONTACT</span><div>${a.desk}</div></div><a href="tel:${a.phone}">${a.phone}</a></div>`;document.getElementById('back').onclick=()=>{history.pushState({},'',location.pathname);show(null);scrollTo(0,0)};scrollTo(0,0)}
