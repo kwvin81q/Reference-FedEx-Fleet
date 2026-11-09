@@ -11,10 +11,10 @@
 .hour-plot{display:flex;align-items:end;gap:2px;height:135px;border-bottom:1px solid #597183}.hourbar{flex:1;min-width:3px;background:#40d69b;min-height:2px;border-radius:3px 3px 0 0}.hourlabels{display:flex;justify-content:space-between;font-size:10px;color:#b3c7da;margin-top:5px}
 .feed{max-height:390px;overflow:auto}.feedrow{display:grid;grid-template-columns:95px 1fr;gap:9px;padding:9px 0;border-bottom:1px solid #31475a;font-size:12px}.feedrow time{color:#94eed0}.muted{color:#b3c7da;font-size:12px}.status{font-size:12px;color:#ffe19b}.pill{display:inline-block;background:#273b4b;border-radius:15px;padding:4px 8px;font-size:11px;color:#cde2f1}
 @media(max-width:480px){.analytics-grid{grid-template-columns:1fr}.mapbox{height:260px}}
-</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></head><body><main>
+.dot-legend{padding:11px 0 2px;color:#cbd8e6;font-size:12px}.dot-legend>span{display:block;font-weight:750;margin-bottom:8px}.dot-legend-items{display:flex;gap:8px 13px;flex-wrap:wrap}.dot-legend-items span{display:inline-flex;align-items:center;gap:5px}.dot-legend-items i{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid #ffffffaa}</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></head><body><main>
 <header><div><div class="eyebrow">FEDEX ACMX • REFERENCE</div><h1>Fleet Usage</h1></div><div class="tag">Private dashboard</div></header>
 <section id="login"><h2>View shared usage</h2><label for="key">Dashboard key</label><input id="key" type="password" autocomplete="off" placeholder="Enter your private dashboard key"><label class="check"><input id="remember" type="checkbox"> Remember this key on this phone</label><p class="note">Only enable Remember on a personal device. The key is saved in this browser, not sent to GitHub; the dashboard sends it directly to your Cloudflare Worker.</p><div class="controls"><button id="view">Show usage</button><button class="secondary" id="forget">Forget key</button></div><p id="error" role="status" aria-live="polite"></p></section>
-<div id="report" hidden><div class="controls" style="justify-content:space-between;margin:0 0 12px"><button id="refresh">↻ Refresh counts</button><button class="secondary" id="lock">Lock</button></div><p class="timestamp" id="updated"></p><div class="metrics"><div class="metric"><strong id="opens">—</strong><span>Total app opens</span></div><div class="metric"><strong id="views">—</strong><span>Aircraft page views</span></div><div class="metric"><strong id="visitors">—</strong><span>Distinct browsers*</span></div></div><section style="margin-top:14px"><h2>Views by aircraft</h2><div id="aircraft"></div></section><section><h2>Vibe usage by aircraft</h2><div id="vibe"></div></section><section><h2>Usage map · last 30 days</h2><div class="tabbar"><button id="worldTab" class="active" type="button">🌎 World</button><button id="usaTab" type="button">🇺🇸 USA</button></div><div id="usageMap" class="mapbox"><div class="map-fallback">Map loads after refreshing usage.</div></div><div id="mapStatus" class="note">Locations are approximate. Map only shows cities with at least 3 distinct browsers in the past 30 days. New locations appear after the Worker is updated.</div><div id="countryList"></div></section>
+<div id="report" hidden><div class="controls" style="justify-content:space-between;margin:0 0 12px"><button id="refresh">↻ Refresh counts</button><button class="secondary" id="lock">Lock</button></div><p class="timestamp" id="updated"></p><div class="metrics"><div class="metric"><strong id="opens">—</strong><span>Total app opens</span></div><div class="metric"><strong id="views">—</strong><span>Aircraft page views</span></div><div class="metric"><strong id="visitors">—</strong><span>Distinct browsers*</span></div></div><section style="margin-top:14px"><h2>Views by aircraft</h2><div id="aircraft"></div></section><section><h2>Vibe usage by aircraft</h2><div id="vibe"></div></section><section><h2>Usage map · last 30 days</h2><div class="tabbar"><button id="worldTab" class="active" type="button">🌎 World</button><button id="usaTab" type="button">🇺🇸 USA</button></div><div id="usageMap" class="mapbox"><div class="map-fallback">Map loads after refreshing usage.</div></div><div class="dot-legend" aria-label="Map dot colors by uses"><span>Uses at location</span><div class="dot-legend-items"><span><i style="background:#1688ff"></i>1–5</span><span><i style="background:#21d488"></i>6–15</span><span><i style="background:#ffe047"></i>16–30</span><span><i style="background:#ff9238"></i>31–50</span><span><i style="background:#ef354b"></i>51+</span></div></div><div id="mapStatus" class="note">Locations are approximate. Map only shows cities with at least 3 distinct browsers in the past 30 days. New locations appear after the Worker is updated.</div><div id="countryList"></div></section>
 <section><h2>Hourly activity · last 30 days</h2><div class="muted">Hours are in UTC; peak hours are based on recorded events.</div><div id="hourChart" class="hour-plot"></div><div class="hourlabels"><span>00:00 UTC</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:00</span></div></section>
 <section><h2>Device and browser breakdown</h2><div class="analytics-grid"><div class="analytic-tile"><h3>Devices</h3><div id="deviceBars"></div></div><div class="analytic-tile"><h3>Browsers</h3><div id="browserBars"></div></div></div></section>
 <section><h2>Aircraft + app event breakdown</h2><div id="activityBars"></div></section>
@@ -39,8 +39,35 @@ function buildBars(id,rows,labelKey,valueKey){
 function switchMap(mode){mapMode=mode;$('worldTab').classList.toggle('active',mode==='world');$('usaTab').classList.toggle('active',mode==='usa');
  if(map){map.setView(mode==='world'?[18,5]:[39,-98],mode==='world'?2:4);refreshPoints();setTimeout(()=>map.invalidateSize(),100)}}
 $('worldTab').onclick=()=>switchMap('world');$('usaTab').onclick=()=>switchMap('usa');
-function refreshPoints(){if(!map||!window.L)return;if(window.markerLayer)map.removeLayer(window.markerLayer);const visible=points.filter(x=>mapMode==='world'||x.country==='US');window.markerLayer=L.layerGroup(visible.map(p=>L.circleMarker([Number(p.lat),Number(p.lon)],{radius:Math.min(18,5+Math.sqrt(Number(p.events)||1)),color:'#b6ffe5',weight:1,fillColor:'#40d69b',fillOpacity:.75}).bindPopup(escapeMapText(`${p.city||'Unknown city'}, ${p.region||''} ${p.country}: ${p.events} events / ${p.browsers} browsers`)))).addTo(map);
- $('mapStatus').textContent=visible.length?`${visible.length} approximate city locations shown. Cities require 3+ distinct browsers over 30 days.`:'No qualifying locations yet. A city appears after 3 distinct browsers are recorded there.'}
+function dotColor(uses){
+ if(uses<=5)return '#1688ff';
+ if(uses<=15)return '#21d488';
+ if(uses<=30)return '#ffe047';
+ if(uses<=50)return '#ff9238';
+ return '#ef354b';
+}
+function refreshPoints(){
+ if(!map||!window.L)return;
+ if(window.markerLayer)map.removeLayer(window.markerLayer);
+ const visible=points.filter(p=>mapMode==='world'||String(p.country||'').toUpperCase()==='US');
+ const markers=[];
+ for(const p of visible){
+  const lat=Number(p.lat),lon=Number(p.lon);
+  if(!Number.isFinite(lat)||!Number.isFinite(lon))continue;
+  const uses=Math.max(0,Number(p.events)||0);
+  const browsers=Math.max(0,Number(p.browsers)||0);
+  const name=[p.city,p.region,p.country].filter(Boolean).join(', ')||'Approximate location';
+  const content='<strong>'+escapeMapText(name)+'</strong><br>App uses: <b>'+uses.toLocaleString()+'</b><br>Distinct browsers: '+browsers.toLocaleString();
+  markers.push(L.circleMarker([lat,lon],{
+   radius:8,color:'#ffffff',weight:1.5,opacity:1,
+   fillColor:dotColor(uses),fillOpacity:.96,bubblingMouseEvents:false
+  }).bindPopup(content));
+ }
+ window.markerLayer=L.layerGroup(markers).addTo(map);
+ $('mapStatus').textContent=markers.length
+  ?markers.length+' approximate city locations shown. Each dot changes color as recorded app uses increase. Cities require 3+ distinct browsers over 30 days.'
+  :'No qualifying locations yet. A city appears after 3 distinct browsers are recorded there.';
+}
 function escapeMapText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 let leafletLoading=null;
 async function ensureMap(){if(map)return true;if(!leafletLoading){leafletLoading=new Promise(resolve=>{if(window.L)return resolve(true);const t=document.createElement('script');t.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';t.onload=()=>resolve(true);t.onerror=()=>resolve(false);document.head.append(t)})}if(!await leafletLoading){$('usageMap').replaceChildren();const x=document.createElement('div');x.className='map-fallback';x.textContent='Map tiles unavailable. Location counts remain listed below.';$('usageMap').append(x);return false}
