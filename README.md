@@ -1,6 +1,6 @@
-# FedEx MX — Live release candidate v1.7
+# FedEx MX — Live release candidate v1.8
 
-This package contains **only index.html** for replacement of the root of the existing `Reference-FedEx-Fleet` repository. It is based on the standalone v1.7 test design and keeps the **new test background**: dark aircraft wallpaper + large faded FEDEX MX wordmark + luminous outlines.
+This package contains **only index.html** for replacement of the root of the existing `Reference-FedEx-Fleet` repository. It is based on the standalone v1.8 test design and keeps the **new test background**: dark aircraft wallpaper + large faded FEDEX MX wordmark + luminous outlines.
 
 ## IMPORTANT — before publishing
 
@@ -25,3 +25,7 @@ This package contains **only index.html** for replacement of the root of the exi
 - User-created notes, favorites, contacts, and managers remain browser-local. No personal note data is included in analytics events.
 - No external build tools are required.
 - If something goes wrong, revert `index.html` to the saved version.
+
+
+## v1.8 change
+Removed FedEx Security shortcut cards from the home page and each aircraft page. FedEx Security remains searchable and callable inside All Contacts (Phone List). The contacts directory button fills its row.
