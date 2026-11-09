@@ -29,3 +29,9 @@ This package contains **only index.html** for replacement of the root of the exi
 
 ## v1.8 change
 Removed FedEx Security shortcut cards from the home page and each aircraft page. FedEx Security remains searchable and callable inside All Contacts (Phone List). The contacts directory button fills its row.
+
+
+## v1.9
+- Moved LOCAL ATIS immediately above All My Notes on the home page, and above Personal Notes on each aircraft page.
+- Renamed Memphis Manager List to Manager Phone Numbers (unchanged 901 phone numbers).
+- All other sections, including Request a Change and Usage on This Device, retain their positions.
