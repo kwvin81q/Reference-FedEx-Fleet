@@ -1084,7 +1084,7 @@ renderUtilities();renderUsage();renderContacts();show(location.hash.slice(1));
 
 </script>
 <script>
-/* PERSONAL NOTES v1.7. Local only, no cloud sync or network calls. */
+/* PERSONAL NOTES v1.9. Auto-load from localStorage and mirror to on-device IndexedDB. */
 (() => {
 'use strict';
 const KEY='mx-personal-tail-notes-v1';
@@ -1095,15 +1095,85 @@ const uuid=()=>globalThis.crypto?.randomUUID?.()||`local-${Date.now()}-${Math.ra
 const date=t=>{try{return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(t))}catch(e){return 'Unknown date'}};
 const normalizeTail=t=>String(t??'').toUpperCase().trim().replace(/\s+/g,'').replace(/[^A-Z0-9-]/g,'').slice(0,16);
 const valid=x=>x&&typeof x==='object'&&FLEETS[x.fleet]&&typeof x.tail==='string'&&normalizeTail(x.tail).length>=2&&typeof x.body==='string'&&x.body.trim().length&&x.body.length<=5000&&typeof x.id==='string'&&x.id.length<120;
-let notes=[];
-try{const parsed=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(parsed))notes=parsed.filter(valid).map(x=>({...x,tail:normalizeTail(x.tail)})).slice(0,1000)}catch(e){}
+// Existing notes remain under the ORIGINAL key so updates never migrate or clear them.
+// IndexedDB is a second on-device copy; both stores can still be cleared by iOS/Safari.
+const BACKUP_DB='mx-tail-notes-device-backup-v1', BACKUP_STORE='snapshots';
+const makeCopy=list=>list.map(n=>({...n}));
+let notes=[],mainHealthy=false,notesTouched=false,backupQueue=Promise.resolve();
+try{
+  const raw=localStorage.getItem(KEY);
+  if(raw!==null){
+    const parsed=JSON.parse(raw);
+    if(Array.isArray(parsed)&&parsed.length<=1000&&parsed.every(valid)){
+      notes=parsed.map(n=>({...n,tail:normalizeTail(n.tail)}));
+      mainHealthy=true;
+    }
+  }
+}catch(e){}
+function openBackupDB(){
+  return new Promise((resolve,reject)=>{
+    if(!('indexedDB' in window)){reject(new Error('IndexedDB unavailable'));return;}
+    let req;
+    try{req=indexedDB.open(BACKUP_DB,1)}catch(e){reject(e);return;}
+    req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(BACKUP_STORE))req.result.createObjectStore(BACKUP_STORE)};
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error||new Error('Unable to open backup'));
+    req.onblocked=()=>reject(new Error('Backup database blocked'));
+  });
+}
+async function readDeviceBackup(){
+  const db=await openBackupDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(BACKUP_STORE,'readonly'),req=tx.objectStore(BACKUP_STORE).get('latest');
+    req.onsuccess=()=>resolve(req.result?.notes);
+    req.onerror=()=>reject(req.error);
+    tx.oncomplete=()=>db.close();
+    tx.onerror=()=>{db.close();reject(tx.error)};
+  });
+}
+async function writeDeviceBackup(snapshot){
+  const db=await openBackupDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(BACKUP_STORE,'readwrite');
+    tx.objectStore(BACKUP_STORE).put({notes:snapshot,savedAt:new Date().toISOString()},'latest');
+    tx.oncomplete=()=>{db.close();resolve()};
+    tx.onerror=()=>{db.close();reject(tx.error)};
+    tx.onabort=()=>{db.close();reject(tx.error)};
+  });
+}
+function queueBackup(){
+  const snapshot=makeCopy(notes);
+  // Serialize snapshots: a slow earlier write cannot replace a newer saved note.
+  backupQueue=backupQueue.catch(()=>{}).then(()=>writeDeviceBackup(snapshot));
+  backupQueue.catch(()=>console.warn('Device notes backup unavailable; use Export My Notes.'));
+}
+// On opening, restore from the on-device backup ONLY if the original store is missing
+// or invalid. A legitimately saved empty list is never mistaken for missing notes.
+async function initializeDeviceBackup(){
+  if(mainHealthy){queueBackup();return;}
+  try{
+    const backup=await readDeviceBackup();
+    if(notesTouched)return;
+    if(Array.isArray(backup)&&backup.length<=1000&&backup.every(valid)){
+      notes=backup.map(n=>({...n,tail:normalizeTail(n.tail)}));
+      try{localStorage.setItem(KEY,JSON.stringify(notes));mainHealthy=true}catch(e){}
+      render();
+      if(notes.length)console.info('Personal aircraft notes restored from device backup.');
+    }
+  }catch(e){console.warn('Unable to read device notes backup.');}
+}
 let search='',fleetFilter='all',selectedTail={},lastFocus=null;
-const saved=()=>{try{localStorage.setItem(KEY,JSON.stringify(notes));return true}catch(e){alert('Unable to save notes: device storage may be full or unavailable. Export your existing notes for backup.');return false}};
+const saved=()=>{
+  try{
+    localStorage.setItem(KEY,JSON.stringify(notes));
+    notesTouched=true;mainHealthy=true;queueBackup();return true;
+  }catch(e){alert('Unable to save notes: device storage may be full or unavailable. Export your existing notes for backup.');return false;}
+};
 function sorted(arr){return [...arr].sort((a,b)=>(Date.parse(b.updated)||0)-(Date.parse(a.updated)||0))}
 function entry(n){const fleet=FLEETS[n.fleet];return `<article class="note-entry" style="--note-color:${fleet.color}"><div class="note-entry-head"><span class="note-tag">${fleet.label}</span><time>Updated ${esc(date(n.updated))}</time></div><h3>${esc(n.tail)}</h3><p>${esc(n.body)}</p><div class="note-actions"><button class="notes-btn" data-note-open="${esc(n.id)}">View / Edit</button><button class="notes-btn danger" data-note-delete="${esc(n.id)}">Delete</button></div></article>`}
 function renderHome(){const host=$('notes-home');if(!host)return;
 const matches=sorted(notes).filter(n=>(fleetFilter==='all'||fleetFilter===n.fleet)&&(`${n.tail} ${FLEETS[n.fleet].label} ${n.body}`.toLowerCase().includes(search.toLowerCase())));
-host.innerHTML=`<section class="notes-home" aria-label="All my personal notes"><div class="notes-head"><div><h2>▤ ALL MY NOTES <span class="notes-status">(${notes.length})</span></h2><p>PERSONAL AIRCRAFT NOTES • SAVED ON THIS DEVICE</p></div><button class="notes-btn primary" data-note-new>+ New Note</button></div><div class="notes-controls"><input id="notes-search" type="search" placeholder="Search tail or note..." value="${esc(search)}" aria-label="Search my notes"><select id="notes-filter" aria-label="Filter notes by aircraft"><option value="all">All aircraft</option>${Object.entries(FLEETS).map(([id,f])=>`<option value="${id}" ${fleetFilter===id?'selected':''}>${f.label}</option>`).join('')}</select></div><div class="notes-list">${matches.length?matches.map(entry).join(''):`<div class="notes-empty">${notes.length?'No notes match this search.':'No personal notes yet. Open any aircraft page and add a note by tail number, or tap New Note.'}</div>`}</div><div class="notes-controls" style="margin-top:12px"><button class="notes-btn" data-note-export>↓ Export My Notes</button><button class="notes-btn" data-note-import>↑ Import My Notes</button></div><p class="notes-warning">These are private browser notes, not aircraft maintenance records. Clearing browser data can erase them. Export backups regularly; imported notes merge by note ID.</p></section>`;
+host.innerHTML=`<section class="notes-home" aria-label="All my personal notes"><div class="notes-head"><div><h2>▤ ALL MY NOTES <span class="notes-status">(${notes.length})</span></h2><p>PERSONAL AIRCRAFT NOTES • SAVED ON THIS DEVICE</p></div><button class="notes-btn primary" data-note-new>+ New Note</button></div><div class="notes-controls"><input id="notes-search" type="search" placeholder="Search tail or note..." value="${esc(search)}" aria-label="Search my notes"><select id="notes-filter" aria-label="Filter notes by aircraft"><option value="all">All aircraft</option>${Object.entries(FLEETS).map(([id,f])=>`<option value="${id}" ${fleetFilter===id?'selected':''}>${f.label}</option>`).join('')}</select></div><div class="notes-list">${matches.length?matches.map(entry).join(''):`<div class="notes-empty">${notes.length?'No notes match this search.':'No personal notes yet. Open any aircraft page and add a note by tail number, or tap New Note.'}</div>`}</div><div class="notes-controls" style="margin-top:12px"><button class="notes-btn" data-note-export>↓ Export My Notes</button><button class="notes-btn" data-note-import>↑ Import My Notes</button></div><p class="notes-warning">Notes auto-save on this device and reload when the app opens. A second local backup is maintained where supported. Clearing website data can erase both copies; export to Files periodically. Imported notes merge by note ID.</p></section>`;
 }
 function renderFleet(){const host=$('tail-notes-slot');if(!host)return;
 const fleet=location.hash.slice(1);if(!FLEETS[fleet])return;
@@ -1145,5 +1215,6 @@ if(btn.hasAttribute('data-note-export')){exportNotes();return}
 if(btn.hasAttribute('data-note-import')){$('notes-import-file').click();return}
 });
 render();
+initializeDeviceBackup();
 })();
 </script></body></html>
