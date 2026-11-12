@@ -62,6 +62,17 @@
 .notes-overlay{position:fixed;inset:0;background:#020711e9;z-index:30;display:flex;align-items:center;justify-content:center;padding:15px}.notes-overlay[hidden]{display:none!important}.notes-modal{width:min(550px,100%);max-height:92dvh;overflow:auto;background:linear-gradient(135deg,#121b40,#0b213a);padding:20px;border:2px solid #a65bff;border-radius:19px;box-shadow:0 0 25px #a65bff8a}.notes-modal h2{margin:0 0 13px}.notes-modal label{font-size:12px;font-weight:800;display:block;margin:12px 0 5px}.notes-modal input,.notes-modal select,.notes-modal textarea{display:block;width:100%}.notes-modal textarea{min-height:145px;resize:vertical;line-height:1.45}.notes-modal .notes-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.notes-status{font-size:12px;color:#aad9f4}
 @media(max-width:650px){.notes-list{grid-template-columns:1fr}.notes-head h2{font-size:17px}}
 .mx-bottom{grid-template-columns:1fr}.mx-bottom .directory-btn{width:100%}
+
+/* Change / Update requests — form styled to match illuminated FedEx MX cards */
+.change-request{margin-top:21px;border:2px solid #a05af5;border-radius:20px;background:linear-gradient(120deg,rgba(29,22,67,.95),rgba(10,29,48,.95));box-shadow:0 0 15px #9257ee55,inset 0 1px #ffffff35;padding:16px}
+.change-request h2{padding:0;margin:0 0 7px;font-size:18px;letter-spacing:.3px}
+.change-intro{font-size:12px;color:#c6d5e9;line-height:1.5;margin:0 0 15px}
+.change-request label{display:block;color:#d8e8f7;font-size:12px;font-weight:800;letter-spacing:.2px;margin-bottom:13px}
+.change-request select,.change-request textarea,.change-request input{display:block;width:100%;min-width:0;margin-top:6px;border:1px solid #729fcb;border-radius:11px;background:#102a43;color:white;padding:12px;font-size:16px;font-weight:500}
+.change-request textarea{resize:vertical;line-height:1.5}.change-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.change-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.change-submit{background:linear-gradient(140deg,#25cb76,#087a43);border:1px solid #69f4aa;border-radius:11px;color:white;font-weight:850;font-size:15px;padding:13px 20px;min-height:46px}
+.change-submit:disabled{opacity:.6;cursor:wait}.change-status{font-size:12px;color:#cbdced;flex:1}.change-status.error{color:#ffb2bb}.change-status.ok{color:#77fbb5}.change-privacy{font-size:11px;color:#aabed2;line-height:1.5;margin:13px 0 0}
+@media(max-width:490px){.change-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header class="top"><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE </div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
@@ -71,7 +82,7 @@
 <div class="utility-grid" id="utilities"></div>
 <p class="disclaimer">Transcribed from the supplied FedEx ACMX reference card (REV# 11/25). This is a convenience display, not an approved maintenance reference. Verify all values, procedures and limits against current approved AMM and company documents before use. Reference card may contain abbreviated or variant-specific information.</p>
 <div id="local-atis-home"><section class="local-atis-panel" aria-label="Local ATIS airport temperature reference"><div class="local-atis-head"><div><h2>LOCAL ATIS</h2><p>KMEM · Memphis International</p></div><button type="button" class="atis-pencil" data-atis-toggle>✎ Change airport</button></div><div class="local-atis-grid atis-3"><div class="local-atis-item"><small>Temperature °F</small><b>—</b></div><div class="local-atis-item"><small>Temperature °C</small><b>—</b></div><div class="local-atis-item"><small>Field elevation</small><b>341 ft MSL</b></div></div><div class="atis-actions"><div class="atis-observation" role="status"><b>Waiting for airport observation</b><small>Observation: Not received</small></div><button type="button" data-atis-refresh class="atis-refresh">↻ Refresh</button></div><p class="local-atis-foot">Temperature is from a reported airport observation, not the official ATIS broadcast. Verify operational data with approved sources.</p></section></div><div id="notes-home"></div><div id="contacts-home"></div><div id="managers-home"></div>
-<section class="panel request"><h2>REQUEST A CHANGE</h2><div class="request-row"><div><span class="tiny-label">CONTACT</span><strong>Hall Moseley</strong></div><a href="tel:+19012883362">901-288-3362</a></div></section>
+<section class="panel request change-request" aria-labelledby="change-title"><h2 id="change-title">REQUEST A CHANGE OR UPDATE</h2><p class="change-intro">Suggest a correction, request an update, or report an app issue. Submissions are intended for the Fleet Usage dashboard message center.</p><form id="mx-change-form"><div class="change-grid"><label>Request type<select name="type" required><option value="Correction">Correction</option><option value="Update">Update / Add Information</option><option value="App issue">App Issue</option><option value="Other">Other</option></select></label><label>Aircraft / Section<select name="section" required><option value="General / Home">General / Home</option><option value="A300">A300</option><option value="MD-11">MD-11</option><option value="757">757</option><option value="767">767</option><option value="777">777</option><option value="Contacts">Contacts</option><option value="Manager List">Manager List</option><option value="ATIS">ATIS</option><option value="Other">Other</option></select></label></div><label>What needs to change?<textarea name="message" rows="4" maxlength="2000" minlength="10" required placeholder="Describe what needs to be corrected or updated..."></textarea></label><label>Name or contact (optional)<input type="text" name="replyTo" maxlength="100" autocomplete="off" placeholder="Only if you'd like a follow-up"></label><div class="change-actions"><button class="change-submit" type="submit">Send Request</button><span class="change-status" id="mx-change-status" role="status" aria-live="polite"></span></div><p class="change-privacy">Do not enter passwords, employee IDs, or restricted technical data. The request will be sent only when the dashboard's receiving service is configured.</p></form></section>
 
 <section class="panel usage"><h2>USAGE ON THIS DEVICE</h2><div class="usage-grid"><div><strong id="opens">0</strong><small>App opens</small></div><div><strong id="views">0</strong><small>Aircraft page views</small></div></div><details><summary>View aircraft breakdown</summary><div id="breakdown"></div></details><p>These counters are for this browser only. Sitewide totals require the shared tracker to be connected.</p></section>
 </div>
@@ -1217,4 +1228,39 @@ if(btn.hasAttribute('data-note-import')){$('notes-import-file').click();return}
 render();
 initializeDeviceBackup();
 })();
-</script></body></html>
+</script>
+<script>
+/* Sends requests to the same Cloudflare Worker used by Fleet Usage.
+   The Worker must separately implement POST /requests and persist to D1.
+   Never use a dashboard admin key in public-facing client code. */
+(()=>{'use strict';
+ const form=document.getElementById('mx-change-form');
+ const status=document.getElementById('mx-change-status');
+ if(!form)return;
+ form.addEventListener('submit',async event=>{
+   event.preventDefault();
+   if(!form.reportValidity())return;
+   const fd=new FormData(form);
+   const message=String(fd.get('message')||'').trim();
+   if(message.length<10){status.textContent='Please provide at least 10 characters.';status.className='change-status error';return;}
+   const submit=form.querySelector('button[type=submit]');
+   const payload={type:String(fd.get('type')||''),section:String(fd.get('section')||''),message,
+     replyTo:String(fd.get('replyTo')||'').trim(),source:'aircraft-reference',submittedAt:new Date().toISOString()};
+   submit.disabled=true;status.className='change-status';status.textContent='Submitting…';
+   try{
+     const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);
+     let response;
+     try{response=await fetch('https://aircraft-reference-usage.wgy9sy6b59.workers.dev/requests',{
+       method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});}
+     finally{clearTimeout(timeout)}
+     const result=await response.json().catch(()=>({}));
+     if(!response.ok||result.ok!==true)throw new Error('Request service not ready');
+     status.className='change-status ok';
+     status.textContent='Request received by the dashboard'+(result.id?' · #'+String(result.id):'')+'.';
+     form.reset();
+   }catch(error){status.className='change-status error';status.textContent='Not sent — dashboard message receiving is not configured or temporarily unavailable. Please try later.';}
+   finally{submit.disabled=false;}
+ });
+})();
+</script>
+</body></html>
