@@ -251,4 +251,8 @@ async function updateAnalytics(){try{
  points=d.cities||[];await ensureMap();drawMap();
  }catch(e){$('mapStatus').textContent='Analytics unavailable: '+e.message;$('dataHealth').textContent='Analytics request failed: '+e.message;$('dataHealth').classList.add('warn')}}
 if($('key').value)load(false);
-</script></body></html>
+
+</script>
+<script src="./message-center.js" defer></script>
+</body></html>
+
