@@ -248,7 +248,28 @@ async function updateAnalytics(){try{
   ?(countryTagged>0?'No map points: '+fmt(countryTagged)+' events have a country, but no stored city coordinates. Country totals remain available below.':'No stored geographic coordinates for this period. Check that the Worker migration was applied and new events are being recorded.')
   :'No map points in this view. Try World, or inspect geographic coverage above.';
  $('geoHealth').textContent='GEO COVERAGE · '+fmt(coordTagged)+' of '+fmt(totalGeo)+' events have approximate map coordinates · '+fmt(countryTagged)+' have country data. Locations are approximate; older missing locations cannot be recovered.';
- points=d.cities||[];await ensureMap();drawMap();
+ points=d.cities||[];
+
+const mappedEvents=points.reduce(
+  (sum,p)=>sum+(Number(p.events)||0),0
+);
+
+const missingFromMap=Math.max(
+  0,coordTagged-mappedEvents
+);
+
+$('geoHealth').textContent=
+  'GEOGRAPHIC AUDIT · '+
+  fmt(mappedEvents)+' events represented by map locations · '+
+  fmt(coordTagged)+' events with coordinates · '+
+  fmt(missingFromMap)+' coordinate-tagged events not represented · '+
+  fmt(countryTagged)+' events with country information.';
+
+if(missingFromMap>0){
+ $('geoHealth').classList.add('warning');
+}else{
+ $('geoHealth').classList.remove('warning');
+}[];await ensureMap();drawMap();
  }catch(e){$('mapStatus').textContent='Analytics unavailable: '+e.message;$('dataHealth').textContent='Analytics request failed: '+e.message;$('dataHealth').classList.add('warn')}}
 if($('key').value)load(false);
 
