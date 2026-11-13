@@ -156,7 +156,14 @@ async function ensureMap(){
  });
  if(!await leafletPromise){$('mapStatus').textContent='Map library unavailable. Country counts remain available below.';return false}
  map=L.map('usageMap',{scrollWheelZoom:false,zoomControl:true,preferCanvas:true}).setView([18,5],2);
- L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'© OpenStreetMap contributors',
+  maxZoom:19,
+  noWrap:true
+}).addTo(map);
+
+map.setMaxBounds([[-85,-180],[85,180]]);
+map.options.maxBoundsViscosity=1.0;
  map.on('zoomend moveend',drawMap);
  setTimeout(()=>map.invalidateSize(),150);
  return true;
