@@ -116,6 +116,17 @@ section h2{line-height:1.25}.map-lead{margin:-6px 0 15px;color:#a7c2df;font-size
 </section><div class="controls" style="margin-bottom:10px"><button class="primary" id="refresh">↻ Refresh</button><button id="lock">Lock</button><span class="muted control-right" id="updated"></span></div>
 <div class="exec-strip"><div><div class="section-kicker">01 / Executive overview</div><h2 class="exec-heading">Fleet performance at a glance</h2><div class="exec-caption">Operational telemetry from your existing tracking system</div></div><span class="context-badge">LIVE DATA · NO ESTIMATES ADDED</span></div><div class="metrics"><div class="metric"><strong id="opens">—</strong><span>TOTAL APP OPENS</span><small class="kpi-meta">Recorded app-open events</small></div><div class="metric"><strong id="views">—</strong><span>AIRCRAFT PAGE VIEWS</span><small class="kpi-meta">Fleet reference engagement</small></div><div class="metric"><strong id="visitors">—</strong><span>DISTINCT BROWSERS*</span><small class="kpi-meta">Approximate distinct devices</small></div></div>
 <div id="aircraftTiles" class="airgrid"></div><section class="exec-v4-summary"><div class="section-kicker">Executive reporting window</div><div class="v4-heading"><h2>Business intelligence</h2><span id="periodCaption" class="context-badge">30-day reporting window</span></div><div class="v4-cards"><div class="v4-card"><span>APP OPENS · PERIOD</span><strong id="periodOpens">—</strong><small id="periodDelta">Prior-period comparison unavailable</small></div><div class="v4-card"><span>AIRCRAFT PAGE VIEWS</span><strong id="periodViews">—</strong><small id="periodViewDelta">—</small></div><div class="v4-card"><span>VIBE APP EVENTS</span><strong id="periodVibe">—</strong><small id="periodVibeDelta">—</small></div><div class="v4-card"><span>ACTIVE DAYS</span><strong id="activeDays">—</strong><small id="historyStatus">Historical coverage awaiting check</small></div></div><div id="dataHealth" class="v4-health" aria-live="polite">Analytics health check pending.</div></section>
+
+<section id="mxPinManagement" style="margin:14px 0 22px;border:1px solid #8c3df4;background:linear-gradient(140deg,#201a3f,#111c34);border-radius:18px;padding:18px">
+ <div class="section-kicker">MX tools / Calculation access</div>
+ <h2>Vibration Calculator PIN</h2>
+ <p class="muted">All vibration apps remain open to everyone. A matching PIN is required when someone presses Calculate Solution. One PIN works across the vibration apps.</p>
+ <p id="mxPinStatus" role="status">Checking PIN status…</p>
+ <label for="mxNewPin">Set or change shared PIN (4–8 digits)</label>
+ <input id="mxNewPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="Enter a new PIN" style="max-width:280px" />
+ <div class="controls"><button id="mxSavePin" type="button" class="primary">Save Calculation PIN</button><button id="mxPinReload" type="button">Refresh status</button></div>
+ <p class="muted">Only administrators with the Fleet Usage dashboard key can change this PIN. The existing PIN is never displayed.</p>
+</section>
 <section id="mxAppAnalytics" style="margin:14px 0 22px;border:1px solid #52638b;background:linear-gradient(145deg,#18213f,#111c34);border-radius:18px;padding:18px">
  <div class="section-kicker">MX APP ECOSYSTEM / NEW TRACKING</div>
  <h2>App Center · Individual App Analytics</h2>
@@ -296,6 +307,26 @@ const originalView=$('view').onclick,originalRefresh=$('refresh').onclick;
 $('view').onclick=async function(){await originalView();if(key)loadMX()};
 $('refresh').onclick=async function(){await originalRefresh();if(key)loadMX()};
 if(key)loadMX();
+})();
+</script>
+
+<script>
+(function(){'use strict';
+ const BASE='https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
+ const el=id=>document.getElementById(id);
+ const status=el('mxPinStatus'),field=el('mxNewPin'),save=el('mxSavePin');
+ function dashboardKey(){return typeof key==='string'?key:'';}
+ async function call(method,body){
+   const k=dashboardKey();if(!k)throw Error('Unlock Fleet Usage first.');
+   const response=await fetch(BASE+'/calc-pin/admin',{method,headers:{Authorization:'Bearer '+k,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,cache:'no-store'});
+   const result=await response.json();if(!response.ok)throw Error(result.error||('HTTP '+response.status));return result;
+ }
+ async function refresh(){if(!dashboardKey())return;try{const r=await call('GET');status.textContent=r.configured?'PIN configured · last changed '+new Date(r.updated_at).toLocaleString():'No PIN configured yet — set one before publishing calculation access.';}catch(e){status.textContent=e.message}}
+ save.addEventListener('click',async()=>{const pin=field.value.trim();if(!/^\d{4,8}$/.test(pin)){status.textContent='Enter 4 to 8 digits.';return}save.disabled=true;try{await call('PUT',{pin});field.value='';status.textContent='PIN saved. Mechanics must enter this PIN to calculate.';await refresh();}catch(e){status.textContent=e.message}finally{save.disabled=false}});
+ el('mxPinReload').addEventListener('click',refresh);
+ // The existing dashboard performs its own login; refresh after it becomes visible.
+ new MutationObserver(()=>{if(!el('report').hidden)refresh()}).observe(el('report'),{attributes:true,attributeFilter:['hidden']});
+ if(!el('report').hidden)refresh();
 })();
 </script>
 </body></html>
