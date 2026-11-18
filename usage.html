@@ -97,21 +97,44 @@ section h2{line-height:1.25}.map-lead{margin:-6px 0 15px;color:#a7c2df;font-size
 .map-actions>div:last-child{display:flex;flex-wrap:wrap;gap:7px}
 @media(max-width:850px){.v4-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:580px){.v4-card{padding:13px 10px}.v4-card strong{font-size:30px}.v4-card span{font-size:9px}.v4-card small{font-size:10px}.map-actions>div:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.map-actions>div:last-child button{font-size:12px;padding:12px 5px}}
+
+.announcement-admin{margin:14px 0 23px;padding:20px;border:2px solid #9574fa;border-radius:18px;background:linear-gradient(140deg,#211d42,#101b33);box-shadow:0 7px 24px #0005}
+.announcement-admin h2{margin:5px 0 8px}.announce-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.announcement-admin label{display:block;font-size:12px;font-weight:800;margin:10px 0 5px}.announcement-admin input,.announcement-admin textarea{width:100%;background:#0b142a;color:#fff;border:1px solid #657397;border-radius:9px;padding:11px;font:inherit;box-sizing:border-box}.announcement-admin textarea{resize:vertical}.announce-current article{border:1px solid #536283;border-radius:11px;padding:12px;margin:8px 0;background:#111a30}.announce-current .announce-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.announce-current button{font-size:12px;padding:7px 11px;cursor:pointer}.announce-current p{white-space:pre-wrap;overflow-wrap:anywhere}.announce-current small{color:#bcb8df}@media(max-width:700px){.announce-grid{grid-template-columns:1fr}.announcement-admin{padding:14px}}
 </style></head><body><main>
 <div class="build-banner"><b>● EXECUTIVE V4 LIVE</b> <span>Executive intelligence · 12-month history · fleet and device analytics</span></div><header class="head"><div><div class="eyebrow">FEDEX MX / EXECUTIVE INTELLIGENCE <span class="release-label">◆ EXECUTIVE V4</span></div><div class="brand">Fed<em>Ex</em> MX <small>Fleet Usage</small></div><p class="hero-subtitle">Aircraft maintenance reference engagement, operational adoption, and geographic intelligence—all in one command center.</p><span class="hero-chip">Connected to Fleet Usage telemetry</span></div><div class="tag">◆ SECURE OPERATIONS VIEW · V4</div></header>
 <section id="login"><h2>View shared usage</h2><label for="key">Dashboard key</label><input id="key" type="password" autocomplete="off" placeholder="Enter your dashboard key"><label class="check"><input id="remember" type="checkbox">Remember this key on this phone</label><div class="controls"><button id="view" class="primary">Show usage</button><button id="forget">Forget key</button></div><p class="note">Your key is stored only in this browser if you choose Remember and is sent directly to the existing Cloudflare Worker.</p><p id="error" class="error" role="status"></p></section>
-<div id="report" hidden><div class="controls" style="margin-bottom:10px"><button class="primary" id="refresh">↻ Refresh</button><button id="lock">Lock</button><span class="muted control-right" id="updated"></span></div>
+<div id="report" hidden><section class="announcement-admin" id="announcementAdmin">
+  <div class="section-kicker">OPERATIONS / RELEASE COMMUNICATIONS</div>
+  <h2>Upcoming Updates — Message Center</h2>
+  <p class="muted">Publish announcements to the Aircraft Reference home screen above aircraft selection. Your existing dashboard key protects changes.</p>
+  <div class="announce-grid"><div><label for="announceTitle">Headline</label><input id="announceTitle" maxlength="120" placeholder="Example: B767 fan trim update" />
+  <label for="announceBody">What is being updated?</label><textarea id="announceBody" maxlength="2500" rows="4" placeholder="Describe what users should expect…"></textarea>
+  <label for="announceDate">Expected date (optional)</label><input id="announceDate" type="date" />
+  <div class="controls"><button class="primary" id="announcePublish" type="button">Publish update</button><button id="announceCancel" type="button">Clear form</button></div>
+  <p class="muted" id="announceStatus" role="status"></p></div>
+  <div><h3>Published announcements</h3><div id="announceCurrent" class="announce-current">Loading…</div></div></div>
+</section><div class="controls" style="margin-bottom:10px"><button class="primary" id="refresh">↻ Refresh</button><button id="lock">Lock</button><span class="muted control-right" id="updated"></span></div>
 <div class="exec-strip"><div><div class="section-kicker">01 / Executive overview</div><h2 class="exec-heading">Fleet performance at a glance</h2><div class="exec-caption">Operational telemetry from your existing tracking system</div></div><span class="context-badge">LIVE DATA · NO ESTIMATES ADDED</span></div><div class="metrics"><div class="metric"><strong id="opens">—</strong><span>TOTAL APP OPENS</span><small class="kpi-meta">Recorded app-open events</small></div><div class="metric"><strong id="views">—</strong><span>AIRCRAFT PAGE VIEWS</span><small class="kpi-meta">Fleet reference engagement</small></div><div class="metric"><strong id="visitors">—</strong><span>DISTINCT BROWSERS*</span><small class="kpi-meta">Approximate distinct devices</small></div></div>
 <div id="aircraftTiles" class="airgrid"></div><section class="exec-v4-summary"><div class="section-kicker">Executive reporting window</div><div class="v4-heading"><h2>Business intelligence</h2><span id="periodCaption" class="context-badge">30-day reporting window</span></div><div class="v4-cards"><div class="v4-card"><span>APP OPENS · PERIOD</span><strong id="periodOpens">—</strong><small id="periodDelta">Prior-period comparison unavailable</small></div><div class="v4-card"><span>AIRCRAFT PAGE VIEWS</span><strong id="periodViews">—</strong><small id="periodViewDelta">—</small></div><div class="v4-card"><span>VIBE APP EVENTS</span><strong id="periodVibe">—</strong><small id="periodVibeDelta">—</small></div><div class="v4-card"><span>ACTIVE DAYS</span><strong id="activeDays">—</strong><small id="historyStatus">Historical coverage awaiting check</small></div></div><div id="dataHealth" class="v4-health" aria-live="polite">Analytics health check pending.</div></section>
-<section><div class="section-kicker" style="margin-bottom:7px">02 / Geographic intelligence</div><h2>Where the fleet is engaging <span class="version-chip">V4 · ACTIVITY MAP</span></h2><p class="map-lead">Approximate city-level activity from recorded events. No artificial heat clouds or distorted geography.</p><div class="map-actions"><div class="controls"><button id="worldTab" class="active">🌐 World</button><button id="usaTab">🇺🇸 USA</button></div><div class="controls"><button id="range30" class="active">30 days</button><button id="range90">3 months</button><button id="range180">6 months</button><button id="range365">12 months</button></div></div><div id="usageMap" class="mapbox"><div class="note" style="padding:25px">Map loads after refreshing.</div></div><div class="mapguide"><strong>Activity by location</strong><span class="key" style="background:#39d7af;color:#39d7af"></span>Low<span class="key" style="background:#64b5ff;color:#64b5ff"></span>Moderate<span class="key" style="background:#ffba4f;color:#ffba4f"></span>High<span class="key" style="background:#ff677b;color:#ff677b"></span>Very high</div><p class="muted" style="margin:0 0 7px">Numbers represent recorded events. Nearby cities cluster until you zoom in. Tap a marker for the breakdown.</p><p id="geoHealth" class="note map-status" aria-live="polite">Location data health will appear here.</p><p id="mapStatus" class="note map-status">Map uses locations recorded by your Cloudflare Worker.</p><div class="split" style="margin-top:10px"><div class="subpanel"><h3>Country activity</h3><div id="countryList" class="bars"></div></div><div class="subpanel"><h3>Vibe usage by aircraft</h3><div id="vibe" class="bars"></div></div></div></section>
+<section id="mxAppAnalytics" style="margin:14px 0 22px;border:1px solid #52638b;background:linear-gradient(145deg,#18213f,#111c34);border-radius:18px;padding:18px">
+ <div class="section-kicker">MX APP ECOSYSTEM / NEW TRACKING</div>
+ <h2>App Center · Individual App Analytics</h2>
+ <p class="muted">Counts begin when each app is instrumented and the Worker migration is deployed. Historical reference statistics stay above.</p>
+ <div class="controls"><label for="mxDays">Reporting range</label><select id="mxDays"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option><option value="180">6 months</option><option value="365">12 months</option><option value="all">All recorded</option></select><button id="mxReload" type="button">Refresh app analytics</button></div>
+ <p class="muted" id="mxStatus" aria-live="polite">Unlock dashboard to see app tracking.</p>
+ <div class="metrics"><div class="metric"><strong id="mxAllOpens">—</strong><span>APP OPENS</span></div><div class="metric"><strong id="mxAllViews">—</strong><span>PAGE VIEWS</span></div><div class="metric"><strong id="mxAllVisitors">—</strong><span>APP / BROWSER COMBINATIONS</span></div></div>
+ <h3>Tracking by app</h3><div id="mxApps" style="overflow-x:auto"></div>
+ <h3>Tracking by individual page</h3><div id="mxPages" style="overflow-x:auto"></div>
+ <h3>Latest app events · Central Time</h3><div id="mxRecent" class="feed"></div>
+ </section>
+<section><div class="section-kicker" style="margin-bottom:7px">02 / Geographic intelligence</div><h2>Where the fleet is engaging <span class="version-chip">V4 · ACTIVITY MAP</span></h2><p class="map-lead">Precise activity markers. No artificial heat clouds, no distorted geography.</p><div class="map-actions"><div class="controls"><button id="worldTab" class="active">🌐 World</button><button id="usaTab">🇺🇸 USA</button></div><div class="controls"><button id="range30" class="active">30 days</button><button id="range90">3 months</button><button id="range180">6 months</button><button id="range365">12 months</button></div></div><div id="usageMap" class="mapbox"><div class="note" style="padding:25px">Map loads after refreshing.</div></div><div class="mapguide"><strong>Activity by location</strong><span class="key" style="background:#39d7af;color:#39d7af"></span>Low<span class="key" style="background:#64b5ff;color:#64b5ff"></span>Moderate<span class="key" style="background:#ffba4f;color:#ffba4f"></span>High<span class="key" style="background:#ff677b;color:#ff677b"></span>Very high</div><p class="muted" style="margin:0 0 7px">Numbers are recorded uses. Numbers show recorded uses. Nearby cities combine into one marker until you zoom in. Tap for the breakdown.</p><p id="mapStatus" class="note map-status">Map uses locations recorded by your Cloudflare Worker.</p><div class="split" style="margin-top:10px"><div class="subpanel"><h3>Country activity</h3><div id="countryList" class="bars"></div></div><div class="subpanel"><h3>Vibe usage by aircraft</h3><div id="vibe" class="bars"></div></div></div></section>
 <section class="executive-trend"><div><div class="section-kicker">03 / Engagement trend</div><h2 style="margin-top:8px">Executive engagement trajectory</h2><div class="trend-wrap"><svg id="dailyTrend" viewBox="0 0 780 190" role="img" aria-label="Daily app opens trend"><text x="20" y="95" fill="#a5b9d0" font-size="14">Waiting for recorded daily activity</text></svg></div><p class="executive-note">Daily recorded app opens. Hover over the trend for individual date and total.</p></div><div class="subpanel"><h3>REPORTED PERIOD</h3><div class="trend-metric" id="trendTotal">—</div><div class="trend-note" id="trendDescription">Actual event totals from the daily records, not a projection.</div><div class="context-badge" style="display:inline-block;margin-top:17px">Historical daily events</div></div></section><div class="split"><section><h2>Hourly activity · selected period</h2><p class="muted">UTC time · recorded events</p><div id="hourChart" class="hourchart"></div><div class="hourlabels"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:00 UTC</span></div></section><section><h2>Device and browser breakdown</h2><div class="split"><div><h3>Devices</h3><div id="deviceBars" class="bars"></div></div><div><h3>Browsers</h3><div id="browserBars" class="bars"></div></div></div></section></div>
 <div class="split"><section><h2>Aircraft + app event breakdown</h2><div id="activityBars" class="bars"></div></section><section><h2>App health: errors and performance</h2><p class="muted">Requires optional vibe-app telemetry</p><div class="split"><div><h3>Errors</h3><div id="errorBars" class="bars"></div></div><div><h3>Performance</h3><div id="perfBars" class="bars"></div></div></div></section></div>
 <div class="split"><section><h2>Recent activity</h2><p class="muted">Latest recorded events · Central Time · anonymous</p><div id="recentFeed" class="feed"></div></section><section><h2>Daily usage · recorded days</h2><p class="muted">Select a date to see individual timestamps</p><table><thead><tr><th>Date (UTC)</th><th>Opens</th><th>Browsers</th></tr></thead><tbody id="daily"></tbody></table></section></div>
-<p class="foot">*Distinct browsers are estimates, not identifiable people. The historical totals and event records remain in your existing Cloudflare D1 database. A page update does not reset them. Location data is approximate and inferred from Cloudflare request geography; missing historical locations cannot be reconstructed. The 3-, 6- and 12-month views reflect only events actually retained in D1. Device labels are inferred from browser-provided user agents; older records are not retroactively relabeled.</p></div></main>
+<p class="foot">*Distinct browsers are estimates, not identifiable people. The historical totals and event records remain in your existing Cloudflare D1 database. A page update does not reset them. Location data is approximate; only qualifying locations returned by the Worker are displayed. The 3-, 6- and 12-month views reflect only events actually retained in D1. Device labels are inferred from browser-provided user agents; older records are not retroactively relabeled.</p></div></main>
 <script>
 'use strict';
-const escapeHtml=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ENDPOINT='https://aircraft-reference-usage.wgy9sy6b59.workers.dev', $=id=>document.getElementById(id), fmt=x=>(Number(x)||0).toLocaleString(), names=[['a300','A300'],['md11','MD-11'],['b757','757'],['b767','767'],['b777','777']], nameMap=Object.fromEntries(names);let key='',map=null,markerLayer=null,heatLayer=null,points=[],mapMode='world',range=30,dayOpen=null,mapEmptyReason='No locations with recorded coordinates for this selection.';
+const ENDPOINT='https://aircraft-reference-usage.wgy9sy6b59.workers.dev', $=id=>document.getElementById(id), fmt=x=>(Number(x)||0).toLocaleString(), names=[['a300','A300'],['md11','MD-11'],['b757','757'],['b767','767'],['b777','777']], nameMap=Object.fromEntries(names);let key='',map=null,markerLayer=null,heatLayer=null,points=[],mapMode='world',range=30,dayOpen=null;
 try{const saved=localStorage.getItem('fleetUsageDashboardKey');if(saved){$('key').value=saved;$('remember').checked=true}}catch{}
 function lock(){key='';$('login').hidden=false;$('report').hidden=true}
 $('lock').onclick=lock;$('forget').onclick=()=>{try{localStorage.removeItem('fleetUsageDashboardKey')}catch{}$('key').value='';$('remember').checked=false;lock()};$('view').onclick=()=>load(false);$('refresh').onclick=()=>load(true);$('key').addEventListener('keydown',e=>{if(e.key==='Enter')load(false)});
@@ -156,14 +179,7 @@ async function ensureMap(){
  });
  if(!await leafletPromise){$('mapStatus').textContent='Map library unavailable. Country counts remain available below.';return false}
  map=L.map('usageMap',{scrollWheelZoom:false,zoomControl:true,preferCanvas:true}).setView([18,5],2);
- L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  attribution:'© OpenStreetMap contributors',
-  maxZoom:19,
-  noWrap:true
-}).addTo(map);
-
-map.setMaxBounds([[-85,-180],[85,180]]);
-map.options.maxBoundsViscosity=1.0;
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19}).addTo(map);
  map.on('zoomend moveend',drawMap);
  setTimeout(()=>map.invalidateSize(),150);
  return true;
@@ -204,7 +220,7 @@ function drawMap(){
    const icon=L.divIcon({className:'',html,iconSize:[1,1],iconAnchor:[0,0]});
    const detail=g.members.slice().sort((a,b)=>b.n-a.n).map(x=>{
      const city=[x.p.city,x.p.region,x.p.country].filter(Boolean).join(', ')||'Approximate location';
-     return '<div style="padding:5px 0;border-bottom:1px solid #ffffff22"><b>'+escapeHtml(city)+'</b><br>'+fmt(x.n)+' uses · '+fmt(x.p.browsers)+' browsers</div>';
+     return '<div style="padding:5px 0;border-bottom:1px solid #ffffff22"><b>'+safe(city)+'</b><br>'+fmt(x.n)+' uses · '+fmt(x.p.browsers)+' browsers</div>';
    }).join('');
    const title=count>1?count+' nearby locations':'Location activity';
    return L.marker(center,{icon,keyboard:true,title:fmt(g.n)+' uses across '+count+' location(s)'})
@@ -213,7 +229,7 @@ function drawMap(){
  markerLayer=L.layerGroup(markers).addTo(map);
  $('mapStatus').textContent=visible.length
   ?fmt(visible.length)+' qualifying approximate city locations · '+groups.length+' clear map markers · tap to see city details.'
-  :mapEmptyReason;
+  :'No qualifying location data returned for this view.';
 }
 function switchMap(mode){mapMode=mode;$('worldTab').classList.toggle('active',mode==='world');$('usaTab').classList.toggle('active',mode==='usa');if(map){map.setView(mode==='world'?[18,5]:[39,-98],mode==='world'?2:4);drawMap()}}
 $('worldTab').onclick=()=>switchMap('world');$('usaTab').onclick=()=>switchMap('usa');for(const [id,n] of [['range30',30],['range90',90],['range180',180],['range365',365]])$(id).onclick=()=>{range=n;for(const [other,k] of [['range30',30],['range90',90],['range180',180],['range365',365]])$(other).classList.toggle('active',k===n);if(key)updateAnalytics()};
@@ -249,41 +265,37 @@ async function updateAnalytics(){try{
  $('hourChart').replaceChildren(...Array.from({length:24},(_,i)=>{const b=document.createElement('div');b.className='hourbar';b.style.height=(100*(hours.get(i)||0)/high)+'%';b.title=String(i).padStart(2,'0')+':00 UTC · '+fmt(hours.get(i))+' events';return b}));
  renderTrend((d.daily||[]).map(x=>({day:x.day,opens:x.opens})));
  const feed=$('recentFeed');feed.replaceChildren();for(const e of r.events||[]){const row=document.createElement('div');row.className='feedrow';const t=document.createElement('time');const parsed=new Date(e.created_at);t.textContent=isNaN(parsed.getTime())?String(e.created_at):parsed.toLocaleString('en-US',{timeZone:'America/Chicago',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'});const label=document.createElement('span');label.textContent=(e.event==='open'?'Opened reference':e.event==='aircraft'?'Viewed aircraft':e.event==='vibe'?'Opened vibe':'Event')+(e.aircraft?' · '+(nameMap[e.aircraft]||e.aircraft):'')+(e.device?' · '+e.device:'');row.append(t,label);feed.append(row)}if(!feed.children.length)feed.textContent='No activity yet';
- const geo=d.geo_health||{};
- const countryTagged=Number(geo.country_tagged||0),coordTagged=Number(geo.coordinate_tagged||0),totalGeo=Number(geo.tagged||current.events||0);
- mapEmptyReason=coordTagged===0
-  ?(countryTagged>0?'No map points: '+fmt(countryTagged)+' events have a country, but no stored city coordinates. Country totals remain available below.':'No stored geographic coordinates for this period. Check that the Worker migration was applied and new events are being recorded.')
-  :'No map points in this view. Try World, or inspect geographic coverage above.';
- $('geoHealth').textContent='GEO COVERAGE · '+fmt(coordTagged)+' of '+fmt(totalGeo)+' events have approximate map coordinates · '+fmt(countryTagged)+' have country data. Locations are approximate; older missing locations cannot be recovered.';
- points=d.cities||[];
-
-const mappedEvents=points.reduce(
-  (sum,p)=>sum+(Number(p.events)||0),0
-);
-
-const missingFromMap=Math.max(
-  0,coordTagged-mappedEvents
-);
-
-$('geoHealth').textContent=
-  'GEOGRAPHIC AUDIT · '+
-  fmt(mappedEvents)+' events represented by map locations · '+
-  fmt(coordTagged)+' events with coordinates · '+
-  fmt(missingFromMap)+' coordinate-tagged events not represented · '+
-  fmt(countryTagged)+' events with country information.';
-
-if(missingFromMap>0){
- $('geoHealth').classList.add('warning');
-}else{
- $('geoHealth').classList.remove('warning');
-}[];await ensureMap();drawMap();
+ points=d.cities||[];await ensureMap();drawMap();
  }catch(e){$('mapStatus').textContent='Analytics unavailable: '+e.message;$('dataHealth').textContent='Analytics request failed: '+e.message;$('dataHealth').classList.add('warn')}}
 if($('key').value)load(false);
-
+</script><script>
+(function(){
+ const $=id=>document.getElementById(id);
+ const ENDPOINT_ANN='https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
+ let announcements=[],editId=null;
+ const status=(s)=>{$('announceStatus').textContent=s};
+ const auth=()=>{const val=$('key').value.trim();if(!val)throw Error('Unlock the dashboard first.');return val};
+ async function req(method,path,body){const response=await fetch(ENDPOINT_ANN+path,{method,headers:{'Authorization':'Bearer '+auth(),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store'});if(!response.ok){let message='HTTP '+response.status;try{const j=await response.json();message=j.error||message}catch{}throw Error(message)}return response.json()}
+ function clear(){editId=null;$('announceTitle').value='';$('announceBody').value='';$('announceDate').value='';$('announcePublish').textContent='Publish update';status('')}
+ function render(){const list=$('announceCurrent');list.replaceChildren();if(!announcements.length){list.textContent='No published announcements.';return}
+ for(const item of announcements){const article=document.createElement('article'),title=document.createElement('strong');title.textContent=item.title;article.appendChild(title);const body=document.createElement('p');body.textContent=item.body;article.appendChild(body);if(item.target_date){const small=document.createElement('small');small.textContent='Expected: '+item.target_date;article.appendChild(small)}const actions=document.createElement('div');actions.className='announce-actions';const edit=document.createElement('button');edit.textContent='Edit';edit.onclick=()=>{editId=item.id;$('announceTitle').value=item.title;$('announceBody').value=item.body;$('announceDate').value=item.target_date||'';$('announcePublish').textContent='Save changes';status('Editing: '+item.title);$('announceTitle').focus()};const remove=document.createElement('button');remove.textContent='Remove';remove.onclick=async()=>{if(!confirm('Remove this announcement from all devices?'))return;try{await req('DELETE','/announcements/'+encodeURIComponent(item.id));await loadAnnouncements();status('Announcement removed.')}catch(e){status(e.message)}};actions.append(edit,remove);article.appendChild(actions);list.appendChild(article)}}
+ async function loadAnnouncements(){try{const data=await req('GET','/announcements/admin');announcements=Array.isArray(data.items)?data.items:[];render()}catch(e){status('Announcements: '+e.message);$('announceCurrent').textContent='Could not load announcements.'}}
+ $('announcePublish').addEventListener('click',async()=>{const title=$('announceTitle').value.trim(),body=$('announceBody').value.trim(),target_date=$('announceDate').value;if(!title||!body){status('Enter both a headline and an update description.');return}const btn=$('announcePublish');btn.disabled=true;try{await req(editId?'PUT':'POST',editId?'/announcements/'+encodeURIComponent(editId):'/announcements',{title,body,target_date:target_date||null});clear();await loadAnnouncements();status('Published successfully. Changes will appear when the reference app refreshes.')}catch(e){status(e.message)}finally{btn.disabled=false}});
+ $('announceCancel').addEventListener('click',clear);
+ const observer=new MutationObserver(()=>{if(!$('report').hidden)loadAnnouncements()});observer.observe($('report'),{attributes:true,attributeFilter:['hidden']});
+ $('refresh').addEventListener('click',()=>{if(!$('report').hidden)loadAnnouncements()});
+})();
 </script>
-
-<script src="./message-center.js" defer></script>
-<script src="./announcements-admin.js" defer></script>
+<script>
+(function(){'use strict';
+const $=id=>document.getElementById(id), fmt=n=>(Number(n)||0).toLocaleString();
+function table(id,columns,rows){let e=$(id);e.replaceChildren();if(!rows.length){e.textContent='No recorded events yet.';return}const table=document.createElement('table'),head=document.createElement('thead'),h=document.createElement('tr');columns.forEach(([key,label])=>{let c=document.createElement('th');c.textContent=label;h.append(c)});head.append(h);table.append(head);const body=document.createElement('tbody');rows.forEach(r=>{let tr=document.createElement('tr');columns.forEach(([key])=>{let c=document.createElement('td');c.textContent=/opens|views|events|visitors|actions|launches/.test(key)?fmt(r[key]):String(r[key]??'—');tr.append(c)});body.append(tr)});table.append(body);e.append(table)}
+async function loadMX(){if(!key){$('mxStatus').textContent='Unlock the dashboard first.';return}const b=$('mxReload');b.disabled=true;try{const data=await api('/app-stats?days='+encodeURIComponent($('mxDays').value));const a=data.apps||[],p=data.pages||[]; $('mxAllOpens').textContent=fmt(a.reduce((v,x)=>v+Number(x.opens||0),0));$('mxAllViews').textContent=fmt(a.reduce((v,x)=>v+Number(x.page_views||0),0));$('mxAllVisitors').textContent=fmt(a.reduce((v,x)=>v+Number(x.visitors||0),0));table('mxApps',[['app_id','App'],['opens','Opens'],['page_views','Page views'],['launches','Launches'],['actions','Actions'],['visitors','Browsers'],['last_seen','Last activity (UTC)']],a);table('mxPages',[['app_id','App'],['page_id','Page'],['views','Views'],['visitors','Browsers']],p);const r=$('mxRecent');r.replaceChildren();(data.recent||[]).slice(0,35).forEach(x=>{const el=document.createElement('div');el.className='eventrow';const t=document.createElement('time');t.textContent=new Date(x.created_at).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});const label=document.createElement('span');label.textContent=x.app_id+' · '+x.event+' · '+x.page_id+(x.device?' · '+x.device:'');el.append(t,label);r.append(el)});if(!r.children.length)r.textContent='No app events yet.';$('mxStatus').textContent='Updated '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago'})+' CT';}catch(err){$('mxStatus').textContent=err.message+' — confirm app tracking migration and Worker update.'}finally{b.disabled=false}}
+$('mxDays').addEventListener('change',loadMX);$('mxReload').addEventListener('click',loadMX);
+const originalView=$('view').onclick,originalRefresh=$('refresh').onclick;
+$('view').onclick=async function(){await originalView();if(key)loadMX()};
+$('refresh').onclick=async function(){await originalRefresh();if(key)loadMX()};
+if(key)loadMX();
+})();
+</script>
 </body></html>
-
-
