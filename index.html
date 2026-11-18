@@ -77,7 +77,14 @@
 <body>
 <header class="top"><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE </div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
 <main class="wrap">
-<div id="home"><nav class="aircraft-grid" aria-label="Select aircraft"><button class="aircraft-btn" data-id="a300">A300</button><button class="aircraft-btn" data-id="md11">MD-11</button><button class="aircraft-btn" data-id="b757">757</button><button class="aircraft-btn" data-id="b767">767</button><button class="aircraft-btn" data-id="b777">777</button></nav>
+
+<div id="home">
+<div id="upcoming-updates" style="display:none;background:#f4d75b;color:#342a0e;border:1px solid #e6c34e;border-radius:9px;padding:8px 12px;margin-bottom:10px;font-size:12px;line-height:1.4">
+  <strong>📢 Upcoming Updates</strong>
+  <div id="upcoming-updates-list"></div>
+</div>
+<nav class="aircraft-grid" aria-label="Select aircraft">
+<button class="aircraft-btn" data-id="a300">A300</button><button class="aircraft-btn" data-id="md11">MD-11</button><button class="aircraft-btn" data-id="b757">757</button><button class="aircraft-btn" data-id="b767">767</button><button class="aircraft-btn" data-id="b777">777</button></nav>
 <section class="panel oxygen"><h2>OXYGEN</h2><div class="data-row"><span>ETOPS 777</span><b>Max 1850 @ 70°</b></div><div class="data-row"><span>ETOPS 767</span><b>1800 @ 70°</b></div><div class="data-row"><span>All other fleet types</span><b>1444 @ 50° • 1500 @ 70° • 1555 @ 90°</b></div></section>
 <div class="utility-grid" id="utilities"></div>
 <p class="disclaimer">Transcribed from the supplied FedEx ACMX reference card (REV# 11/25). This is a convenience display, not an approved maintenance reference. Verify all values, procedures and limits against current approved AMM and company documents before use. Reference card may contain abbreviated or variant-specific information.</p>
@@ -1261,6 +1268,32 @@ initializeDeviceBackup();
    }catch(error){status.className='change-status error';status.textContent='Not sent — dashboard message receiving is not configured or temporarily unavailable. Please try later.';}
    finally{submit.disabled=false;}
  });
+})();
+</script>
+<script>
+(async function(){
+  const box=document.getElementById('upcoming-updates');
+  const list=document.getElementById('upcoming-updates-list');
+  if(!box||!list)return;
+  try{
+    const response=await fetch(
+      'https://aircraft-reference-usage.wgy9sy6b59.workers.dev/announcements',
+      {cache:'no-store'}
+    );
+    if(!response.ok)throw new Error('Unavailable');
+    const data=await response.json();
+    const items=Array.isArray(data.items)?data.items:[];
+    list.replaceChildren();
+    for(const item of items){
+      const line=document.createElement('div');
+      line.style.marginTop='4px';
+      line.textContent=[item.title,item.body].filter(Boolean).join(' — ');
+      list.append(line);
+    }
+    box.style.display=items.length?'block':'none';
+  }catch(error){
+    console.warn('Announcements unavailable',error);
+  }
 })();
 </script>
 </body></html>
