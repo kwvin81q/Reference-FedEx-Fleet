@@ -87,6 +87,15 @@
 .reference-disclosure>summary::after{content:'';flex:none;width:9px;height:9px;border:solid var(--disclosure-accent);border-width:0 2px 2px 0;transform:rotate(45deg);margin-right:4px}
 .reference-disclosure[open]>summary::after{transform:rotate(225deg)}
 .reference-disclosure>summary:focus-visible{outline:2px solid #bda1ff;outline-offset:3px}
+
+.reference-disclosure > :is(.change-request,.usage),
+.reference-disclosure > div > :is(.local-atis-panel,.notes-home,.tail-notes,.mx-panel,.manager-panel){
+ margin-top:10px;
+ border-color:var(--disclosure-accent);
+ background:#13263a;
+ background:linear-gradient(135deg,color-mix(in srgb,var(--disclosure-accent) 15%,#13263a),#0c1c2d 65%);
+ box-shadow:0 0 12px -5px var(--disclosure-accent);
+}
 </style><style id="mx-app-center-link-style">#mxAppCenterLink{position:fixed;z-index:9999;right:12px;top:calc(10px + env(safe-area-inset-top));background:linear-gradient(135deg,#7c3aed,#a855f7);border:1px solid #d2a9ff;color:white;text-decoration:none;box-shadow:0 8px 28px #0009;border-radius:13px;padding:11px 13px;font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.02em}#mxAppCenterLink:focus-visible{outline:3px solid white;outline-offset:3px}@media(max-width:440px){#mxAppCenterLink{font-size:11px;padding:9px 10px}}</style></head>
 <body><a href="./apps.html" id="mxAppCenterLink" data-mx-track="other-mx-apps">OTHER MX APPS ↗</a>
 <header class="top"><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE </div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
