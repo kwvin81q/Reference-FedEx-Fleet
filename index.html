@@ -78,6 +78,8 @@
 .updates-heading{padding:5px 10px;display:flex;gap:8px;align-items:center;justify-content:space-between;font-size:12px;font-weight:750;letter-spacing:0;border-bottom:1px solid #8b701e45}
 .updates-heading small{font-size:10px;color:#604b10;font-weight:500;letter-spacing:0}
 .updates-list{padding:2px 10px 5px}.update-entry{padding:4px 0;border-bottom:1px solid #70571835}.update-entry:last-child{border-bottom:0}.update-title{font-size:12px;font-weight:750}.update-text{font-size:12px;line-height:1.35;white-space:pre-wrap;margin-top:2px;color:#342c16;overflow-wrap:anywhere}.update-meta{font-size:10px;color:#654f18;margin-top:2px}.updates-empty{padding:3px 0;font-size:12px;color:#514019}
+#station-picker{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+#station-picker select{color:inherit;background:#12253b;border:1px solid #7199bf;border-radius:10px;padding:10px;font:inherit;min-height:44px;max-width:100%}
 </style><style id="mx-app-center-link-style">#mxAppCenterLink{position:fixed;z-index:9999;right:12px;top:calc(10px + env(safe-area-inset-top));background:linear-gradient(135deg,#7c3aed,#a855f7);border:1px solid #d2a9ff;color:white;text-decoration:none;box-shadow:0 8px 28px #0009;border-radius:13px;padding:11px 13px;font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.02em}#mxAppCenterLink:focus-visible{outline:3px solid white;outline-offset:3px}@media(max-width:440px){#mxAppCenterLink{font-size:11px;padding:9px 10px}}</style></head>
 <body><a href="./apps.html" id="mxAppCenterLink" data-mx-track="other-mx-apps">OTHER MX APPS ↗</a>
 <header class="top"><div class="eyebrow">FEDEX ACMX • QUICK REFERENCE </div><h1>Aircraft Reference</h1><p id="subtitle">Select an aircraft type to view its reference card.</p></header>
@@ -98,7 +100,7 @@
 <div id="detail" hidden></div>
 </main>
 <div id="directory-modal" class="overlay" hidden><section class="directory" role="dialog" aria-modal="true" aria-labelledby="directory-title"><header class="directory-head"><div><span class="eyebrow">FEDEX MX QUICK CONNECT</span><h2 id="directory-title">Contact Directory</h2></div><button class="close" type="button" id="close-dir" aria-label="Close contacts">✕</button></header><div class="directory-tools"><input id="contact-search" type="search" placeholder="Search names or 901 numbers" aria-label="Search contacts"><div class="filter-row"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="operations">Operations</button><button class="filter" data-filter="maintenance">Maintenance</button><button class="filter" data-filter="support">Support</button><button class="filter" data-filter="manager">Managers</button><button class="filter" data-filter="personal">My contacts</button></div></div><p class="help">Tap ★ to add or remove favorites. Use the green phone button to dial, or copy to clipboard. Favorites stay on this device.</p><div id="directory-list" class="directory-list"></div><form id="add-contact" class="add-contact"><h3>ADD PERSONAL CONTACT</h3><div class="add-fields"><input name="name" placeholder="Contact name" maxlength="50" required><input name="number" type="tel" placeholder="901-000-0000" maxlength="20" required></div><button type="submit" class="add-button">+ Save personal contact</button></form><div class="privacy-note">Personal contacts and favorites are stored in this browser only. Clearing site data will remove them. No contact data is sent to usage tracking.</div></section></div>
-<div id="manager-modal" class="overlay" hidden><section class="directory manager-directory" role="dialog" aria-modal="true" aria-labelledby="manager-title"><header class="directory-head"><div><span class="eyebrow">AIRCRAFT LINE MX • APRIL 2026</span><h2 id="manager-title">Manager List</h2></div><button class="close" type="button" id="close-managers" aria-label="Close manager list">✕</button></header><div class="directory-tools"><input id="manager-search" type="search" placeholder="Search manager, employee # or phone" aria-label="Search managers" autocomplete="off"></div><p class="help">Tap ★ to save manager favorites on this device. Use the green handset to call. The list opens without activating search.</p><div id="manager-list" class="directory-list"></div><form id="add-manager" class="add-contact"><h3>ADD MY OWN MANAGER</h3><div class="add-fields"><input name="name" placeholder="Manager name" maxlength="70" required><input name="employee" placeholder="Employee # (optional)" inputmode="numeric" maxlength="10"><input name="number" type="tel" placeholder="305-4610 or 901-305-4610" maxlength="22" required></div><button type="submit" class="add-button">+ Add Manager &amp; Favorite</button></form><p class="privacy-note">Your added managers and favorites are stored only in this browser. Clearing browser data removes them. Built-in manager information is publicly visible on this site; verify approval and accuracy before using it.</p></section></div>
+<div id="manager-modal" class="overlay" hidden><section class="directory manager-directory" role="dialog" aria-modal="true" aria-labelledby="manager-title"><header class="directory-head"><div><span class="eyebrow">AIRCRAFT LINE MX</span><h2 id="manager-title">Manager List</h2></div><button class="close" type="button" id="close-managers" aria-label="Close manager list">✕</button></header><div class="directory-tools"><input id="manager-search" type="search" placeholder="Search manager, employee # or phone" aria-label="Search managers" autocomplete="off"></div><p class="help">Tap ★ to save manager favorites on this device. Use the green handset to call. The list opens without activating search.</p><div id="manager-list" class="directory-list"></div><form id="add-manager" class="add-contact"><h3>ADD MY OWN MANAGER</h3><div class="add-fields"><input name="name" placeholder="Manager name" maxlength="70" required><input name="employee" placeholder="Employee # (optional)" inputmode="numeric" maxlength="10"><input name="number" type="tel" placeholder="305-4610 or 901-305-4610" maxlength="22" required></div><button type="submit" class="add-button">+ Add Manager &amp; Favorite</button></form><p class="privacy-note">Your added managers and favorites are stored only in this browser. Clearing browser data removes them. Built-in manager information is publicly visible on this site; verify approval and accuracy before using it.</p></section></div>
 <div id="notes-editor" class="notes-overlay" hidden><section class="notes-modal" role="dialog" aria-modal="true" aria-labelledby="notes-editor-title"><h2 id="notes-editor-title">Personal Aircraft Note</h2><form id="notes-form"><input name="id" type="hidden"><label for="note-fleet">Aircraft type</label><select id="note-fleet" name="fleet" required><option value="a300">A300</option><option value="md11">MD-11</option><option value="b757">757</option><option value="b767">767</option><option value="b777">777</option></select><label for="note-tail">Tail number</label><input id="note-tail" name="tail" type="text" required maxlength="16" placeholder="e.g. N580FE" autocapitalize="characters" autocomplete="off"><label for="note-body">Your note</label><textarea id="note-body" name="body" required maxlength="5000" placeholder="Type your personal reminder here..."></textarea><p class="notes-warning">Personal notes are stored only in this browser, not shared with other mechanics. Do not include controlled technical information, credentials, or use as an official maintenance log.</p><div class="notes-buttons"><button class="notes-btn primary" type="submit">Save Note</button><button id="note-cancel" class="notes-btn" type="button">Cancel</button></div></form></section></div>
 <input id="notes-import-file" type="file" accept="application/json,.json" hidden aria-label="Choose notes backup file">
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -891,9 +893,251 @@ let personal=readJSON(PERSONAL_KEY,[]);if(!Array.isArray(personal))personal=[];
 let personalManagers=readJSON(PERSONAL_MANAGERS_KEY,[]);if(!Array.isArray(personalManagers))personalManagers=[];
 let usage=readJSON(USAGE_KEY,{opens:0,views:0,byAircraft:{}});if(typeof usage!=='object'||!usage)usage={opens:0,views:0,byAircraft:{}};
 usage.opens=(Number(usage.opens)||0)+1;writeJSON(USAGE_KEY,usage);trackShared('open');
+const IND_MANAGERS = [
+  {
+    "id": "ind-manager-1",
+    "name": "Dan Parent (MD, IND & West Region)",
+    "employee": "476346",
+    "number": "317-481-7921"
+  },
+  {
+    "id": "ind-manager-1-mobile",
+    "name": "Dan Parent (MD, IND & West Region) — Mobile",
+    "employee": "476346",
+    "number": "901-930-7713"
+  },
+  {
+    "id": "ind-manager-2",
+    "name": "Cesar Mendivil",
+    "employee": "3883818",
+    "number": "317-483-1487"
+  },
+  {
+    "id": "ind-manager-3",
+    "name": "Christian Kline",
+    "employee": "490932",
+    "number": "317-481-7061"
+  },
+  {
+    "id": "ind-manager-3-mobile",
+    "name": "Christian Kline — Mobile",
+    "employee": "490932",
+    "number": "317-408-3637"
+  },
+  {
+    "id": "ind-manager-4",
+    "name": "Mark Holsapple",
+    "employee": "462063",
+    "number": "317-481-7498"
+  },
+  {
+    "id": "ind-manager-4-mobile",
+    "name": "Mark Holsapple — Mobile",
+    "employee": "462063",
+    "number": "317-460-9291"
+  },
+  {
+    "id": "ind-manager-5",
+    "name": "Mark Van Zant",
+    "employee": "226971",
+    "number": "317-481-7031"
+  },
+  {
+    "id": "ind-manager-5-mobile",
+    "name": "Mark Van Zant — Mobile",
+    "employee": "226971",
+    "number": "317-982-0987"
+  },
+  {
+    "id": "ind-manager-6",
+    "name": "Travis Donald",
+    "employee": "735364",
+    "number": "317-481-7301"
+  },
+  {
+    "id": "ind-manager-7",
+    "name": "Michael Sanford (Sr. Mgr)",
+    "employee": "486385",
+    "number": "317-481-7492"
+  },
+  {
+    "id": "ind-manager-7-mobile",
+    "name": "Michael Sanford (Sr. Mgr) — Mobile",
+    "employee": "486385",
+    "number": "317-289-4631"
+  }
+];
+const IND_CONTACTS = [
+  {
+    "id": "ind-local-1",
+    "name": "Crew 1 Lead Desk (Mids)",
+    "number": "317-481-7171",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-2",
+    "name": "Crew 2 Lead Desk (Mids)",
+    "number": "317-260-2027",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-3",
+    "name": "Crew 3 Lead Desk (Mids)",
+    "number": "317-481-7103",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-4",
+    "name": "Crew 4 Lead Desk (Mids)",
+    "number": "317-481-7303",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-5",
+    "name": "Crew 5 Lead Desk (Mids)",
+    "number": "317-481-7302",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-6",
+    "name": "Swings Lead Desk",
+    "number": "317-481-7113",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-7",
+    "name": "Football (Line MX Lead Cell)",
+    "number": "317-879-6161",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-8",
+    "name": "Mac 2",
+    "number": "317-481-7556",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-9",
+    "name": "Weekends Lead Desk",
+    "number": "317-481-7044",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-10",
+    "name": "Corporate Security",
+    "number": "317-714-1626",
+    "cat": "operations"
+  },
+  {
+    "id": "ind-local-11",
+    "name": "Ramp Tower",
+    "number": "317-481-7477",
+    "cat": "operations"
+  },
+  {
+    "id": "ind-local-12",
+    "name": "Fab Shop (Tow Bar Repair)",
+    "number": "317-481-7689",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-13",
+    "name": "Stores",
+    "number": "317-481-7001",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-14",
+    "name": "GSE (Main)",
+    "number": "317-481-7366",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-15",
+    "name": "Day Shift Lead Desk",
+    "number": "317-481-7854",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-16",
+    "name": "Airport Ops",
+    "number": "317-487-5023",
+    "cat": "operations"
+  },
+  {
+    "id": "ind-local-17",
+    "name": "GSE (West)",
+    "number": "317-481-4370",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-18",
+    "name": "Truck Shop",
+    "number": "317-481-7474",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-19",
+    "name": "West Hangar Tool Room",
+    "number": "317-390-2831",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-20",
+    "name": "East Hangar Tool Room",
+    "number": "317-260-2036",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-21",
+    "name": "Line MX Tool Room",
+    "number": "317-481-7001",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-22",
+    "name": "Line MX Tool Room (Cell)",
+    "number": "317-902-5503",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-23",
+    "name": "IND Hub DG Spill",
+    "number": "317-481-7458",
+    "cat": "operations"
+  },
+  {
+    "id": "ind-local-24",
+    "name": "Hangar Avionics",
+    "number": "317-390-2838",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-25",
+    "name": "Hangar Structures Lead",
+    "number": "317-716-2077",
+    "cat": "maintenance"
+  },
+  {
+    "id": "ind-local-26",
+    "name": "Hangar QA/INSP",
+    "number": "317-390-2816",
+    "cat": "maintenance"
+  }
+];
+const STATION_KEY = 'mx-contact-station-v1';
+let station = readJSON(STATION_KEY,'MEM') === 'IND' ? 'IND' : 'MEM';
+const stationName = () => station === 'IND' ? 'Indianapolis (IND)' : 'Memphis (MEM)';
+const stationAreaCode = () => station === 'IND' ? '317' : '901';
+const sharedIds = new Set(['aog','aog-alt','goc-dom','goc-int','goc-int-alt','fleet757','fleet767','fleetmd11','fleetmd10','fleetairbus','fleetpower']);
+const sharedExtra = [
+ {id:'mocc-main',name:'MOCC',number:'800-238-0280',cat:'operations'},
+ {id:'gocc-main',name:'GOCC',number:'800-321-4589',cat:'operations'}
+];
+const atStation = entry => (entry.station || 'MEM') === station;
 let filter='all',search='';
-function allManagers(){return [...MANAGERS,...personalManagers,...customManagers]}
-function allContacts(){return [...CONTACTS,...personal,...allManagers().map(m=>({...m,cat:'manager',icon:m.icon||'♙'}))]}
+function allManagers(){return [...(station === 'IND' ? IND_MANAGERS : MANAGERS),...personalManagers.filter(atStation),...customManagers.filter(atStation)]}
+function allContacts(){return [...(station === 'IND' ? [...CONTACTS.filter(c=>sharedIds.has(c.id)),...IND_CONTACTS] : CONTACTS),...sharedExtra,...personal.filter(atStation),...allManagers().map(m=>({...m,cat:'manager',icon:m.icon||'♙'}))]}
 function normalizedPhone(raw){const d=cleanNumber(raw);if(d.length===7)return '901-'+d.slice(0,3)+'-'+d.slice(3);if(d.length===10)return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);if(d.length===11&&d[0]==='1')return normalizedPhone(d.slice(1));return null}
 function cleanNumber(s){return String(s).replace(/\D/g,'')}
 function dial(s){const digits=cleanNumber(s);if(digits.length===10||digits.length===11){location.href='tel:+'+(digits.length===10?'1':'')+digits}else toast('Invalid phone number')}
@@ -905,7 +1149,13 @@ function managerRow(m){const checked=favorites.includes(m.id);const d=cleanNumbe
 function renderManagers(){const host=byId('managers-home');if(!host)return;const all=allManagers();const chosen=all.filter(m=>favorites.includes(m.id));const excerpt=chosen.length?chosen:all.filter(m=>/Sr. Mgr/.test(m.name));host.innerHTML=`<section class="mx-panel managers-panel" aria-labelledby="manager-heading"><div class="manager-head"><div><span class="eyebrow">FEDEX MX QUICK CONNECT</span><h2 id="manager-heading">MANAGER LIST</h2><small>MEM Aircraft Line MX · April 2026 source</small></div><span class="manager-count">${all.length} entries</span></div><div class="favs-title"><span>★</span> ${chosen.length?'FAVORITE MANAGERS':'MANAGER QUICK VIEW'}</div><div class="manager-list">${excerpt.map(managerRow).join('')}</div><details class="manager-expand" id="manager-expand"><summary>View Full Manager List <span>⌄</span></summary><p class="help">Tap a star to add a manager to your personal favorites and to the Quick Connect speed dial. Add your own entries below.</p><div class="manager-list">${all.map(managerRow).join('')}</div><form id="add-manager" class="add-contact"><h3>ADD PERSONAL MANAGER</h3><div class="add-fields manager-fields"><input name="name" maxlength="60" placeholder="Manager name" aria-label="Manager name" required><input name="number" inputmode="tel" type="tel" maxlength="20" placeholder="7 digits or area code + number" aria-label="Manager phone" required><input name="employee" maxlength="15" placeholder="Employee # (optional)" aria-label="Employee number optional"></div><button class="add-button" type="submit">+ Add Manager</button></form></details><p class="manager-note">Favorites and personally added managers are saved on this device only. Published manager details should be checked for currency and approved for distribution before release.</p></section>`;}
 byId('managers-home').addEventListener('click',e=>{const btn=e.target.closest('[data-mstar],[data-mdelete]');if(!btn)return;const id=btn.dataset.mstar||btn.dataset.mdelete;const wasOpen=!!byId('manager-expand')?.open;if(btn.hasAttribute('data-mstar')){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];writeJSON(FAVORITES_KEY,favorites)}else{if(!confirm('Remove this personal manager?'))return;personalManagers=personalManagers.filter(m=>m.id!==id);writeJSON(PERSONAL_MANAGERS_KEY,personalManagers);favorites=favorites.filter(x=>x!==id);writeJSON(FAVORITES_KEY,favorites)}renderContacts();if(wasOpen)byId('manager-expand').open=true});
 byId('managers-home').addEventListener('submit',e=>{if(e.target.id!=='add-manager')return;e.preventDefault();const f=new FormData(e.target);const name=String(f.get('name')||'').trim(),number=normalizedPhone(f.get('number')),employee=String(f.get('employee')||'').trim();if(!name||!number){toast('Enter a valid 7 or 10 digit phone number');return}personalManagers.push({id:'user-manager-'+Date.now(),name,number,employee,cat:'manager',icon:'♙'});writeJSON(PERSONAL_MANAGERS_KEY,personalManagers);renderContacts();byId('manager-expand').open=true;toast('Manager added on this device')});
-function renderContacts(){const selected=favorites.map(id=>[...CONTACTS,...personal].find(x=>x.id===id)).filter(x=>x&&x.id!=='security');byId('contacts-home').innerHTML=`<section class="mx-panel" aria-label="Memphis MX contacts"><div class="mx-header"><div class="mx-logo"><span class="purple">Fed</span><span class="orange">Ex</span><small>MX</small></div><div class="mx-heading"><strong><span class="phone-emoji"><svg class="phone-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.13.96.37 1.91.72 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.26a2 2 0 0 1 2.11-.45c.9.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg></span> FEDEX MX QUICK CONNECT</strong></div><button id="edit-favs" class="edit-btn"><span>★</span> Edit Favorites</button></div><div class="favs-title"><span>★</span> MY FAVORITES</div><div class="favs-grid">${selected.length?selected.map(favMarkup).join(''):'<p>Tap Edit Favorites to choose your speed-dial contacts.</p>'}</div><div class="mx-bottom"><button id="all-contacts" class="directory-btn"><span>☷ &nbsp; All Contacts (Phone List)</span><span class="arrow">›</span></button></div></section>`;byId('edit-favs').onclick=openDirectory;byId('all-contacts').onclick=openDirectory;renderManagers()}
+function renderContacts(){const selected=favorites.map(id=>allContacts().find(x=>x.id===id)).filter(x=>x&&x.id!=='security');byId('contacts-home').innerHTML=`<section class="mx-panel" aria-label="${stationName()} MX contacts"><div id="station-picker"><label for="contact-station">Select station</label><select id="contact-station"><option value="MEM">Memphis (MEM)</option><option value="IND">Indianapolis (IND)</option></select></div><div class="mx-header"><div class="mx-logo"><span class="purple">Fed</span><span class="orange">Ex</span><small>MX</small></div><div class="mx-heading"><strong><span class="phone-emoji"><svg class="phone-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.13.96.37 1.91.72 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.26a2 2 0 0 1 2.11-.45c.9.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg></span> FEDEX MX QUICK CONNECT</strong></div><button id="edit-favs" class="edit-btn"><span>★</span> Edit Favorites</button></div><div class="favs-title"><span>★</span> MY FAVORITES</div><div class="favs-grid">${selected.length?selected.map(favMarkup).join(''):'<p>Tap Edit Favorites to choose your speed-dial contacts.</p>'}</div><div class="mx-bottom"><button id="all-contacts" class="directory-btn"><span>☷ &nbsp; All Contacts (Phone List)</span><span class="arrow">›</span></button></div></section>`;const picker=byId('contact-station');picker.value=station;picker.onchange=()=>{
+ station=picker.value;writeJSON(STATION_KEY,station);
+ byId('contact-search').value=search='';byId('manager-search').value=managerSearch='';
+ filter='all';document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));
+ renderContacts();renderUtilities();byId('contact-station').focus();
+};
+byId('edit-favs').onclick=openDirectory;byId('all-contacts').onclick=openDirectory;renderManagers()}
 function renderDirectory(){const needle=search.trim().toLowerCase();let arr=allContacts().filter(c=>(filter==='all'||(filter==='personal'?c.cat==='personal':c.cat===filter))&&(c.name+' '+c.number).toLowerCase().includes(needle));byId('directory-list').innerHTML=arr.length?arr.map(c=>`<div class="contact-row"><button class="star ${favorites.includes(c.id)?'active':''}" data-star="${esc(c.id)}" aria-label="${favorites.includes(c.id)?'Remove':'Add'} ${esc(c.name)} favorite" aria-pressed="${favorites.includes(c.id)}">${favorites.includes(c.id)?'★':'☆'}</button><div class="info"><b>${esc(c.name)}</b><small>${esc(c.number)}</small><span class="cat">${esc(String(c.cat||'support').toUpperCase())}</span></div><button class="copy" data-copy="${esc(c.id)}" aria-label="Copy ${esc(c.number)}">⧉</button><a class="call-btn" href="tel:+${cleanNumber(c.number).replace(/^1(?=\d{10}$)/,'').replace(/^(?=\d{10}$)/,'1')}" aria-label="Call ${esc(c.name)}"><svg class="phone-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.13.96.37 1.91.72 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.26a2 2 0 0 1 2.11-.45c.9.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg></a>${c.cat==='personal'?`<button class="delete" data-delete="${esc(c.id)}" aria-label="Delete ${esc(c.name)}">✕</button>`:''}</div>`).join(''):'<p class="help">No contacts match your search.</p>'}
 function openDirectory(){byId('directory-modal').hidden=false;renderDirectory();/* Do not focus the search field on opening: prevents the iOS keyboard from obscuring contacts. */}
 function closeDirectory(){byId('directory-modal').hidden=true;renderContacts()}
@@ -915,9 +1165,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!byId('directory-mo
 byId('contact-search').oninput=e=>{search=e.target.value;renderDirectory()};
 document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));renderDirectory()});
 byId('directory-list').onclick=e=>{let b=e.target.closest('[data-star],[data-copy],[data-delete]');if(!b)return;const id=b.dataset.star||b.dataset.copy||b.dataset.delete;const contact=allContacts().find(c=>c.id===id);if(!contact)return;if(b.hasAttribute('data-star')){updateFavorite(id)}else if(b.hasAttribute('data-copy')){copyNumber(contact.number)}else if(b.dataset.delete){if(!confirm('Delete personal contact '+contact.name+'?'))return;personal=personal.filter(c=>c.id!==id);favorites=favorites.filter(x=>x!==id);writeJSON(PERSONAL_KEY,personal);writeJSON(FAVORITES_KEY,favorites);managerFavorites=favorites;writeJSON(MANAGER_FAV_KEY,favorites);renderDirectory();renderContacts()}};
-byId('add-contact').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),name=String(f.get('name')||'').trim(),digits=cleanNumber(f.get('number'));if(!name||!(digits.length===10||digits.length===11&&digits.startsWith('1'))){toast('Use a 10-digit US phone number');return}const ten=digits.slice(-10);personal.push({id:'personal-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),name,number:ten.slice(0,3)+'-'+ten.slice(3,6)+'-'+ten.slice(6),cat:'personal',icon:'☎'});writeJSON(PERSONAL_KEY,personal);e.target.reset();filter='all';document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));search='';byId('contact-search').value='';renderDirectory();toast('Personal contact saved')};
+byId('add-contact').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),name=String(f.get('name')||'').trim(),digits=cleanNumber(f.get('number'));if(!name||!(digits.length===10||digits.length===11&&digits.startsWith('1'))){toast('Use a 10-digit US phone number');return}const ten=digits.slice(-10);personal.push({station,id:'personal-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),name,number:ten.slice(0,3)+'-'+ten.slice(3,6)+'-'+ten.slice(6),cat:'personal',icon:'☎'});writeJSON(PERSONAL_KEY,personal);e.target.reset();filter='all';document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x.dataset.filter==='all'));search='';byId('contact-search').value='';renderDirectory();toast('Personal contact saved')};
 function renderUsage(){byId('opens').textContent=(Number(usage.opens)||0).toLocaleString();byId('views').textContent=(Number(usage.views)||0).toLocaleString();byId('breakdown').textContent=Object.entries(AIRCRAFT).map(([id,a])=>a.name+': '+(usage.byAircraft?.[id]||0)).join(' • ')}
-function renderUtilities(){byId('utilities').innerHTML=UTIL.map(([k,v])=>`<div class="utility"><div class="k">${esc(k)}</div><div class="v">${/^901-/.test(v)?`<a href="tel:+1${cleanNumber(v)}">${esc(v)}</a>`:esc(v)}</div></div>`).join('')}
+function renderUtilities(){byId('utilities').innerHTML=UTIL.filter(([k])=>station==='MEM'||!['ATIS','Engine Shop','Powerplant','EFB passcode'].includes(k)).map(([k,v])=>`<div class="utility"><div class="k">${esc(k)}</div><div class="v">${/^901-/.test(v)?`<a href="tel:+1${cleanNumber(v)}">${esc(v)}</a>`:esc(v)}</div></div>`).join('')}
 function tetherHTML(id){let items=TETHER[id],lengths=items.slice(0,-1);return `<section class="panel"><h2>TETHER SIZING (MEM ONLY)</h2><div class="tether">${lengths.map(x=>{let m=x.match(/^(.*?) \((.*?)\)$/);return `<div class="tether-row"><span>${m?'Tether · '+esc(m[2]):'Tether Length'}</span><strong>${esc(m?m[1]:x)}</strong></div>`}).join('')}<div class="tether-row"><span>Pet Rock</span><strong>${esc(items.at(-1))}</strong></div></div>${id==='b777'?'<p class="tether-note">When positioning a weight cart on a B777, the tether attach fittings on the weight cart must be positioned <strong>28″ forward of the center of the nose gear</strong>.</p>':''}</section>`}
 function show(id,track=false){const a=AIRCRAFT[id];if(!a){byId('home').hidden=false;byId('detail').hidden=true;byId('subtitle').textContent='Select an aircraft type to view its reference card.';if(window.mxNotesRender)window.mxNotesRender();return}if(track){window.MXTrack?.send('page','aircraft-'+id);usage.views=(Number(usage.views)||0)+1;usage.byAircraft??={};usage.byAircraft[id]=(Number(usage.byAircraft[id])||0)+1;writeJSON(USAGE_KEY,usage);trackShared('aircraft',id);renderUsage()}
 byId('home').hidden=true;byId('detail').hidden=false;byId('subtitle').textContent='Reference details • '+a.name;
@@ -954,7 +1204,7 @@ let managerSearch='';
 function managerEntries(){return allManagers()}
 function formatManagerNumber(value){
  const digits=String(value).replace(/\D/g,'');
- let d=digits.length===7?'901'+digits:digits.length===11&&digits[0]==='1'?digits.slice(1):digits;
+ let d=digits.length===7?stationAreaCode()+digits:digits.length===11&&digits[0]==='1'?digits.slice(1):digits;
  if(d.length!==10)return null;
  return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);
 }
@@ -965,8 +1215,10 @@ function managerRow(m){
 function renderManagers(){
  const entries=managerEntries();
  const pinned=managerFavorites.map(id=>entries.find(m=>m.id===id)).filter(Boolean);
- const preview=pinned.length?pinned:entries.filter(m=>m.name.includes('Sr. Mgr')).slice(0,4);
- byId('managers-home').innerHTML=`<section class="manager-panel" aria-label="Memphis manager list"><div class="manager-head"><div><h2>♙ MANAGER LIST</h2><p>AIRCRAFT LINE MX • APRIL 2026</p></div><button class="edit-btn" id="edit-managers">★ Edit Favorites</button></div><div class="manager-preview">${preview.map(managerRow).join('')}</div><button class="directory-btn manager-open" id="open-managers"><span>☷ &nbsp; View Full Manager List (${entries.length})</span><span class="arrow">›</span></button></section>`;
+ const preview=pinned.length?pinned:entries.filter(m=>m.name.includes('Sr. Mgr')&&!m.id.endsWith('-mobile')).slice(0,4);
+ byId('manager-title').textContent=stationName()+' Manager List';
+ document.querySelector('#add-manager input[name="number"]').placeholder=stationAreaCode()+'-555-0123';
+ byId('managers-home').innerHTML=`<section class="manager-panel" aria-label="${stationName()} manager list"><div class="manager-head"><div><h2>♙ MANAGER LIST</h2><p>${stationName()} · AIRCRAFT LINE MX</p></div><button class="edit-btn" id="edit-managers">★ Edit Favorites</button></div><div class="manager-preview">${preview.map(managerRow).join('')}</div><button class="directory-btn manager-open" id="open-managers"><span>☷ &nbsp; View Full Manager List (${entries.length})</span><span class="arrow">›</span></button></section>`;
  byId('edit-managers').onclick=openManagers;
  byId('open-managers').onclick=openManagers;
 }
@@ -999,7 +1251,7 @@ byId('add-manager').onsubmit=e=>{
  const number=formatManagerNumber(form.get('number'));
  if(!name||!number||employee&&!/^\d{1,10}$/.test(employee)){toast('Enter a name, valid phone number and optional numeric employee ID');return}
  const id='custom-mgr-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);
- customManagers.push({id,name,employee,number});writeJSON(MANAGER_CUSTOM_KEY,customManagers);
+ customManagers.push({id,name,employee,number,station});writeJSON(MANAGER_CUSTOM_KEY,customManagers);
  favorites=[...new Set([...favorites,id])];managerFavorites=favorites;writeJSON(FAVORITES_KEY,favorites);writeJSON(MANAGER_FAV_KEY,favorites);
  e.target.reset();managerSearch='';byId('manager-search').value='';renderManagers();renderManagerDirectory();renderContacts();toast('Manager added to favorites on this device');
 };
