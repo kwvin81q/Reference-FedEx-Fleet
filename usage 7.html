@@ -1,0 +1,371 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080d1c"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Fleet Usage"><title>FedEx MX • Executive Intelligence V3</title><link rel="apple-touch-icon" href="./fedex-mx-icon-r2-180.png"><link rel="icon" href="./fedex-mx-icon-r2-192.png"><link rel="manifest" href="./usage.webmanifest?icons=r3"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>
+:root{color-scheme:dark;--panel:#121c33;--line:#34425f;--muted:#aebdd5;--mint:#63eed0;--purple:#9c85ff}*{box-sizing:border-box}body{margin:0;background:#080d1c;color:#edf3ff;font:15px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}body:before{content:'';position:fixed;inset:0;z-index:-1;opacity:.34;background:radial-gradient(ellipse at 78% 0%,#513182,transparent 40%),radial-gradient(ellipse at 0 50%,#0e6b78,transparent 45%),url('./aircraft-wallpaper.webp') center/cover no-repeat}main{max-width:1200px;padding:calc(18px + env(safe-area-inset-top)) 15px 40px;margin:auto}.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:17px}.eyebrow{color:var(--mint);letter-spacing:2.4px;font-weight:850;font-size:11px}.brand{font-size:clamp(25px,4vw,36px);font-weight:900;letter-spacing:-1px;margin:4px 0}.brand em{color:#ff943f;font-style:normal}.brand small{font-size:.58em;color:#e8edff;font-weight:600}.tag{border:1px solid #505b86;background:#202d4b;color:#cfd9fa;padding:9px 13px;border-radius:25px;font-size:12px}section{background:linear-gradient(140deg,#151d35f2,#101b2cf5);border:1px solid var(--line);padding:19px;border-radius:19px;margin-bottom:15px;box-shadow:0 10px 24px #0004}h2{font-size:17px;margin:0 0 13px}h3{font-size:14px;margin:0 0 10px;color:#d8e3ff}.muted,.note{color:var(--muted);font-size:12px;line-height:1.55}.note{margin:10px 0 0}button{border:1px solid #6a7098;border-radius:11px;background:#2a3656;color:#f3f5ff;font:inherit;font-weight:750;padding:10px 14px;cursor:pointer}button.primary{background:linear-gradient(115deg,#5842bf,#7956e7);border-color:#9484ee}button.active{background:#7255d3;border-color:#ac99ff;box-shadow:0 0 19px #6f53dc66}button:disabled{opacity:.55}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.control-right{margin-left:auto}input[type=password]{display:block;width:100%;padding:15px;background:#0b1427;color:white;border:1px solid #58678b;border-radius:11px;font:inherit;max-width:480px;margin:9px 0}label{font-size:13px;color:#ccd8eb}label.check{display:flex;align-items:center;gap:8px;margin:13px 0}input[type=checkbox]{accent-color:#8b73ff}.error{color:#ffbaba;min-height:20px;font-size:13px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.metric{background:linear-gradient(130deg,#222b50,#151f37);border:1px solid #414b77;border-radius:14px;padding:14px;min-width:0}.metric strong{font-size:clamp(24px,4vw,36px);display:block;font-variant-numeric:tabular-nums}.metric span{font-size:12px;color:#c9d4e7}.airgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0}.airtile{border:1px solid #39476a;background:#19243d;border-bottom:3px solid var(--accent,#8674e0);border-radius:12px;padding:13px 10px}.airtile span{display:block;color:#bfcae3;font-size:12px}.airtile strong{font-size:24px;font-variant-numeric:tabular-nums}.mapbox{height:min(57vw,510px);min-height:320px;background:#0c1427;border:1px solid #50547e;border-radius:16px;overflow:hidden;position:relative}.map-actions{display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;margin:8px 0 12px}.legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#bfcce7;font-size:12px;margin:14px 0 8px}.ramp{height:12px;width:170px;border-radius:8px;background:linear-gradient(90deg,#18d77c,#f8ea49,#f29b38,#ed3b4d)}.map-status{min-height:23px}.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.subpanel{background:#0b1629;border:1px solid #344366;border-radius:12px;padding:13px}.line{display:flex;gap:10px;justify-content:space-between;padding:9px 0;border-bottom:1px solid #33415c}.line:last-child{border:0}.bars .barline{margin:11px 0}.barlabel{display:flex;gap:9px;justify-content:space-between;font-size:12px}.bartrack{height:8px;background:#273751;border-radius:9px;overflow:hidden;margin-top:6px}.barfill{background:linear-gradient(90deg,#6652dd,#53dccc);height:100%;border-radius:9px}.hourchart{height:125px;display:flex;align-items:end;gap:3px;border-bottom:1px solid #445578}.hourbar{flex:1;min-width:3px;background:linear-gradient(#7b6bfb,#46d3cc);min-height:2px;border-radius:3px 3px 0 0}.hourlabels{display:flex;justify-content:space-between;color:#a7bbd7;font-size:10px}.feed{max-height:360px;overflow:auto}.feedrow{display:grid;grid-template-columns:115px 1fr;gap:9px;padding:9px 0;border-bottom:1px solid #33425e;font-size:12px}.feedrow time{color:#82edd4}table{width:100%;border-collapse:collapse;font-size:13px}td,th{border-bottom:1px solid #374761;padding:11px 7px;text-align:left}td:not(:first-child),th:not(:first-child){text-align:right}.daybtn{border:0;background:transparent;text-decoration:underline;color:#84ebd5;padding:2px;font-size:13px}.details{text-align:left!important;background:#0b1428}.eventrow{padding:8px 0;border-bottom:1px solid #2b3d59;display:flex;gap:12px;flex-wrap:wrap}.activity-pin{--pin:#39d7af;position:relative;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;border:2px solid var(--pin);border-radius:50%;min-width:43px;height:43px;padding:0 9px;background:rgba(11,20,38,.96);color:#fff;font-size:14px;font-weight:900;font-variant-numeric:tabular-nums;box-shadow:0 0 0 5px color-mix(in srgb,var(--pin) 15%,transparent),0 0 20px color-mix(in srgb,var(--pin) 32%,transparent),inset 0 0 15px color-mix(in srgb,var(--pin) 12%,transparent);white-space:nowrap;text-shadow:0 1px 2px #000}.activity-pin.group{min-width:53px;height:53px}.activity-pin small{position:absolute;bottom:-11px;right:-14px;font-size:10px;line-height:1;border-radius:10px;padding:3px 5px;background:#354367;border:1px solid #a4b9e6;color:#fff;box-shadow:0 2px 8px #0008}.activity-pin:hover{filter:brightness(1.25)}.mapguide{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#bfcce7;font-size:12px;margin:13px 0 7px}.mapguide .key{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:8px;box-shadow:0 0 8px currentColor}.mapguide .key:first-child{margin-left:0}.mapguide strong{color:#f3f6ff}.mapbox{isolation:isolate}.leaflet-container{background:#0a172b}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#14243b;color:#fff}.leaflet-control-zoom a{background:#151e36!important;color:#fff!important}.warning{color:#f5cf85}.foot{font-size:12px;color:#b6c1d4;line-height:1.65}.live{color:#61e7c5} [hidden]{display:none!important}@media(max-width:700px){.airgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.split{grid-template-columns:1fr}.mapbox{height:360px}.control-right{margin-left:0}.feedrow{grid-template-columns:95px 1fr}}@media(max-width:385px){.airgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric strong{font-size:22px}.metrics{gap:5px}.metric{padding:10px 7px}}
+/* Darken only the OSM basemap tiles; do not tint heatmap or controls. */
+#usageMap .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.72) contrast(.9) saturate(.75); }
+
+/* Executive Edition | visual layer */
+:root{--panel:#0e1a2c;--line:#283951;--muted:#9cafc9;--mint:#69e4c5;--purple:#ab95ff;--gold:#eaba72;--surface:rgba(16,29,49,.91)}
+html{scroll-behavior:smooth}body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#070e1b;color:#f4f7fd;letter-spacing:.02px}
+body:before{opacity:1;background:radial-gradient(ellipse 85% 65% at 80% -10%,#30234f66,transparent 65%),radial-gradient(ellipse 60% 35% at 8% 20%,#0b576047,transparent 85%),linear-gradient(#080f1bde,#08101ef5),url('./aircraft-wallpaper.webp') center top/cover no-repeat fixed}
+body:after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(#82bfff0b 1px,transparent 1px),linear-gradient(90deg,#82bfff0b 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(180deg,#000,transparent 72%);z-index:-1}
+main{max-width:1440px;padding:calc(20px + env(safe-area-inset-top)) clamp(14px,3vw,45px) 65px}
+.head{border:1px solid #3e4a6b9e;background:linear-gradient(117deg,#182a46ed,#121d30ef 65%,#241d42dc);padding:20px clamp(18px,2.8vw,34px);border-radius:23px;margin-bottom:19px;box-shadow:inset 0 1px #ffffff24,0 25px 60px #0004;position:relative;overflow:hidden}
+.head:after{content:'';width:360px;height:220px;position:absolute;right:5%;top:-120px;border-radius:50%;background:#9777ff1d;filter:blur(23px);pointer-events:none}
+.eyebrow{font-size:10px;color:#83e8da;letter-spacing:3.2px;font-weight:850;text-transform:uppercase}
+.brand{font-size:clamp(29px,3.4vw,49px);font-weight:900;letter-spacing:-1.9px;margin:9px 0 3px;line-height:1.12}
+.brand em{color:#ff9c55}.brand small{font-size:.46em;letter-spacing:-.4px;margin-left:7px;vertical-align:middle;color:#cfdaef;font-weight:550}
+.tag{position:relative;z-index:1;background:#111f32cc;border:1px solid #466b7c;padding:11px 16px;color:#aee9d9;box-shadow:inset 0 1px #ffffff1a}
+.hero-subtitle{font-size:13px;color:#b0c3de;margin:9px 0 0;line-height:1.6;max-width:680px}
+.hero-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #345f6c;border-radius:99px;padding:6px 10px;background:#0c313b7a;color:#b8f5e5;font-size:11px;font-weight:750;margin-top:13px}.hero-chip:before{content:'';width:7px;height:7px;border-radius:50%;background:#59ecc0;box-shadow:0 0 12px #59ecc0}
+section{background:linear-gradient(140deg,rgba(18,32,52,.96),rgba(12,23,40,.98));border:1px solid #34455fa8;border-radius:20px;padding:clamp(16px,1.8vw,26px);box-shadow:inset 0 1px #ffffff0e,0 12px 34px #0003;position:relative;overflow:hidden;margin-bottom:18px}
+section:before{content:'';position:absolute;top:0;left:22px;right:22px;height:1px;background:linear-gradient(90deg,transparent,#b6d3ff2f,transparent);pointer-events:none}
+section h2{font-size:clamp(17px,1.5vw,22px);font-weight:760;letter-spacing:-.45px;margin-bottom:17px}
+section h3{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#a8bbd6;margin-bottom:14px}
+.metrics{gap:13px;margin:10px 0 14px}.metric{padding:20px 22px 20px;min-height:148px;border:1px solid #41546e;background:radial-gradient(circle at 90% 0%,#6490d625,transparent 55%),linear-gradient(145deg,#1a2e4a,#112033);border-radius:18px;box-shadow:inset 0 1px #ffffff29,0 10px 22px #0002;position:relative;overflow:hidden}
+.metric:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#67dfdb,#8677ec,transparent)}
+.metric:nth-child(2):before{background:linear-gradient(90deg,#ac8aff,#f79fbe,transparent)}.metric:nth-child(3):before{background:linear-gradient(90deg,#f2bb7d,#e8d17a,transparent)}
+.metric strong{font-size:clamp(36px,4.1vw,56px);line-height:1.1;margin:15px 0 4px;font-weight:830;letter-spacing:-2px}.metric span{color:#bdcbe1;font-weight:700;font-size:12px;letter-spacing:.25px}
+.metric .kpi-meta{color:#8ba6c5;font-size:11px;font-weight:520;margin-top:11px;display:block}
+.airgrid{gap:11px;margin:0 0 20px}.airtile{border:1px solid #394f69;border-bottom:0;background:linear-gradient(140deg,#192c47,#111f35);padding:17px 16px;border-radius:15px;position:relative;overflow:hidden;min-height:105px}
+.airtile:before{content:'';height:3px;position:absolute;left:0;right:0;bottom:0;background:var(--accent);box-shadow:0 0 17px var(--accent)}
+.airtile:after{content:'';position:absolute;top:-40px;right:-20px;width:100px;height:100px;background:var(--accent);opacity:.10;filter:blur(28px);border-radius:50%}
+.airtile span{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:750;color:#b2c3df}.airtile strong{font-size:clamp(26px,2.9vw,38px);display:block;margin-top:8px;letter-spacing:-1px}
+button{transition:background .2s,border-color .2s,transform .2s;box-shadow:inset 0 1px #ffffff13;background:#202e49;border-color:#50617c;padding:11px 16px;font-size:12px;font-weight:800;letter-spacing:.15px}button:hover{border-color:#c5b4ff;transform:translateY(-1px)}button:focus-visible{outline:2px solid #9decff;outline-offset:2px}button.primary,button.active{background:linear-gradient(135deg,#6752c9,#9874ed);border-color:#c2aaff;box-shadow:0 4px 16px #7153f447,inset 0 1px #ffffff35}
+#report>.controls{border-radius:15px;padding:12px 14px;background:#0b1b2cba;border:1px solid #2d425a;margin-bottom:18px!important}
+#updated{font-size:11px;font-weight:650;color:#9ab4cd}
+.map-actions{margin-top:4px;margin-bottom:15px}.mapbox{height:clamp(390px,49vw,650px);border:1px solid #526780;border-radius:16px;background:#0b1b2b;box-shadow:inset 0 0 45px #0006,0 14px 30px #0004}
+.mapguide{font-size:11px;background:#0c1c2eaf;border:1px solid #304760;padding:12px 15px;border-radius:11px;margin:15px 0 10px;justify-content:space-between}.map-status{font-size:11px}
+.subpanel{background:#0c1b2e;border:1px solid #2a405b;border-radius:14px;padding:18px}
+.bartrack{height:9px;background:#1b2e48}.barfill{background:linear-gradient(90deg,#715fe6,#58cdeb);box-shadow:0 0 10px #5ad6eb35}
+.barlabel{font-size:12px;color:#bdcce2}.hourchart{height:155px;border-color:#425873;padding-bottom:0}.hourbar{border-radius:4px 4px 0 0;background:linear-gradient(0deg,#6d64e7,#5ae4d0);box-shadow:0 0 6px #4edacb20}.hourbar:hover{filter:brightness(1.35)}.feedrow{grid-template-columns:125px 1fr;padding:12px 2px}.feedrow time{color:#83e5d5;font-weight:700}
+.split{gap:18px}.foot{padding:8px 7px 30px;color:#849cb9;font-size:11px}
+.exec-strip{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 2px 16px}.section-kicker{color:#81e1d1;font-size:10px;text-transform:uppercase;letter-spacing:2px;font-weight:850}
+.exec-heading{font-size:clamp(23px,2.65vw,35px);font-weight:790;letter-spacing:-1.1px;margin:0;color:#f5f8fe}.exec-caption{color:#9fb3cc;font-size:12px;margin-top:7px}.context-badge{border:1px solid #4a5a73;background:#16263d;border-radius:100px;padding:9px 13px;color:#c6d5ea;font-size:11px;font-weight:760}
+.executive-trend{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.trend-wrap{height:190px;position:relative;overflow:hidden}.trend-wrap svg{width:100%;height:100%;display:block}.trend-metric{font-size:40px;font-weight:850;letter-spacing:-1px;line-height:1.1}.trend-note{color:#adc2dc;font-size:12px;margin-top:9px;line-height:1.55}.executive-note{color:#9bb3cd;font-size:11px;margin:8px 0}
+@media(min-width:1000px){.performance-section{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:18px}.performance-section>.split{display:contents}.performance-section section{margin:0}}
+@media(max-width:800px){.executive-trend{grid-template-columns:1fr}.metrics{gap:9px}.metric{min-height:115px;padding:15px}.metric strong{font-size:clamp(29px,5vw,44px)}.metric .kpi-meta{font-size:10px}.head{padding:19px}.mapbox{height:420px}}
+@media(max-width:580px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric:nth-child(3){grid-column:span 2}.airgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.airtile:last-child{grid-column:span 2}.tag{font-size:10px}.map-actions>div{width:100%;justify-content:flex-start}.mapbox{height:390px}.mapguide{justify-content:flex-start}.brand small{display:block;margin:7px 0 0}.head{align-items:flex-start}.metric strong{letter-spacing:-.9px}.exec-strip{align-items:flex-start}.split{gap:12px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}*{scroll-behavior:auto!important}}
+
+/* Executive V2 -- deliberate responsive dashboard design */
+:root{--ink:#eaf3ff;--quiet:#aebfd6;--teal:#5ceac7;--violet:#a990ff;--gold:#ffbf74}
+body{background:#060b16}
+.release-label{display:inline-block;margin-left:9px;padding:5px 9px;border:1px solid #927cfb85;border-radius:7px;background:#49378f72;color:#ebdbff;letter-spacing:1px;font-size:9px;vertical-align:middle}
+.head{border-color:#666d996b;background:linear-gradient(120deg,#152a46f7 0%,#111c33fa 59%,#251c41f0);box-shadow:0 20px 70px #0008,inset 0 1px #ffffff29}
+.head:before{content:'';position:absolute;right:-65px;top:-105px;width:340px;height:340px;border-radius:50%;border:1px solid #b2b2ff20;box-shadow:0 0 0 35px #a7a1ff09,0 0 0 70px #a7a1ff07;pointer-events:none}
+.metric{transition:transform .2s,box-shadow .2s}.metric:hover{transform:translateY(-2px);box-shadow:0 18px 32px #0006}
+section h2{line-height:1.25}.map-lead{margin:-6px 0 15px;color:#a7c2df;font-size:12px;line-height:1.5}
+.mapbox{height:clamp(360px,48vw,590px);border:1px solid #637ba7;background:#071422;box-shadow:0 15px 45px #0007,inset 0 0 0 1px #ffffff0c;overflow:hidden}
+.mapguide{background:linear-gradient(110deg,#102238,#121f35);border:1px solid #34516b;justify-content:flex-start;gap:10px 16px}
+.activity-pin{min-width:42px;height:42px;font-size:13px;border-width:2px;background:#091727f5;box-shadow:0 0 0 4px color-mix(in srgb,var(--pin) 13%,transparent),0 0 18px color-mix(in srgb,var(--pin) 30%,transparent);transition:filter .15s}
+.activity-pin.group{min-width:50px;height:50px}.activity-pin small{bottom:-15px;right:-15px;padding:4px 6px;font-weight:750}
+.mapbox .leaflet-control-attribution{background:#071321ca;color:#9caec9;font-size:9px}.mapbox .leaflet-control-attribution a{color:#bdcffe}
+@media(max-width:680px){
+ main{padding:calc(12px + env(safe-area-inset-top)) 10px 40px}
+ .head{padding:20px 17px;border-radius:20px}.brand{font-size:clamp(30px,9vw,44px)}
+ .hero-subtitle{font-size:12px;line-height:1.65}.release-label{display:block;width:max-content;margin:8px 0 0}
+ section{padding:16px 13px;border-radius:18px;margin-bottom:13px}
+ .exec-strip{padding:10px 3px 14px}.exec-heading{font-size:24px}.exec-caption{line-height:1.5}
+ .metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .metric{padding:15px 12px;min-height:120px;border-radius:14px}.metric:nth-child(3){grid-column:span 2;min-height:102px}
+ .metric strong{font-size:clamp(35px,9vw,47px);margin:11px 0 4px}.metric span{font-size:10px;line-height:1.3}.metric .kpi-meta{font-size:10px;line-height:1.4}
+ .airgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.airtile{min-height:93px;padding:13px 12px}.airtile:last-child{grid-column:span 2;min-height:80px}.airtile strong{font-size:29px}
+ .map-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}.map-actions>div{width:100%;display:grid;gap:7px}
+ .map-actions>div:first-child{grid-template-columns:1fr 1fr}.map-actions>div:last-child{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .map-actions button{min-width:0;padding:11px 5px;font-size:11px;border-radius:10px}
+ .mapbox{height:420px;border-radius:13px}.map-lead{font-size:11px}
+ .mapguide{padding:10px 11px;gap:9px 12px;font-size:10px}.mapguide strong{width:100%}
+ .executive-trend{gap:10px}.trend-wrap{height:160px}.context-badge{font-size:10px}
+}
+@media(max-width:370px){.mapbox{height:370px}.metric strong{font-size:32px}.head .tag{max-width:100%;overflow-wrap:anywhere}}
+ 
+.version-chip{display:inline-flex;vertical-align:middle;margin-left:8px;padding:5px 9px;border-radius:8px;background:#153c38;border:1px solid #46d6b0;color:#7ff7d4;font:800 10px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:1px;white-space:nowrap}
+.build-banner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 15px;margin:0 0 14px;border:1px solid #5ed1bb5c;background:linear-gradient(95deg,#0c2d32,#111c35);border-radius:12px;color:#c7f5e9;font-size:12px;font-weight:750}
+.build-banner b{color:#7effdc;letter-spacing:1.1px}
+@media(max-width:580px){.build-banner{padding:11px;font-size:11px}.version-chip{margin:6px 0 0 0}.mapbox{height:420px;min-height:360px}}
+
+/* V4: premium executive intelligence, responsive controls */
+.exec-v4-summary{border:1px solid #54719a;background:linear-gradient(125deg,#13283d 0%,#111d35 57%,#191c38 100%);box-shadow:0 14px 45px #0005,inset 0 1px #ffffff17}
+.v4-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.v4-heading h2{margin:10px 0 17px}
+.v4-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.v4-card{padding:16px 14px;background:linear-gradient(130deg,#1b3450,#141f38);border:1px solid #45617d;border-radius:15px;min-width:0;box-shadow:inset 0 1px #ffffff12}
+.v4-card span{font-size:10px;color:#a9c4df;letter-spacing:1px;font-weight:800;display:block;min-height:24px}
+.v4-card strong{font-size:clamp(27px,3vw,41px);line-height:1.4;display:block;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.v4-card small{display:block;color:#b5c5da;font-size:11px;line-height:1.4;min-height:30px}
+.v4-health{margin-top:13px;border:1px solid #30586b;background:#0a1d30;padding:11px 13px;border-radius:12px;color:#b7dfe8;font-size:12px;line-height:1.6}
+.v4-health.warn{border-color:#8c6941;color:#ffe0a6;background:#2a241e}
+.map-actions>div:last-child{display:flex;flex-wrap:wrap;gap:7px}
+@media(max-width:850px){.v4-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.v4-card{padding:13px 10px}.v4-card strong{font-size:30px}.v4-card span{font-size:9px}.v4-card small{font-size:10px}.map-actions>div:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.map-actions>div:last-child button{font-size:12px;padding:12px 5px}}
+
+.announcement-admin{margin:14px 0 23px;padding:20px;border:2px solid #9574fa;border-radius:18px;background:linear-gradient(140deg,#211d42,#101b33);box-shadow:0 7px 24px #0005}
+.announcement-admin h2{margin:5px 0 8px}.announce-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.announcement-admin label{display:block;font-size:12px;font-weight:800;margin:10px 0 5px}.announcement-admin input,.announcement-admin textarea{width:100%;background:#0b142a;color:#fff;border:1px solid #657397;border-radius:9px;padding:11px;font:inherit;box-sizing:border-box}.announcement-admin textarea{resize:vertical}.announce-current article{border:1px solid #536283;border-radius:11px;padding:12px;margin:8px 0;background:#111a30}.announce-current .announce-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.announce-current button{font-size:12px;padding:7px 11px;cursor:pointer}.announce-current p{white-space:pre-wrap;overflow-wrap:anywhere}.announce-current small{color:#bcb8df}@media(max-width:700px){.announce-grid{grid-template-columns:1fr}.announcement-admin{padding:14px}}
+</style><style>
+#report .dashboard-fold > summary { cursor: pointer; padding: 10px 0; min-height: 44px; color: #dce9ff; }
+#report .dashboard-fold > summary h2, #report .dashboard-fold > summary h3 { display: inline; margin: 0 0 0 5px; color: inherit; }
+#report .dashboard-fold > summary:focus-visible { outline: 2px solid #a99cff; outline-offset: 3px; border-radius: 5px; }
+#report .dashboard-fold-content { padding-top: 8px; min-width: 0; }
+#report .dashboard-fold .dashboard-fold { margin-top: 10px; border-top: 1px solid #405476; }
+#report .dashboard-admin > section { margin: 0 !important; }
+#report .dashboard-admin { margin: 12px 0; }
+</style>
+</head><body><main>
+<div class="build-banner"><b>● EXECUTIVE V4 LIVE</b> <span>Executive intelligence · 12-month history · fleet and device analytics</span></div><header class="head"><div><div class="eyebrow">FEDEX MX / EXECUTIVE INTELLIGENCE <span class="release-label">◆ EXECUTIVE V4</span></div><div class="brand">Fed<em>Ex</em> MX <small>Fleet Usage</small></div><p class="hero-subtitle">Aircraft maintenance reference engagement, operational adoption, and geographic intelligence—all in one command center.</p><span class="hero-chip">Connected to Fleet Usage telemetry</span></div><div class="tag">◆ SECURE OPERATIONS VIEW · V4</div></header>
+<section id="login"><h2>View shared usage</h2><label for="key">Dashboard key</label><input id="key" type="password" autocomplete="off" placeholder="Enter your dashboard key"><label class="check"><input id="remember" type="checkbox">Remember this key on this phone</label><div class="controls"><button id="view" class="primary">Show usage</button><button id="forget">Forget key</button></div><p class="note">Your key is stored only in this browser if you choose Remember and is sent directly to the existing Cloudflare Worker.</p><p id="error" class="error" role="status"></p></section>
+<div id="report" hidden><div class="controls" style="margin-bottom:10px"><button class="primary" id="refresh">↻ Refresh</button><button id="lock">Lock</button><span class="muted control-right" id="updated"></span></div>
+<div class="exec-strip"><div><div class="section-kicker">01 / Executive overview</div><h2 class="exec-heading">All-time reference usage</h2><div class="exec-caption">Operational telemetry from your existing tracking system</div></div><span class="context-badge">LIVE DATA · NO ESTIMATES ADDED</span></div><div class="metrics"><div class="metric"><strong id="opens">—</strong><span>TOTAL APP OPENS</span><small class="kpi-meta">Recorded app-open events</small></div><div class="metric"><strong id="views">—</strong><span>AIRCRAFT PAGE VIEWS</span><small class="kpi-meta">Fleet reference engagement</small></div><div class="metric"><strong id="visitors">—</strong><span>DISTINCT BROWSERS*</span><small class="kpi-meta">Approximate distinct devices</small></div></div>
+<details class="dashboard-fold"><summary><h3>All-time usage by aircraft</h3></summary><div class="dashboard-fold-content"><div id="aircraftTiles" class="airgrid"></div></div></details><section class="exec-v4-summary"><div class="section-kicker">Executive reporting window</div><div class="v4-heading"><h2>Selected-period usage</h2><span id="periodCaption" class="context-badge">30-day reporting window</span></div><div class="v4-cards"><div class="v4-card"><span>APP OPENS · PERIOD</span><strong id="periodOpens">—</strong><small id="periodDelta">Prior-period comparison unavailable</small></div><div class="v4-card"><span>AIRCRAFT PAGE VIEWS</span><strong id="periodViews">—</strong><small id="periodViewDelta">—</small></div><div class="v4-card"><span>VIBE APP EVENTS</span><strong id="periodVibe">—</strong><small id="periodVibeDelta">—</small></div><div class="v4-card"><span>ACTIVE DAYS</span><strong id="activeDays">—</strong><small id="historyStatus">Historical coverage awaiting check</small></div></div><div id="dataHealth" class="v4-health" aria-live="polite">Analytics health check pending.</div></section>
+
+
+
+<section><div class="section-kicker" style="margin-bottom:7px">02 / Geographic intelligence</div><h2>Where the fleet is engaging <span class="version-chip">V4 · ACTIVITY MAP</span></h2><p class="map-lead">Precise activity markers. No artificial heat clouds, no distorted geography.</p><div class="map-actions"><div class="controls"><button id="worldTab" class="active">🌐 World</button><button id="usaTab">🇺🇸 USA</button></div><div class="controls"><button id="range30" class="active">30 days</button><button id="range90">3 months</button><button id="range180">6 months</button><button id="range365">12 months</button></div></div><div id="usageMap" class="mapbox"><div class="note" style="padding:25px">Map loads after refreshing.</div></div><div class="mapguide"><strong>Activity by location</strong><span class="key" style="background:#39d7af;color:#39d7af"></span>Low<span class="key" style="background:#64b5ff;color:#64b5ff"></span>Moderate<span class="key" style="background:#ffba4f;color:#ffba4f"></span>High<span class="key" style="background:#ff677b;color:#ff677b"></span>Very high</div><p class="muted" style="margin:0 0 7px">Numbers show recorded uses. Nearby cities combine into one marker until you zoom in. Tap for the breakdown.</p><p id="mapStatus" class="note map-status">Map uses locations recorded by your Cloudflare Worker.</p><div class="split" style="margin-top:10px"><div class="subpanel"><h3>Country activity</h3><div id="countryList" class="bars"></div></div><div class="subpanel"><h3>Vibe usage by aircraft</h3><div id="vibe" class="bars"></div></div></div></section>
+<section id="mxAppAnalytics" style="margin:14px 0 22px;border:1px solid #52638b;background:linear-gradient(145deg,#18213f,#111c34);border-radius:18px;padding:18px"><details class="dashboard-fold" open><summary><h2>Individual app usage</h2></summary><div class="dashboard-fold-content">
+ 
+ <div class="controls"><label for="mxDays">Reporting range</label><select id="mxDays"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option><option value="180">6 months</option><option value="365">12 months</option><option value="all">All recorded</option></select><button id="mxReload" type="button">Refresh app analytics</button></div>
+ <p class="muted" id="mxStatus" aria-live="polite">Unlock dashboard to see app tracking.</p>
+ <div class="metrics"><div class="metric"><strong id="mxAllOpens">—</strong><span>APP OPENS</span></div><div class="metric"><strong id="mxAllViews">—</strong><span>PAGE VIEWS</span></div><div class="metric"><strong id="mxAllVisitors">—</strong><span>APP / BROWSER COMBINATIONS</span></div></div>
+ <h3>Tracking by app</h3><div id="mxApps" style="overflow-x:auto"></div>
+ <details class="dashboard-fold"><summary><h3>Page views by app</h3></summary><div class="dashboard-fold-content"><div id="mxPages" style="overflow-x:auto"></div></div></details>
+ <details class="dashboard-fold"><summary><h3>Latest app events · Central Time</h3></summary><div class="dashboard-fold-content"><div id="mxRecent" class="feed"></div></div></details>
+ </div></details></section>
+<section class="executive-trend"><div><div class="section-kicker">03 / Engagement trend</div><h2 style="margin-top:8px">Daily reference opens</h2><div class="trend-wrap"><svg id="dailyTrend" viewBox="0 0 780 190" role="img" aria-label="Daily app opens trend"><text x="20" y="95" fill="#a5b9d0" font-size="14">Waiting for recorded daily activity</text></svg></div><p class="executive-note">Daily recorded app opens. Hover over the trend for individual date and total.</p></div><div class="subpanel"><h3>REPORTED PERIOD</h3><div class="trend-metric" id="trendTotal">—</div><div class="trend-note" id="trendDescription">Actual event totals from the daily records, not a projection.</div><div class="context-badge" style="display:inline-block;margin-top:17px">Historical daily events</div></div></section><div class="split"><section><details class="dashboard-fold"><summary><h2>Hourly activity</h2></summary><div class="dashboard-fold-content"><p class="muted">UTC time · recorded events</p><div id="hourChart" class="hourchart"></div><div class="hourlabels"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:00 UTC</span></div></div></details></section><section><details class="dashboard-fold"><summary><h2>Devices and browsers</h2></summary><div class="dashboard-fold-content"><div class="split"><div><h3>Devices</h3><div id="deviceBars" class="bars"></div></div><div><h3>Browsers</h3><div id="browserBars" class="bars"></div></div></div></div></details></section></div>
+<div class="split"><section><details class="dashboard-fold"><summary><h2>Aircraft and app events</h2></summary><div class="dashboard-fold-content"><div id="activityBars" class="bars"></div></div></details></section><section><details class="dashboard-fold"><summary><h2>App errors and performance</h2></summary><div class="dashboard-fold-content"><p class="muted">Requires optional vibe-app telemetry</p><div class="split"><div><h3>Errors</h3><div id="errorBars" class="bars"></div></div><div><h3>Performance</h3><div id="perfBars" class="bars"></div></div></div></div></details></section></div>
+<div class="split"><section><details class="dashboard-fold"><summary><h2>Recent reference activity</h2></summary><div class="dashboard-fold-content"><p class="muted">Latest recorded events · Central Time · anonymous</p><div id="recentFeed" class="feed"></div></div></details></section><section><details class="dashboard-fold"><summary><h2>Daily reference usage</h2></summary><div class="dashboard-fold-content"><p class="muted">Select a date to see individual timestamps</p><table><thead><tr><th>Date (UTC)</th><th>Opens</th><th>Browsers</th></tr></thead><tbody id="daily"></tbody></table></div></details></section></div>
+<div class="split dashboard-admin"><section class="announcement-admin" id="announcementAdmin"><details class="dashboard-fold"><summary><h2>Publish upcoming updates</h2></summary><div class="dashboard-fold-content">
+  <p class="muted">Publish announcements to the Aircraft Reference home screen above aircraft selection. Your existing dashboard key protects changes.</p>
+  <div class="announce-grid"><div><label for="announceTitle">Headline</label><input id="announceTitle" maxlength="120" placeholder="Example: B767 fan trim update" />
+  <label for="announceBody">What is being updated?</label><textarea id="announceBody" maxlength="2500" rows="4" placeholder="Describe what users should expect…"></textarea>
+  <label for="announceDate">Expected date (optional)</label><input id="announceDate" type="date" />
+  <div class="controls"><button class="primary" id="announcePublish" type="button">Publish update</button><button id="announceCancel" type="button">Clear form</button></div>
+  <p class="muted" id="announceStatus" role="status"></p></div>
+  <div><h3>Published announcements</h3><div id="announceCurrent" class="announce-current">Loading…</div></div></div>
+</div></details></section>
+<section id="mxPinManagement" style="margin:14px 0 22px;border:1px solid #8c3df4;background:linear-gradient(140deg,#201a3f,#111c34);border-radius:18px;padding:18px"><details class="dashboard-fold"><summary><h2>Vibration calculator PIN</h2></summary><div class="dashboard-fold-content">
+ <p class="muted">All vibration apps remain open to everyone. A matching PIN is required when someone presses Calculate Solution. One PIN works across the vibration apps.</p>
+ <p id="mxPinStatus" role="status">Checking PIN status…</p>
+ <label for="mxNewPin">Set or change shared PIN (4–8 digits)</label>
+ <input id="mxNewPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8" placeholder="Enter a new PIN" style="max-width:280px" />
+ <div class="controls"><button id="mxSavePin" type="button" class="primary">Save Calculation PIN</button><button id="mxPinReload" type="button">Refresh status</button></div>
+ <p class="muted">Only administrators with the Fleet Usage dashboard key can change this PIN. The existing PIN is never displayed.</p>
+</div></details></section></div>
+<p class="foot">*Distinct browsers are estimates, not identifiable people. The historical totals and event records remain in your existing Cloudflare D1 database. A page update does not reset them. Location data is approximate; only qualifying locations returned by the Worker are displayed. The 3-, 6- and 12-month views reflect only events actually retained in D1. Device labels are inferred from browser-provided user agents; older records are not retroactively relabeled.</p></div></main>
+<script>
+'use strict';
+const ENDPOINT='https://aircraft-reference-usage.wgy9sy6b59.workers.dev', $=id=>document.getElementById(id), fmt=x=>(Number(x)||0).toLocaleString(), names=[['a300','A300'],['md11','MD-11'],['b757','757'],['b767','767'],['b777','777']], nameMap=Object.fromEntries(names);let key='',map=null,markerLayer=null,heatLayer=null,points=[],mapMode='world',range=30,dayOpen=null;
+try{const saved=localStorage.getItem('fleetUsageDashboardKey');if(saved){$('key').value=saved;$('remember').checked=true}}catch{}
+function lock(){key='';$('login').hidden=false;$('report').hidden=true}
+$('lock').onclick=lock;$('forget').onclick=()=>{try{localStorage.removeItem('fleetUsageDashboardKey')}catch{}$('key').value='';$('remember').checked=false;lock()};$('view').onclick=()=>load(false);$('refresh').onclick=()=>load(true);$('key').addEventListener('keydown',e=>{if(e.key==='Enter')load(false)});
+async function api(path,secret=key){const r=await fetch(ENDPOINT+path,{headers:{Authorization:'Bearer '+secret},cache:'no-store'});if(!r.ok)throw Error(r.status===401?'Dashboard key not accepted':'Worker returned HTTP '+r.status+' for '+path);return r.json()}
+function renderRows(id,rows,labelField,valueField,limit=16){const el=$(id);el.replaceChildren();if(!Array.isArray(rows)||!rows.length){el.textContent='No data yet';el.classList.add('muted');return}el.classList.remove('muted');const max=Math.max(1,...rows.map(x=>Number(x[valueField])||0));for(const obj of rows.slice(0,limit)){const bar=document.createElement('div');bar.className='barline';const lab=document.createElement('div');lab.className='barlabel';const l=document.createElement('span');l.textContent=String(obj[labelField]??'Unknown');const v=document.createElement('b');v.textContent=fmt(obj[valueField]);lab.append(l,v);const track=document.createElement('div');track.className='bartrack';const fill=document.createElement('div');fill.className='barfill';fill.style.width=(100*(Number(obj[valueField])||0)/max)+'%';track.append(fill);bar.append(lab,track);el.append(bar)}}
+function renderAircraft(rows,vibe){const counts=new Map((rows||[]).map(r=>[r.aircraft,r.views]));const colors=['#f19351','#9867ef','#57b7fa','#d5bd51','#ef8b43'];$('aircraftTiles').replaceChildren(...names.map(([id,name],i)=>{const el=document.createElement('div');el.className='airtile';el.style.setProperty('--accent',colors[i]);const a=document.createElement('span');a.textContent=name+' views';const b=document.createElement('strong');b.textContent=fmt(counts.get(id));el.append(a,b);return el}));renderRows('vibe',names.map(([id,name])=>({name,opens:(vibe||[]).find(v=>v.aircraft===id)?.opens||0})),'name','opens')}
+function renderDaily(rows){const dest=$('daily');dest.replaceChildren();dayOpen=null;for(const entry of rows||[]){const tr=document.createElement('tr'),td=document.createElement('td'),btn=document.createElement('button');btn.type='button';btn.className='daybtn';btn.textContent=entry.day;btn.setAttribute('aria-expanded','false');td.append(btn);const op=document.createElement('td'),vis=document.createElement('td');op.textContent=fmt(entry.opens);vis.textContent=fmt(entry.visitors);tr.append(td,op,vis);const detail=document.createElement('tr');detail.hidden=true;const cell=document.createElement('td');cell.colSpan=3;cell.className='details';detail.append(cell);dest.append(tr,detail);btn.onclick=async()=>{if(dayOpen?.entry===entry){detail.hidden=true;btn.setAttribute('aria-expanded','false');dayOpen=null;return}if(dayOpen){dayOpen.detail.hidden=true;dayOpen.btn.setAttribute('aria-expanded','false')}dayOpen={entry,detail,btn};detail.hidden=false;btn.setAttribute('aria-expanded','true');cell.textContent='Loading timestamps…';try{const data=await api('/day?date='+encodeURIComponent(entry.day));if(dayOpen?.entry!==entry)return;cell.replaceChildren();const heading=document.createElement('div');heading.textContent=entry.day+' · '+(data.events||[]).length+' events · Central Time';heading.style.fontWeight='bold';cell.append(heading);for(const e of data.events||[]){const row=document.createElement('div');row.className='eventrow';const time=document.createElement('time'),label=document.createElement('span'),d=new Date(e.created_at);time.textContent=isNaN(d.getTime())?String(e.created_at):d.toLocaleTimeString('en-US',{timeZone:'America/Chicago',hour:'numeric',minute:'2-digit',second:'2-digit'});label.textContent=(e.event==='open'?'App opened':e.event==='aircraft'?'Aircraft viewed':e.event==='vibe'?'Vibe app opened':e.event)+(e.aircraft?' · '+(nameMap[e.aircraft]||e.aircraft):'');row.append(time,label);cell.append(row)}if(data.truncated){const x=document.createElement('p');x.className='warning';x.textContent='Showing only latest 10,000 events';cell.append(x)}}catch(e){cell.textContent=e.message}}}if(!dest.children.length)dest.textContent='No recorded days yet'}
+async function load(refresh){const secret=(refresh?key:$('key').value).trim();if(!secret){$('error').textContent='Enter a dashboard key.';return}const btn=$(refresh?'refresh':'view');btn.disabled=true;try{const d=await api('/stats',secret);if(!d?.totals||!Array.isArray(d.aircraft)||!Array.isArray(d.daily))throw Error('Unexpected stats response');key=secret;if(!refresh){try{if($('remember').checked)localStorage.setItem('fleetUsageDashboardKey',key);else localStorage.removeItem('fleetUsageDashboardKey')}catch{}}$('opens').textContent=fmt(d.totals.opens);$('views').textContent=fmt(d.totals.views);$('visitors').textContent=fmt(d.totals.visitors);renderAircraft(d.aircraft,d.vibe);renderDaily(d.daily);renderTrend(d.daily);$('updated').textContent='Last refreshed '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago'})+' CT';$('error').textContent='';$('login').hidden=true;$('report').hidden=false;updateAnalytics()}catch(e){$('error').textContent=e.message;if(refresh)$('mapStatus').textContent=e.message}finally{btn.disabled=false}}
+
+function renderTrend(daily){
+ const svg=$('dailyTrend');if(!svg)return;
+ const clean=(daily||[]).filter(x=>Number.isFinite(Number(x.opens))&&Number(x.opens)>=0).slice().sort((a,b)=>String(a.day).localeCompare(String(b.day)));
+ const total=clean.reduce((sum,x)=>sum+(Number(x.opens)||0),0);
+ $('trendTotal').textContent=fmt(total);
+ $('trendDescription').textContent=clean.length+' recorded days · '+fmt(total)+' total opens in daily records. No forecast or unsupported comparison.';
+ if(!clean.length){svg.innerHTML='<text x="20" y="95" fill="#a5b9d0" font-size="14">No daily activity recorded yet</text>';return}
+ const width=780,height=190,left=10,right=12,top=15,bottom=26,plotW=width-left-right,plotH=height-top-bottom;
+ const max=Math.max(1,...clean.map(x=>Number(x.opens)||0));
+ const coords=clean.map((p,i)=>({x:left+(clean.length===1?.5:i/(clean.length-1))*plotW,y:top+plotH-(Number(p.opens)||0)/max*plotH,p}));
+ const line=coords.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+ const area=line+' L'+coords.at(-1).x.toFixed(1)+','+(top+plotH)+' L'+coords[0].x.toFixed(1)+','+(top+plotH)+' Z';
+ const ns='http://www.w3.org/2000/svg';svg.replaceChildren();
+ const add=(tag,attrs,parent=svg)=>{const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));parent.append(e);return e};
+ const defs=add('defs',{});const grad=add('linearGradient',{id:'execTrendFill',x1:'0',y1:'0',x2:'0',y2:'1'},defs);
+ add('stop',{offset:'0%','stop-color':'#65d9d6','stop-opacity':'.45'},grad);add('stop',{offset:'100%','stop-color':'#6750dc','stop-opacity':'.015'},grad);
+ for(let i=0;i<=3;i++){const y=top+plotH*i/3;add('line',{x1:left,y1:y,x2:width-right,y2:y,stroke:'#52708a','stroke-opacity':'.3','stroke-dasharray':'3 7'})}
+ add('path',{d:area,fill:'url(#execTrendFill)'});add('path',{d:line,fill:'none',stroke:'#70e9d0','stroke-width':'3.5','stroke-linejoin':'round','stroke-linecap':'round'});
+ coords.forEach((c,i)=>{const group=add('circle',{cx:c.x,cy:c.y,r:Math.max(5,Math.min(14,plotW/Math.max(1,coords.length)/2)),fill:'transparent',stroke:'transparent'});const t=add('title',{},group);t.textContent=String(c.p.day)+' · '+fmt(c.p.opens)+' opens'});
+ const label=(x,value)=>{const t=add('text',{x,y:184,fill:'#a6bdd3','font-size':11});t.textContent=String(value||'')};
+ label(left,clean[0].day);label(Math.max(left,width-115),clean.at(-1).day);
+}
+
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let leafletPromise=null;
+async function ensureMap(){
+ if(map)return true;
+ if(!leafletPromise)leafletPromise=new Promise(ok=>{
+  if(window.L)return ok(true);
+  const script=document.createElement('script');
+  script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.onload=()=>ok(true);script.onerror=()=>ok(false);document.head.append(script);
+ });
+ if(!await leafletPromise){$('mapStatus').textContent='Map library unavailable. Country counts remain available below.';return false}
+ const worldBounds=[[-85.05112878,-180],[85.05112878,180]];
+ map=L.map('usageMap',{
+   scrollWheelZoom:false,zoomControl:true,preferCanvas:true,
+   maxBounds:worldBounds,maxBoundsViscosity:1
+ }).setView([18,5],2);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors',maxZoom:19,noWrap:true}).addTo(map);
+ map.on('zoomend',drawMap);
+ setTimeout(()=>map.invalidateSize(),150);
+ return true;
+}
+function drawMap(){
+ if(!map)return;
+ if(markerLayer){map.removeLayer(markerLayer);markerLayer=null}
+ // Never interpolate between distant cities: this is a point-activity map.
+ if(heatLayer){map.removeLayer(heatLayer);heatLayer=null}
+ const visible=points.filter(p=>mapMode==='world'||['US','USA','UNITED STATES'].includes(String(p.country||'').trim().toUpperCase()));
+ const zoom=map.getZoom();
+ // Pixel-space grouping prevents labels from obscuring one another, especially at USA zoom.
+ const spacing=zoom<=3?76:zoom<=5?63:zoom<=7?55:47;
+ const items=visible.map(p=>({
+   p,lat:Number(p.lat),lon:Number(p.lon),n:Math.max(0,Number(p.events)||0),
+   pixel:map.project([Number(p.lat),Number(p.lon)],zoom)
+ })).sort((a,b)=>b.n-a.n);
+ const groups=[];
+ for(const item of items){
+   let nearest=null,dist=Infinity;
+   for(const g of groups){
+     const dx=g.x-item.pixel.x,dy=g.y-item.pixel.y,d=Math.hypot(dx,dy);
+     if(d<spacing&&d<dist){nearest=g;dist=d}
+   }
+   if(nearest){nearest.members.push(item);nearest.n+=item.n}
+   else{groups.push({members:[item],n:item.n,x:item.pixel.x,y:item.pixel.y})}
+ }
+ const max=Math.max(1,...groups.map(g=>g.n));
+ const markers=groups.map(g=>{
+   // Intensity is relative to visible locations; the counts always remain exact.
+   const intensity=g.n/max;
+   const color=intensity>=.72?'#ff677b':intensity>=.36?'#ffba4f':intensity>=.13?'#64b5ff':'#39d7af';
+   const center=map.unproject([g.x,g.y],zoom);
+   const count=g.members.length;
+   const html='<div class="activity-pin'+(count>1?' group':'')+'" style="--pin:'+color+'">'+fmt(g.n)
+      +(count>1?'<small>'+count+' places</small>':'')+'</div>';
+   const icon=L.divIcon({className:'',html,iconSize:[1,1],iconAnchor:[0,0]});
+   const detail=g.members.slice().sort((a,b)=>b.n-a.n).map(x=>{
+     const city=[x.p.city,x.p.region,x.p.country].filter(Boolean).join(', ')||'Approximate location';
+     return '<div style="padding:5px 0;border-bottom:1px solid #ffffff22"><b>'+safe(city)+'</b><br>'+fmt(x.n)+' uses · '+fmt(x.p.browsers)+' browsers</div>';
+   }).join('');
+   const title=count>1?count+' nearby locations':'Location activity';
+   return L.marker(center,{icon,keyboard:true,title:fmt(g.n)+' uses across '+count+' location(s)'})
+     .bindPopup('<div style="min-width:175px;max-height:230px;overflow:auto"><strong>'+title+' · '+fmt(g.n)+' total uses</strong>'+detail+'</div>');
+ });
+ markerLayer=L.layerGroup(markers).addTo(map);
+ const shownUses=visible.reduce((sum,p)=>sum+(Number(p.events)||0),0);
+ const summary=visible.length
+  ?fmt(visible.length)+' approximate locations · '+fmt(shownUses)+' mapped events · '+fmt(groups.length)+' markers'
+  :'No mapped locations returned for this view.';
+ $('mapStatus').textContent=summary+(geoStatus?' · '+geoStatus:'');
+}
+function switchMap(mode){mapMode=mode;$('worldTab').classList.toggle('active',mode==='world');$('usaTab').classList.toggle('active',mode==='usa');if(map){map.setView(mode==='world'?[18,5]:[39,-98],mode==='world'?2:4);drawMap()}}
+$('worldTab').onclick=()=>switchMap('world');$('usaTab').onclick=()=>switchMap('usa');for(const [id,n] of [['range30',30],['range90',90],['range180',180],['range365',365]])$(id).onclick=()=>{range=n;for(const [other,k] of [['range30',30],['range90',90],['range180',180],['range365',365]])$(other).classList.toggle('active',k===n);if(key)updateAnalytics()};
+let analyticsRequest=0,geoStatus='';
+async function updateAnalytics(){
+ const request=++analyticsRequest,period=range,secret=key;
+ try{
+ const d=await api('/analytics?days='+period,secret);
+ if(request!==analyticsRequest||secret!==key)return;
+ const confirmed=Number(d.days??d.window_days??d.period_days??d.range_days??0);
+ const validPeriod=confirmed===range;
+ $('periodCaption').textContent=range===365?'Last 12 months':range===180?'Last 6 months':range===90?'Last 3 months':'Last 30 days';
+ if(!validPeriod){points=[];geoStatus='';drawMap();$('mapStatus').textContent='Worker upgrade required: no verified '+range+'-day analytics available.';$('dataHealth').textContent='The deployed Worker has not confirmed this reporting period. Check the deployed Worker’s analytics response.';$('dataHealth').classList.add('warn');return}
+ const current=d.current||{},previous=d.previous||{},h=d.history||{},cov=d.coverage||{};
+ const delta=(now,old)=>{if(old==null)return 'Prior window not available';if(Number(old)===0)return 'Prior period: 0 · change unavailable';const n=(Number(now)||0),p=Number(old);return (n>=p?'+':'')+((n-p)/p*100).toFixed(1)+'% vs previous '+range+' days'};
+ $('periodOpens').textContent=fmt(current.opens);$('periodViews').textContent=fmt(current.views);$('periodVibe').textContent=fmt(current.vibe);
+ $('periodDelta').textContent=delta(current.opens,previous.opens);$('periodViewDelta').textContent=delta(current.views,previous.views);$('periodVibeDelta').textContent=delta(current.vibe,previous.vibe);
+ const days=(d.daily||[]).filter(x=>Number(x.events)>0);
+ $('activeDays').textContent=fmt(days.length);
+ const actualHistory=h.oldest?new Date(h.oldest):null;
+ const daysOfHistory=actualHistory&&!isNaN(actualHistory.getTime())?Math.max(1,Math.ceil((Date.now()-actualHistory.getTime())/86400000)):0;
+ $('historyStatus').textContent=h.oldest?'Records begin '+String(h.oldest).slice(0,10):'No retained history reported';
+ const tagged=Number(cov.tagged||0),total=Number(current.events||0),deviceTagged=Number(cov.device_tagged||0);
+ const coverage=total?Math.round(100*deviceTagged/total):0;
+ const health=$('dataHealth');health.classList.toggle('warn',total>0&&coverage<90);
+ health.textContent='DATA HEALTH · '+coverage+'% of '+fmt(total)+' events include stored device classification · '+fmt(tagged)+' have metadata · Last device-tagged event: '+(cov.latest_device_event?String(cov.latest_device_event).replace('T',' ').slice(0,19)+' UTC':'not available')+(daysOfHistory<range?' · Only '+daysOfHistory+' day(s) of history retained so the full '+range+'-day period cannot be compared reliably.':'');
+ // Compare only real historical windows. No growth claims when retained coverage is insufficient.
+ if(daysOfHistory<range*2){for(const id of ['periodDelta','periodViewDelta','periodVibeDelta'])$(id).textContent='Prior period incomplete · no verified growth rate'}
+ renderRows('countryList',(d.countries||[]).map(x=>({label:x.country||'Unknown',events:x.events})),'label','events',Infinity);
+ renderRows('deviceBars',d.devices||[],'device','events');renderRows('browserBars',d.browsers||[],'browser','events');
+ if(!Array.isArray(d.devices)||!d.devices.length)$('deviceBars').textContent='No device metadata in this period. Check DATA HEALTH above.';
+ if(!Array.isArray(d.browsers)||!d.browsers.length)$('browserBars').textContent='No browser metadata in this period. Check DATA HEALTH above.';
+ renderRows('activityBars',(d.activity||[]).map(x=>({label:(x.event==='vibe'?'Vibe app':x.event==='aircraft'?'Aircraft page':'App open')+(x.aircraft?' · '+(nameMap[x.aircraft]||x.aircraft):''),events:x.events})),'label','events');
+ renderRows('errorBars',(d.errors||[]).map(x=>({label:(nameMap[x.aircraft]||x.aircraft||'App')+' · '+x.code,count:x.count})),'label','count');
+ renderRows('perfBars',(d.performance||[]).map(x=>({label:(nameMap[x.aircraft]||x.aircraft||'App')+' · '+x.code+' (avg '+fmt(x.avg_ms)+'ms)',count:x.samples})),'label','count');
+ const hours=new Map((d.hours||[]).map(x=>[Number(x.hour),Number(x.events)||0]));const high=Math.max(1,...hours.values());
+ $('hourChart').replaceChildren(...Array.from({length:24},(_,i)=>{const b=document.createElement('div');b.className='hourbar';b.style.height=(100*(hours.get(i)||0)/high)+'%';b.title=String(i).padStart(2,'0')+':00 UTC · '+fmt(hours.get(i))+' events';return b}));
+ renderTrend((d.daily||[]).map(x=>({day:x.day,opens:x.opens})));
+ const hasCoordinate=value=>value!=null&&String(value).trim()!==''&&Number.isFinite(Number(value));
+ points=(Array.isArray(d.cities)?d.cities:[]).filter(p=>p&&hasCoordinate(p.lat)&&hasCoordinate(p.lon)
+   &&Math.abs(Number(p.lat))<=85.05112878&&Math.abs(Number(p.lon))<=180);
+ const coordinateTagged=d.geo_health?.coordinate_tagged;
+ const returnedUses=points.reduce((sum,p)=>sum+(Number(p.events)||0),0);
+ geoStatus=coordinateTagged==null
+   ?fmt(returnedUses)+' mapped events returned across all countries'
+   :fmt(returnedUses)+' mapped events returned of '+fmt(coordinateTagged)+' recorded with coordinates worldwide';
+ await ensureMap();
+ if(request!==analyticsRequest||secret!==key)return;
+ drawMap();
+ await loadRecentActivity(request,secret);
+ }catch(e){
+ if(request!==analyticsRequest||secret!==key)return;
+ points=[];geoStatus='';drawMap();
+ $('mapStatus').textContent='Analytics unavailable: '+e.message;
+ $('dataHealth').textContent='Analytics request failed: '+e.message;$('dataHealth').classList.add('warn');
+ }}
+async function loadRecentActivity(request,secret){
+ try{
+ const r=await api('/recent',secret);
+ if(request!==analyticsRequest||secret!==key)return;
+ const feed=$('recentFeed');feed.replaceChildren();for(const e of r.events||[]){const row=document.createElement('div');row.className='feedrow';const t=document.createElement('time');const parsed=new Date(e.created_at);t.textContent=isNaN(parsed.getTime())?String(e.created_at):parsed.toLocaleString('en-US',{timeZone:'America/Chicago',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit'});const label=document.createElement('span');label.textContent=(e.event==='open'?'Opened reference':e.event==='aircraft'?'Viewed aircraft':e.event==='vibe'?'Opened vibe':'Event')+(e.aircraft?' · '+(nameMap[e.aircraft]||e.aircraft):'')+(e.device?' · '+e.device:'');row.append(t,label);feed.append(row)}if(!feed.children.length)feed.textContent='No activity yet';
+ }catch(e){
+ if(request===analyticsRequest&&secret===key)$('recentFeed').textContent='Recent activity unavailable: '+e.message;
+ }}
+if($('key').value)load(false);
+</script><script>
+(function(){
+ const $=id=>document.getElementById(id);
+ const ENDPOINT_ANN='https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
+ let announcements=[],editId=null;
+ const status=(s)=>{$('announceStatus').textContent=s};
+ const auth=()=>{const val=$('key').value.trim();if(!val)throw Error('Unlock the dashboard first.');return val};
+ async function req(method,path,body){const response=await fetch(ENDPOINT_ANN+path,{method,headers:{'Authorization':'Bearer '+auth(),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store'});if(!response.ok){let message='HTTP '+response.status;try{const j=await response.json();message=j.error||message}catch{}throw Error(message)}return response.json()}
+ function clear(){editId=null;$('announceTitle').value='';$('announceBody').value='';$('announceDate').value='';$('announcePublish').textContent='Publish update';status('')}
+ function render(){const list=$('announceCurrent');list.replaceChildren();if(!announcements.length){list.textContent='No published announcements.';return}
+ for(const item of announcements){const article=document.createElement('article'),title=document.createElement('strong');title.textContent=item.title;article.appendChild(title);const body=document.createElement('p');body.textContent=item.body;article.appendChild(body);if(item.target_date){const small=document.createElement('small');small.textContent='Expected: '+item.target_date;article.appendChild(small)}const actions=document.createElement('div');actions.className='announce-actions';const edit=document.createElement('button');edit.textContent='Edit';edit.onclick=()=>{editId=item.id;$('announceTitle').value=item.title;$('announceBody').value=item.body;$('announceDate').value=item.target_date||'';$('announcePublish').textContent='Save changes';status('Editing: '+item.title);$('announceTitle').focus()};const remove=document.createElement('button');remove.textContent='Remove';remove.onclick=async()=>{if(!confirm('Remove this announcement from all devices?'))return;try{await req('DELETE','/announcements/'+encodeURIComponent(item.id));await loadAnnouncements();status('Announcement removed.')}catch(e){status(e.message)}};actions.append(edit,remove);article.appendChild(actions);list.appendChild(article)}}
+ async function loadAnnouncements(){try{const data=await req('GET','/announcements/admin');announcements=Array.isArray(data.items)?data.items:[];render()}catch(e){status('Announcements: '+e.message);$('announceCurrent').textContent='Could not load announcements.'}}
+ $('announcePublish').addEventListener('click',async()=>{const title=$('announceTitle').value.trim(),body=$('announceBody').value.trim(),target_date=$('announceDate').value;if(!title||!body){status('Enter both a headline and an update description.');return}const btn=$('announcePublish');btn.disabled=true;try{await req(editId?'PUT':'POST',editId?'/announcements/'+encodeURIComponent(editId):'/announcements',{title,body,target_date:target_date||null});clear();await loadAnnouncements();status('Published successfully. Changes will appear when the reference app refreshes.')}catch(e){status(e.message)}finally{btn.disabled=false}});
+ $('announceCancel').addEventListener('click',clear);
+ const observer=new MutationObserver(()=>{if(!$('report').hidden)loadAnnouncements()});observer.observe($('report'),{attributes:true,attributeFilter:['hidden']});
+ $('refresh').addEventListener('click',()=>{if(!$('report').hidden)loadAnnouncements()});
+})();
+</script>
+<script>
+(function(){'use strict';
+const $=id=>document.getElementById(id), fmt=n=>(Number(n)||0).toLocaleString();
+function table(id,columns,rows){let e=$(id);e.replaceChildren();if(!rows.length){e.textContent='No recorded events yet.';return}const table=document.createElement('table'),head=document.createElement('thead'),h=document.createElement('tr');columns.forEach(([key,label])=>{let c=document.createElement('th');c.textContent=label;h.append(c)});head.append(h);table.append(head);const body=document.createElement('tbody');rows.forEach(r=>{let tr=document.createElement('tr');columns.forEach(([key])=>{let c=document.createElement('td');c.textContent=/opens|views|events|visitors|actions|launches/.test(key)?fmt(r[key]):String(r[key]??'—');tr.append(c)});body.append(tr)});table.append(body);e.append(table)}
+async function loadMX(){if(!key){$('mxStatus').textContent='Unlock the dashboard first.';return}const b=$('mxReload');b.disabled=true;try{const data=await api('/app-stats?days='+encodeURIComponent($('mxDays').value));const a=data.apps||[],p=data.pages||[]; $('mxAllOpens').textContent=fmt(a.reduce((v,x)=>v+Number(x.opens||0),0));$('mxAllViews').textContent=fmt(a.reduce((v,x)=>v+Number(x.page_views||0),0));$('mxAllVisitors').textContent=fmt(a.reduce((v,x)=>v+Number(x.visitors||0),0));table('mxApps',[['app_id','App'],['opens','Opens'],['page_views','Page views'],['launches','Launches'],['actions','Actions'],['visitors','Browsers'],['last_seen','Last activity (UTC)']],a);table('mxPages',[['app_id','App'],['page_id','Page'],['views','Views'],['visitors','Browsers']],p);const r=$('mxRecent');r.replaceChildren();(data.recent||[]).slice(0,35).forEach(x=>{const el=document.createElement('div');el.className='eventrow';const t=document.createElement('time');t.textContent=new Date(x.created_at).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});const label=document.createElement('span');label.textContent=x.app_id+' · '+x.event+' · '+x.page_id+(x.device?' · '+x.device:'');el.append(t,label);r.append(el)});if(!r.children.length)r.textContent='No app events yet.';$('mxStatus').textContent='Updated '+new Date().toLocaleString('en-US',{timeZone:'America/Chicago'})+' CT';}catch(err){$('mxStatus').textContent=err.message+' — confirm app tracking migration and Worker update.'}finally{b.disabled=false}}
+$('mxDays').addEventListener('change',loadMX);$('mxReload').addEventListener('click',loadMX);
+const originalView=$('view').onclick,originalRefresh=$('refresh').onclick;
+$('view').onclick=async function(){await originalView();if(key)loadMX()};
+$('refresh').onclick=async function(){await originalRefresh();if(key)loadMX()};
+if(key)loadMX();
+})();
+</script>
+
+<script>
+(function(){'use strict';
+ const BASE='https://aircraft-reference-usage.wgy9sy6b59.workers.dev';
+ const el=id=>document.getElementById(id);
+ const status=el('mxPinStatus'),field=el('mxNewPin'),save=el('mxSavePin');
+ function dashboardKey(){return typeof key==='string'?key:'';}
+ async function call(method,body){
+   const k=dashboardKey();if(!k)throw Error('Unlock Fleet Usage first.');
+   const response=await fetch(BASE+'/calc-pin/admin',{method,headers:{Authorization:'Bearer '+k,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,cache:'no-store'});
+   const result=await response.json();if(!response.ok)throw Error(result.error||('HTTP '+response.status));return result;
+ }
+ async function refresh(){if(!dashboardKey())return;try{const r=await call('GET');status.textContent=r.configured?'PIN configured · last changed '+new Date(r.updated_at).toLocaleString():'No PIN configured yet — set one before publishing calculation access.';}catch(e){status.textContent=e.message}}
+ save.addEventListener('click',async()=>{const pin=field.value.trim();if(!/^\d{4,8}$/.test(pin)){status.textContent='Enter 4 to 8 digits.';return}save.disabled=true;try{await call('PUT',{pin});field.value='';status.textContent='PIN saved. Mechanics must enter this PIN to calculate.';await refresh();}catch(e){status.textContent=e.message}finally{save.disabled=false}});
+ el('mxPinReload').addEventListener('click',refresh);
+ // The existing dashboard performs its own login; refresh after it becomes visible.
+ new MutationObserver(()=>{if(!el('report').hidden)refresh()}).observe(el('report'),{attributes:true,attributeFilter:['hidden']});
+ if(!el('report').hidden)refresh();
+})();
+</script>
+<script src="./message-center.js" defer></script>
+</body></html>
